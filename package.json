@@ -1,0 +1,19 @@
+{
+  "name": "keikalle",
+  "version": "1.0.0",
+  "description": "Sovellus keikkakaverin etsimiseen",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/VirveR/keikalle.git"
+  },
+  "author": "Virve R, Antti M, Mari N.",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/VirveR/keikalle/issues"
+  },
+  "homepage": "https://github.com/VirveR/keikalle#readme"
+}
