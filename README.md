@@ -19,5 +19,6 @@ This application meets the need to find a friend to a music event.
 - nodemon (for development)
 - dotenv
 - mongoose
+- express-handlebars
 
 The language of the application is Finnish.
