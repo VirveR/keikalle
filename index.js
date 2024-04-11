@@ -1,5 +1,7 @@
 const express = require('express');
 const app = express();
+const dotenv = require('dotenv');
+dotenv.config();
 
 //Routing
 app.use('', require('./routes/gigs'));
@@ -14,17 +16,13 @@ app.engine('handlebars', exphbs.engine({
 app.set('view engine', 'handlebars');
 
 //Database connection and - go!
-//const mongoose = require('mongoose');
-//mongoose.connect('')
-//.then(() => {
-//    console.log('Connected to database');
-//    const PORT = process.env.PORT || 3000;
-//    app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-//})
-//.catch((error) => {
-//    console.log(error);
-//});
-
-//Väliaikainen yhteys, poista kun tietokanta toimii
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+const mongoose = require('mongoose');
+mongoose.connect(`mongodb+srv://${process.env.DBUSERNAME}:${process.env.DBPASSWORD}@${process.env.CLUSTER}.mongodb.net/?retryWrites=true&w=majority&appName=${process.env.DB}`)
+.then(() => {
+    console.log('Connected to database');
+    const PORT = process.env.PORT || 3000;
+    app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+})
+.catch((error) => {
+    console.log(error);
+});
