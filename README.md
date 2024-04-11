@@ -14,4 +14,10 @@ This application meets the need to find a friend to a music event.
 - Possibility to give a "thumb up" for a good friend experience
 - Possibility to report and block a profile
 
+**Node modules used:**
+- express
+- nodemon (for development)
+- dotenv
+- mongoose
+
 The language of the application is Finnish.
