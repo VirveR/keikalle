@@ -13,9 +13,13 @@ mongoose.connect(conString)
 
 const Test = require('../models/Test');
 
-
 //GET home
 const getHome = (req, res) => {
+    const newTest = new Test({
+        name: 'testi3',
+        number: 3
+    })
+    newTest.save();
     res.render('index');
 }
 
