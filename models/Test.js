@@ -1,7 +1,7 @@
 //testing, voi poistaa
-
 const mongoose = require('mongoose');
 
+//Schema
 const testSchema = new mongoose.Schema({
     name: {
         type: String,
