@@ -3,9 +3,12 @@ const app = express();
 require('dotenv').config();
 
 //Routing
+app.use(express.json());
 app.use('', require('./routes/testRoutes'));
+app.use('', require('./routes/users'));
 app.use(express.urlencoded({extended: false}));
 app.use(express.static('public'));
+
 
 //Rendering
 const exphbs = require('express-handlebars');
