@@ -1,6 +1,19 @@
+/* 
+COLORS
+#0B354F (Blue)
+#182126 (Dark blue, almost black)
+#8A8E9B (Grey)
+#73D5FF (Accent color light blue)
+#fff (White text)
+
+FONT
+Inika
+*/
+
+
 /* testing, voi poistaa */
 
 body {
-    background-color: darkblue;
+    background-color: #0B354F;
     color: white;
 }
