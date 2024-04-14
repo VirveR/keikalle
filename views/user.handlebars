@@ -1,8 +1,15 @@
 <h1>Käyttäjän hakemisen testaus tietokannasta</h1>
 
-<p>{{title}}</p>
+<div>{{#if users}}
+    
+    {{info}}
 
-{{#each users}}
+    {{#each users}}
     <p>Alias: {{this.alias}}</p>
     <p>Sähköposti: {{this.email}}</p>
-{{/each}}
+    {{/each}}       
+    
+    {{else}}
+    <p>Käyttäjää ei löytynyt</p>
+    {{/if}}
+</div>
