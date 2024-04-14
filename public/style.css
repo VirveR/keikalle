@@ -16,4 +16,36 @@ Inika
 body {
     background-color: #0B354F;
     color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.content_width {
+    width: 70%;
+}
+
+.dark_bg {
+    background-color: #182126;
+}
+
+.top_section {
+    width: 100%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.carousel_area {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.event_search {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
