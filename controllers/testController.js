@@ -13,7 +13,7 @@ mongoose.connect(conString)
 
 //GET home
 const getHome = (req, res) => {
-    res.render('index');
+    res.render('index', {userPressesLoginButtonShowThis: true});
 }
 
 module.exports = {getHome};
