@@ -49,10 +49,29 @@ const getUserByAlias = async (req, res) => {
     }
 };
 
+//GET user by id --> profile
+const getUserById = async (req, res) => {
+    try {
+        const searchedId = req.params.id;
+        const user = await UserModel.findOne({ _id: searchedId });
+        res.render('profile', {
+            info: 'Käyttäjän hakeminen onnistui',
+            profile: user.toJSON()
+        });
+        console.log(user);
+    }
+    catch(error) {
+        res.status(404).render('profile', {
+            info: 'Test failed'
+        });
+        console.log(error);
+    }
+};
+
 //POST login form
 const userLogin = async (req, res) => {
     console.log(req.body);
     res.render('user');
 }
 
-module.exports = {getUser, getUserByAlias, userLogin};
+module.exports = {getUser, getUserByAlias, getUserById, userLogin};

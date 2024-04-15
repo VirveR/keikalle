@@ -1,6 +1,18 @@
 {{> header}}
 <h1>Oma profiilini</h1>
 
-{{user.id}}
+<article>
+    <img src="../images/kale.png" style="background-color: white; padding: 15px">
+    <p>Etunimi: {{profile.firstName}}</p>
+    <p>Sukunimi: {{profile.lastName}}</p>
+    <p>Nimimerkki: {{profile.alias}}</p>
+    <p>Sähköposti: {{profile.email}}</p>
+    <p>Paikkakunta: {{profile.city}}</p>
+    <p>Lempigenret: 
+        {{#each profile.favoriteGenres}}
+            {{this}}
+        {{/each}}
+    </p>
+</article>
 
 {{> footer}}
