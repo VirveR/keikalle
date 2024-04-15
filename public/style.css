@@ -77,13 +77,18 @@ h2 {
 }
 
 #signIn_button {
+    cursor: pointer;
     background-color: #73D5FF;
     font-family: "inika";
     font-size: 32pt;
     padding: 15px 30px;
     margin: 30px;
-    border: 1px solid black;
+    border: 2px solid #182126;
     border-radius: 7px;
+}
+
+#signIn_form_section {
+    display: none;
 }
 
 .carousel_area {
