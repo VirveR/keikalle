@@ -1,5 +1,17 @@
-<form action="/user/login" method="post" enctype="x-www-form-urlencoded">
-    <input type="text" name="alias" id="alias" value="Nimimerkki">
-    <input type="text" name="password" id="password" value="Salasana">
-    <input type="submit" value="Kirjaudu sisään">
-</form>
+<div id="loginForm" style="display: none;">
+    <form action="/user/login" method="post" enctype="x-www-form-urlencoded">
+        <p>
+            <label for="alias" class="loginform-label">Nimimerkki</label>
+            <input type="text" class="loginform-input" name="alias" id="alias">
+        </p>
+        <p>
+            <label for="password" class="loginform-label">Salasana</label>
+            <input type="text" class="loginform-input" name="password" id="password">
+        </p>
+        <p>
+            <input type="submit" class="submit-login-button" value="Kirjaudu sisään">
+        </p>
+    </form>
+</div>
+
+<input type="button" class="signIn_button" id="openLoginFormButton" onClick="toggleSignInForm()" value="Kirjaudu">

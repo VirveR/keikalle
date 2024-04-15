@@ -85,7 +85,7 @@ h2 {
     margin: 30px;
 }
 
-#signIn_button {
+.signIn_button {
     cursor: pointer;
     background-color: #73D5FF;
     font-family: "inika";
@@ -96,8 +96,26 @@ h2 {
     border-radius: 7px;
 }
 
+.submit-login-button {
+    cursor: pointer;
+    background-color: #73D5FF;
+    font-family: "inika";
+    font-size: 20pt;
+    padding: 10px 20px;
+    margin: 20px;
+    border: 2px solid #182126;
+    border-radius: 7px;
+}
+
 #signIn_form_section {
     display: none;
+}
+
+.loginform-input {
+    font-size: 16pt;
+    padding: 5px 10px;
+    border: 2px solid #182126;
+    border-radius: 7px;
 }
 
 .carousel_area {

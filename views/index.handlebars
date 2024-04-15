@@ -4,7 +4,7 @@
 <article class="top_section">
     <h1>Keikalle</h1>
     <p class="content_width">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam non diam malesuada, scelerisque arcu at, consectetur lorem. Proin sollicitudin elit id ante ornare sagittis. Ut est massa, hendrerit vel lorem id, ultrices aliquet ipsum. Sed sem orci, consequat eu maximus eu, mattis et urna. Nunc non lorem auctor, sodales arcu eu, vestibulum mauris. Morbi elit sapien, posuere ac eros non, feugiat interdum ex. Cras tincidunt est nibh, vitae pellentesque nulla pharetra et. Pellentesque erat velit, interdum eget justo at, viverra ultrices ligula. Etiam quis facilisis augue. Sed molestie suscipit urna in posuere.</p>
-    <button id="signIn_button" onClick="toggleSignInForm()">Kirjaudu sisään</button>
+    {{>loginform}}
     <section id="signIn_form_section">
         Hakulomake tähän
     </section>
@@ -43,15 +43,3 @@
 
     {{>footer}}
 
-    <!-- JS hakulomakkeen avaamiseen ja sulkemiseen, poistetaan tai siirretään myöhemmin -->
-    <script>
-        function toggleSignInForm() {
-            const x = document.getElementById("signIn_form_section");
-            if (x.style.display === "none") {
-                x.style.display = "block";
-            }
-            else {
-                x.style.display = "none";
-            }
-        }
-    </script>
