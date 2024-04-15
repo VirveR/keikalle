@@ -49,4 +49,10 @@ const getUserByAlias = async (req, res) => {
     }
 };
 
-module.exports = {getUser, getUserByAlias};
+//POST login form
+const userLogin = async (req, res) => {
+    console.log(req.body);
+    res.render('user');
+}
+
+module.exports = {getUser, getUserByAlias, userLogin};
