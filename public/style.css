@@ -37,6 +37,15 @@ nav {
     margin-right: 50px;
 }
 
+#profile_link {
+    text-decoration: none;
+    font-weight: bold;
+    color: white;
+    float: right;
+    margin: 10px;
+    padding: 0px;
+}
+
 footer {
     font-size: 13pt;
     width: 100%;
