@@ -70,8 +70,33 @@ const getUserById = async (req, res) => {
 
 //POST login form
 const userLogin = async (req, res) => {
-    console.log(req.body);
-    res.render('user');
+    try {
+        const alias = req.body.alias;
+        const password = req.body.password
+        const user = await UserModel.findOne({ alias: alias});
+        if (user) {
+            if(user.password === password){
+                console.log("salasana oikein")
+                res.render('profile', {
+                    info: 'Käyttäjän hakeminen onnistui',
+                    profile: user.toJSON()
+                });
+                console.log(user);
+            }
+            else {
+                res.render('user');
+            }
+        }
+        else {
+            res.render('user');
+        }
+    }
+    catch(error) {
+        res.status(404).render('profile', {
+            info: 'Test failed'
+        });
+        console.log(error);
+    }
 }
 
 module.exports = {getUser, getUserByAlias, getUserById, userLogin};
