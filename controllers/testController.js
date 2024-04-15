@@ -5,15 +5,23 @@ const conString = `mongodb+srv://${process.env.DBUSERNAME}:${process.env.DBPASSW
 
 mongoose.connect(conString)
 .then(() => {
-    console.log('Connected to database');
+    console.log('userController connected to database');
 })
 .catch((error) => {
     console.log(error);
 });
+
+const UserModel = require('../models/User');
 
 //GET home
 const getHome = (req, res) => {
     res.render('index', {userPressesLoginButtonShowThis: true});
 }
 
-module.exports = {getHome};
+//GET user by id --> profile
+const getUserById = async (req, res) => {
+    const user = await UserModel.findOne({ id: req.params.id });
+    res.render(profile, user)
+}
+
+module.exports = {getHome, getUserById};
