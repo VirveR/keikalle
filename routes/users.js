@@ -9,6 +9,9 @@ router.get('/user', userController.getUser);
 //GET user by alias (from url, /user/alias)
 router.get('/user/:alias', userController.getUserByAlias);
 
+//GET user by id --> go to profile
+router.get('/profile', userController.getUserById);
+
 router.post('/user/login', userController.userLogin);
 
 module.exports = router;
