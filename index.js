@@ -4,9 +4,10 @@ require('dotenv').config();
 
 //Routing
 app.use(express.json());
+app.use(express.urlencoded({extended: false}));
 app.use('', require(__dirname +'/routes/testRoutes'));
 app.use('', require(__dirname +'/routes/users'));
-app.use(express.urlencoded({extended: false}));
+
 app.use(express.static('public'));
 
 
