@@ -8,18 +8,44 @@ COLORS
 
 FONT
 Inika
-*/
+*/ 
 
 body {
     background-color: #0B354F;
+    font-family: "inika";
+    font-size: 16pt;
     color: white;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
+header {
+    width: 100%;
+}
+
+nav {
+    margin: 0;
+    padding: 15px;
+}
+
+.logo {
+    text-decoration: none;
+    font-size: 22pt;
+    font-weight: bold;
+    color: white;
+    margin-right: 50px;
+}
+
+footer {
+    font-size: 13pt;
+    width: 100%;
+    text-align: center;
+    margin-top: 40px;
+}
+
 .content_width {
-    width: 70%;
+    width: 60%;
 }
 
 .dark_bg {
@@ -38,6 +64,28 @@ body {
     background-size: auto 100%;
 }
 
+h1 {
+    font-size: 60pt;
+    font-weight: bold;
+    text-align: center;
+    margin: 40px;
+}
+
+h2 {
+    font-size: 32pt;
+    margin: 30px;
+}
+
+#signIn_button {
+    background-color: #73D5FF;
+    font-family: "inika";
+    font-size: 32pt;
+    padding: 15px 30px;
+    margin: 30px;
+    border: 1px solid black;
+    border-radius: 7px;
+}
+
 .carousel_area {
     width: 100%;
     display: flex;
@@ -45,8 +93,24 @@ body {
     align-items: center;
 }
 
+/* nämä muotoilut voi poistaa, kunhan on oikeaa karusellisisältöä */
+.carousel {
+    color: black;
+    height: 200px;
+    background-color: gainsboro;
+    padding: 15px;
+    margin: 20px;
+}
+
 .event_search {
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+input {
+    float: right;
+    width: 400px;
+    margin-left: 20px;
+    padding: 5px;
 }
