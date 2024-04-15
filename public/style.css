@@ -10,9 +10,6 @@ FONT
 Inika
 */
 
-
-/* testing, voi poistaa */
-
 body {
     background-color: #0B354F;
     color: white;
@@ -35,6 +32,10 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    background-image: url('/images/flare.jpg');
+    background-position: right;
+    background-repeat: no-repeat;
+    background-size: auto 100%;
 }
 
 .carousel_area {
