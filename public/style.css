@@ -109,6 +109,7 @@ h2 {
 
 #signIn_form_section {
     display: none;
+    height: auto;
 }
 
 .loginform-input {
