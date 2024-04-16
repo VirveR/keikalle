@@ -20,6 +20,7 @@ const userSchema = new mongoose.Schema({
     gender: String,
     birthYear: Number,
     city: String,
+    imageSrc: String,
     favoriteGenres: Array
 });
 
