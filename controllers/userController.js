@@ -99,4 +99,23 @@ const userLogin = async (req, res) => {
     }
 }
 
-module.exports = {getUser, getUserByAlias, getUserById, userLogin};
+// Add new user to DB (data from a form)
+const addNewUser = async (req, res) => {
+    try {
+        // create a document
+        const newUser = new UserModel(req.body);
+        // save the data to db
+        await newUser.save();
+        res.render('user', {
+            info2: 'Adding was a success'
+        });
+    }
+    catch(error) {
+        res.status(500).render('user', {
+            info2: 'Adding failed'
+        });
+        console.log(error);
+    }
+}
+
+module.exports = {getUser, getUserByAlias, getUserById, userLogin, addNewUser};

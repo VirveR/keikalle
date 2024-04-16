@@ -14,4 +14,7 @@ router.get('/profile/:id', userController.getUserById);
 
 router.post('/user/login', userController.userLogin);
 
+//Add new user to the db
+router.post('/user', userController.addNewUser);
+
 module.exports = router;
