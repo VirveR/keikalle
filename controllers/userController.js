@@ -102,13 +102,23 @@ const userLogin = async (req, res) => {
 // Add new user to DB (data from a form)
 const addNewUser = async (req, res) => {
     try {
-        // create a document
-        const newUser = new UserModel(req.body);
-        // save the data to db
-        await newUser.save();
-        res.render('user', {
-            info2: 'Adding was a success'
-        });
+        const password1 = req.body.password;
+        const password2 = req.body.password2;
+        if (password1 === password2) {
+            // create a document
+            const newUser = new UserModel(req.body);
+            // save the data to db
+            await newUser.save();
+            res.render('user', {
+                info2: 'Adding was a success'
+            });
+        }
+        else {
+            res.render('user', {
+                info2: 'Passwords dont match'
+            });
+        }
+        
     }
     catch(error) {
         res.status(500).render('user', {
