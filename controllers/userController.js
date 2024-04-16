@@ -2,6 +2,8 @@
 const mongoose = require('mongoose');
 require('dotenv').config();
 const conString = `mongodb+srv://${process.env.DBUSERNAME}:${process.env.DBPASSWORD}@${process.env.CLUSTER}.mongodb.net/${process.env.DB}?retryWrites=true&w=majority&appName=Keikalle`
+// For crypting passwords
+const bcrypt = require('bcryptjs');
 
 mongoose.connect(conString)
 .then(() => {
@@ -75,7 +77,8 @@ const userLogin = async (req, res) => {
         const password = req.body.password
         const user = await UserModel.findOne({ alias: alias});
         if (user) {
-            if(user.password === password){
+            // Check password
+            if(bcrypt.compareSync(password, user.password)){
                 console.log("salasana oikein")
                 res.render('profile', {
                     info: 'Käyttäjän hakeminen onnistui',
@@ -102,9 +105,18 @@ const userLogin = async (req, res) => {
 // Add new user to DB (data from a form)
 const addNewUser = async (req, res) => {
     try {
+        // Check if alias is reseved
+        const alias = req.body.alias;
+        const userFromDb = await UserModel.findOne({ alias: alias});
+
         const password1 = req.body.password;
         const password2 = req.body.password2;
-        if (password1 === password2) {
+
+        if (password1 === password2 && !userFromDb) {
+            // hash the password
+            const salt = bcrypt.genSaltSync(10);
+            const hash = bcrypt.hashSync(password1, salt);
+            req.body.password = hash;
             // create a document
             const newUser = new UserModel(req.body);
             // save the data to db
@@ -128,4 +140,21 @@ const addNewUser = async (req, res) => {
     }
 }
 
-module.exports = {getUser, getUserByAlias, getUserById, userLogin, addNewUser};
+// GET boolean whether the alias is in the database
+const getBooleanIfAliasInDB = async (req, res) => {
+    try {
+        const alias = req.params.alias;
+        const userFromDb = await UserModel.findOne({ alias: alias});
+        if(userFromDb){
+            res.json({found : true});
+        }
+        else{
+            res.json({found: false});
+        }
+    }
+    catch(error) {
+        res.status(400).json({error: error});
+    }
+}
+
+module.exports = {getUser, getUserByAlias, getUserById, userLogin, addNewUser, getBooleanIfAliasInDB};

@@ -96,13 +96,24 @@ h2 {
     border-radius: 7px;
 }
 
+.signUp_button {
+    cursor: pointer;
+    color: white;
+    background-color: #182126;
+    font-family: "inika";
+    font-size: 20pt;
+    padding: 10px 20px;
+    border: 1px solid white;
+    border-radius: 7px;
+}
+
 .submit-login-button {
     cursor: pointer;
     background-color: #73D5FF;
     font-family: "inika";
     font-size: 20pt;
     padding: 10px 20px;
-    margin: 20px;
+    margin: 10px;
     border: 2px solid #182126;
     border-radius: 7px;
 }
