@@ -21,4 +21,7 @@ router.post('/user/login', userController.userLogin);
 //Add new user to the db
 router.post('/user', userController.addNewUser);
 
+//UPDATE profile information
+router.post('/profile/:id', userController.updateProfile);
+
 module.exports = router;

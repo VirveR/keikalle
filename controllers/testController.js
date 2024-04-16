@@ -18,20 +18,4 @@ const getHome = (req, res) => {
     res.render('index', {userPressesLoginButtonShowThis: true});
 }
 
-//UPDATE profile information
-const updateProfile = async (req, res) => {
-    const searchedId = req.params.id;
-    const user = await UserModel.findOneAndUpdate({ _id: searchedId }, 
-        {
-            firstName: req.body.firstName,
-            lastName: req.body.lastName,
-            alias: req.body.alias,
-            email: req.body.email,
-            password: req.body.password,
-            city: req.body.city,
-            gender: req.body.gender,
-            birthYear: req.body.birthYear});
-    res.render('profile', user);
-}
-
-module.exports = {getHome, updateProfile};
+module.exports = {getHome};
