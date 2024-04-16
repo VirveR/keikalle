@@ -1,18 +1,54 @@
 {{> header}}
 <h1>Oma profiilini</h1>
 
-<article>
-    <img src="../images/kale.png" style="background-color: white; padding: 15px">
-    <p>Etunimi: {{profile.firstName}}</p>
-    <p>Sukunimi: {{profile.lastName}}</p>
-    <p>Nimimerkki: {{profile.alias}}</p>
-    <p>Sähköposti: {{profile.email}}</p>
-    <p>Paikkakunta: {{profile.city}}</p>
-    <p>Lempigenret: 
-        {{#each profile.favoriteGenres}}
-            {{this}}
-        {{/each}}
-    </p>
+<article class="white_card" id="profile-information">
+    <section id="profile-pic">
+
+        <img src="../images/{{profile.imgSrc}}" alt="" style="background-color: white; padding: 15px">
+        <button class="submit-login-button">Lataa toinen kuva</button>
+        <button class="submit-login-button" style="background-color: red;">Poista kuva</button>
+    </section>
+    <section id="profile-details">
+        <form action="/profile/661e75f7ced0a52e864af470" method="post" enctype="x-www-form-urlencoded">
+            <p>
+                <label for="firstName" class="loginform-label">Etunimi</label>
+                <input type="text" class="loginform-input" name="firstName" id="firstName" value="{{profile.firstName}}">
+            </p>
+            <p>
+                <label for="lastName" class="loginform-label">Sukunimi</label>
+                <input type="text" class="loginform-input" name="lastName" id="lastName" value="{{profile.lastName}}">
+            </p>
+            <p>
+                <label for="alias" class="loginform-label">Nimimerkki</label>
+                <input type="text" class="loginform-input" name="alias" id="alias" value="{{profile.alias}}">
+            </p>
+            <p>
+                <label for="email" class="loginform-label">Sähköposti</label>
+                <input type="text" class="loginform-input" name="email" id="email" value="{{profile.email}}">
+            </p>
+            <p>
+                <label for="password" class="loginform-label">Salasana</label>
+                <input type="password" class="loginform-input" name="password" id="password" value="{{profile.password}}">
+            </p>
+            <p>
+                <label for="city" class="loginform-label">Paikkakunta</label>
+                <input type="text" class="loginform-input" name="city" id="city" value="{{profile.city}}">
+            </p>
+            <p>
+                <label for="gender" class="loginform-label">Sukupuoli</label>
+                <input type="text" class="loginform-input" name="gender" id="gender" value="{{profile.gender}}">
+            </p>
+            <p>
+                <label for="birthYear" class="loginform-label">Syntymävuosi</label>
+                <input type="number" class="loginform-input" name="birthYear" id="birthYear" value="{{profile.birthYear}}">
+            </p>
+
+            <p>
+                <button type="submit" class="submit-login-button">Tallenna muutokset</button>
+                <button type="submit" class="submit-login-button" style="background-color: red;">Poista profiili</button>
+            </p>
+        </form>
+    </section>
 </article>
 
 {{> footer}}
