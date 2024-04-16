@@ -1,0 +1,13 @@
+<form action="/profile/{{profile.id}}" method="post" enctype="x-www-form-urlencoded">
+    <p>
+        <label for="firstName" class="loginform-label">Etunimi</label>
+        <input type="text" class="loginform-input" name="firstName" id="firstName" value="{{profile.firstName}}">
+    </p>
+    <p>
+        <label for="lastName" class="loginform-label">Sukunimi</label>
+        <input type="text" class="loginform-input" name="lastName" id="lastName" value="{{profile.lastName}}">
+    </p>
+    <p>
+        <button type="submit" class="submit-login-button">Päivitä tiedot</button>
+    </p>
+</form>

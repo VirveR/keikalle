@@ -17,6 +17,8 @@ const userSchema = new mongoose.Schema({
     },
     firstName: String,
     lastName: String,
+    gender: String,
+    birthYear: Number,
     city: String,
     favoriteGenres: Array
 });
