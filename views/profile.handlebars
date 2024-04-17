@@ -38,10 +38,10 @@
             <p>
                 <label for="gender">Sukupuoli</label>
                 <select class="loginform-input" name="gender" id="gender" style="float:right;">
-                    <option value="ei valittu">ei valittu</option>
-                    <option value="nainen">nainen</option>
-                    <option value="mies">mies</option>
-                    <option value="muu">muu</option>
+                    <option value="ei valittu" {{#if (isEqual profile.gender "ei valittu")}} selected {{/if}}>ei valittu</option>
+                    <option value="nainen" {{#if (isEqual profile.gender "nainen")}} selected {{/if}}>nainen</option>
+                    <option value="mies" {{#if (isEqual profile.gender "mies")}} selected {{/if}}>mies</option>
+                    <option value="muu" {{#if (isEqual profile.gender "muu")}} selected {{/if}}>muu</option>
                 </select>
             </p>
             <p>

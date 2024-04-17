@@ -58,7 +58,8 @@ const getUserProfile = async (req, res) => {
         const user = await UserModel.findOne({ alias: alias });
         res.render('profile', {
             info: 'Käyttäjän hakeminen onnistui',
-            profile: user.toJSON()
+            profile: user.toJSON(),
+            helpers: { isEqual(a, b) { return a === b; } }
         });
     }
     catch(error) {
@@ -175,7 +176,9 @@ const updateUser = async (req, res) => {
             birthYear: req.body.birthYear},
         {new: true}
         );
-    res.render('profile', { profile: user.toJSON() });
+    res.render('profile', { 
+        profile: user.toJSON(),
+        helpers: { isEqual(a, b) { return a === b; } } });
 }
 
 //DELETE user
