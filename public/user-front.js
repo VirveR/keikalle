@@ -17,6 +17,8 @@ function toggleSignUpForm() {
 function closeAuthenticationArea() {
     $('#signupForm').hide(500);
     $('#loginForm').hide(500);
+    $('#openLoginFormButton').removeClass('active_button');
+    $('#openSignupFormButton').removeClass('active_button');
 }
 
 
