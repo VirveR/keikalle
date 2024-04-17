@@ -79,6 +79,11 @@ const userLogin = async (req, res) => {
         if (user) {
             // Check password
             if(bcrypt.compareSync(password, user.password)){
+                req.session.user = { 
+                    alias: req.body.alias,
+                    isLoggedIn: true
+                };
+                await req.session.save();
                 console.log("salasana oikein")
                 res.render('profile', {
                     info: 'Käyttäjän hakeminen onnistui',
