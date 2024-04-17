@@ -22,7 +22,7 @@ router.post('/user/login', userController.userLogin);
 router.post('/user', userController.addNewUser);
 
 //UPDATE user information
-router.post('/profile/:id', userController.updateUser);
+router.post('/profile', userController.updateUser);
 
 //DELETE user from the db
 router.post('/delete-profile', userController.deleteUser);

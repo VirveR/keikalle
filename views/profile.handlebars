@@ -9,7 +9,8 @@
         <button class="submit-login-button" style="background-color: red;">Poista kuva</button>
     </section>
     <section id="profile-details">
-        <form action="/profile/{{profile._id}}" method="post" enctype="x-www-form-urlencoded">
+        <form action="/profile" method="post" enctype="x-www-form-urlencoded">
+            <input type="hidden" name="id" id="id" value="{{profile._id}}">
             <p>
                 <label for="firstName" class="loginform-label">Etunimi</label>
                 <input type="text" class="loginform-input" name="firstName" id="firstName" value="{{profile.firstName}}">
@@ -37,10 +38,10 @@
             <p>
                 <label for="gender">Sukupuoli</label>
                 <select class="loginform-input" name="gender" id="gender" style="float:right;">
+                    <option value="ei valittu">ei valittu</option>
                     <option value="nainen">nainen</option>
                     <option value="mies">mies</option>
                     <option value="muu">muu</option>
-                    <option value="en halua kertoa">en halua kertoa</option>
                 </select>
             </p>
             <p>

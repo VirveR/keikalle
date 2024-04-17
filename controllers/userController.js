@@ -162,7 +162,7 @@ const getBooleanIfAliasInDB = async (req, res) => {
 
 //UPDATE profile information
 const updateUser = async (req, res) => {
-    const searchedId = req.params.id;
+    const searchedId = req.body.id;
     const user = await UserModel.findOneAndUpdate({ _id: searchedId }, 
         {
             firstName: req.body.firstName,
