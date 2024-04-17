@@ -1,4 +1,5 @@
 <div id="loginForm" style="display: none;">
+    <h2>Kirjaudu sisään</h2>
     <form action="/user/login" method="post" enctype="x-www-form-urlencoded">
         <p>
             <label for="alias" class="loginform-label">Nimimerkki</label>
@@ -6,15 +7,11 @@
         </p>
         <p>
             <label for="password" class="loginform-label">Salasana</label>
-            <input type="text" class="loginform-input" name="password" id="password">
+            <input type="password" class="loginform-input" name="password" id="password">
         </p>
         <p>
             <button type="submit" class="submit-login-button">Kirjaudu sisään</button>
         </p>
     </form>
-    <p> 
-        <button type="submit" class="signUp_button" id="openSignupFormButton" onClick="toggleSignUpForm()">Luo uusi tili</button>
-    </p> 
+    <button type="button" class="closeMenu_button" onclick="closeAuthenticationArea()">Sulje valikko</button>
 </div>
-
-<input type="button" class="signIn_button" id="openLoginFormButton" onClick="toggleSignInForm()" value="Kirjaudu">

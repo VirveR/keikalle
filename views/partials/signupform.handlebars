@@ -1,4 +1,5 @@
 <div id="signupForm" style="display: none;">
+    <h2>Rekisteröidy käyttäjäksi</h2>
     <form action="/user" method="post" enctype="x-www-form-urlencoded">
         <p>
             <label for="signup_alias" class="loginform-label">Nimimerkki</label>
@@ -17,8 +18,9 @@
             <input type="password" class="loginform-input" name="password2" id="signup_password2">
         </p>
         <p>
-            <input type="submit" id="submit-registration-button" class="submit-login-button" value="Rekisteröidy">
+            <button type="submit" id="submit-registration-button" class="submit-login-button">Rekisteröidy</button>
         </p>
     </form>
+    <button type="button" class="closeMenu_button" onclick="closeAuthenticationArea()">Sulje valikko</button>
 </div>
 

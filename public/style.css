@@ -89,13 +89,15 @@ h2 {
     cursor: pointer;
     background-color: #73D5FF;
     font-family: "inika";
-    font-size: 32pt;
-    padding: 15px 30px;
+    font-size: 30pt;
+    width: 350px;
+    padding: 12px 25px;
     margin: 30px;
     border: 2px solid #182126;
     border-radius: 7px;
 }
 
+/* Ei käytössä ainakaan etusivulla tällä hetkellä */
 .signUp_button {
     cursor: pointer;
     color: white;
@@ -113,9 +115,27 @@ h2 {
     font-family: "inika";
     font-size: 20pt;
     padding: 10px 20px;
-    margin: 10px;
+    margin: 20px;
     border: 2px solid #182126;
     border-radius: 7px;
+}
+
+.closeMenu_button {
+    cursor: pointer;
+    color: white;
+    background-color: #182126;
+    font-family: "inika";
+    font-size: 15pt;
+    margin-bottom: 30px;
+    padding: 10px 20px;
+    border: 1px solid white;
+    border-radius: 7px;
+}
+
+.active_button {
+    background-color: #47c8ff;
+    padding: 15px 30px;
+    box-shadow: 0 0 10px #73D5FF;
 }
 
 #signIn_form_section {

@@ -1,13 +1,25 @@
+// Authentication area in index.handlebars
+
 function toggleSignInForm() {
+    $('#openLoginFormButton').addClass('active_button');
+    $('#openSignupFormButton').removeClass('active_button');
     $('#loginForm').slideDown(500);
-    $("#openLoginFormButton").hide(500);
+    $('#signupForm').hide(500);
 }
 
-
 function toggleSignUpForm() {
+    $('#openSignupFormButton').addClass('active_button');
+    $('#openLoginFormButton').removeClass('active_button');
     $('#signupForm').slideDown(500);
     $('#loginForm').hide(500);
 }
+
+function closeAuthenticationArea() {
+    $('#signupForm').hide(500);
+    $('#loginForm').hide(500);
+}
+
+
 
 //Checking if alias is reserved in database
 $(document).on('input', '#signup_alias', function() {
