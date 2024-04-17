@@ -51,22 +51,20 @@ const getUserByAlias = async (req, res) => {
     }
 };
 
-//GET user by id --> profile
-const getUserById = async (req, res) => {
+//GET user profile
+const getUserProfile = async (req, res) => {
     try {
-        const searchedId = req.params.id;
-        const user = await UserModel.findOne({ _id: searchedId });
+        const alias = req.session.user.alias;
+        const user = await UserModel.findOne({ alias: alias });
         res.render('profile', {
             info: 'Käyttäjän hakeminen onnistui',
             profile: user.toJSON()
         });
-        console.log(user);
     }
     catch(error) {
         res.status(404).render('profile', {
             info: 'Test failed'
         });
-        console.log(error);
     }
 };
 
@@ -198,4 +196,4 @@ const deleteUser = async (req, res) => {
     }
 }
 
-module.exports = {getUser, getUserByAlias, getUserById, userLogin, addNewUser, getBooleanIfAliasInDB, updateUser, deleteUser};
+module.exports = {getUser, getUserByAlias, getUserProfile, userLogin, addNewUser, getBooleanIfAliasInDB, updateUser, deleteUser};
