@@ -50,18 +50,15 @@
 
             <p>
                 <button type="submit" class="submit-login-button">Tallenna muutokset</button>
-                <button type="submit" class="submit-login-button" style="background-color: red;" onclick="confirmDelete();">Poista profiili</button>
             </p>
+        </form>
+    </section>
+    <section id="delete-profile">
+        <form action="/delete-profile" method="post" enctype="x-www-form-urlencoded">
+            <input type="hidden" name="id" id="id" value="{{profile._id}}">
+            <button type="submit" class="submit-login-button" style="background-color: red;">Poista profiili</button>
         </form>
     </section>
 </main>
 
 {{> footer}}
-
-<script>
-    function confirmDelete() {
-        if (confirm("Oletko varma, että haluat poistaa profiilisi?")) {
-            window.location.href = "/delete-profile";
-        }
-    }
-</script>

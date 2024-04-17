@@ -179,6 +179,7 @@ const updateUser = async (req, res) => {
         );
     res.render('profile', { profile: user.toJSON() });
 }
+
 //DELETE user
 const deleteUser = async (req, res) => {
     try {
@@ -195,6 +196,6 @@ const deleteUser = async (req, res) => {
         });
         console.log(error);
     }
-};
+}
 
 module.exports = {getUser, getUserByAlias, getUserById, userLogin, addNewUser, getBooleanIfAliasInDB, updateUser, deleteUser};
