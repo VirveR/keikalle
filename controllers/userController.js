@@ -177,16 +177,24 @@ const updateUser = async (req, res) => {
             birthYear: req.body.birthYear},
         {new: true}
         );
-    alert("Tietosi on päivitetty!");
     res.render('profile', { profile: user.toJSON() });
 }
-
 //DELETE user
 const deleteUser = async (req, res) => {
-    const deleteId = req.params.id;
-    const user = await UserModel.findOneAndDelete({ _id: deleteId });
-    alert("Profiilisi on poistettu!");
-    res.render('index');
-}
+    try {
+        console.log(req.body.id);
+        const deleteId = req.body.id;
+        const user = await UserModel.findOneAndDelete({ _id: deleteId });
+        res.render('index');
+        console.log(user);
+        console.log('poistettu');
+    }
+    catch(error) {
+        res.status(404).render('profile', {
+            info: 'Test failed'
+        });
+        console.log(error);
+    }
+};
 
 module.exports = {getUser, getUserByAlias, getUserById, userLogin, addNewUser, getBooleanIfAliasInDB, updateUser, deleteUser};

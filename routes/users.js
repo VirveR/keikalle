@@ -25,6 +25,6 @@ router.post('/user', userController.addNewUser);
 router.post('/profile/:id', userController.updateUser);
 
 //DELETE user from the db
-router.post('/profile/:id', userController.deleteUser);
+router.post('/delete-profile', userController.deleteUser);
 
 module.exports = router;
