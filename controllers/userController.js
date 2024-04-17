@@ -86,7 +86,8 @@ const userLogin = async (req, res) => {
                 console.log("salasana oikein")
                 res.render('profile', {
                     info: 'Käyttäjän hakeminen onnistui',
-                    profile: user.toJSON()
+                    profile: user.toJSON(),
+                    helpers: { isEqual(a, b) { return a === b; } }
                 });
                 console.log(user);
             }
