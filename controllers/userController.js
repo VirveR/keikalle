@@ -158,7 +158,7 @@ const getBooleanIfAliasInDB = async (req, res) => {
 }
 
 //UPDATE profile information
-const updateProfile = async (req, res) => {
+const updateUser = async (req, res) => {
     const searchedId = req.params.id;
     const user = await UserModel.findOneAndUpdate({ _id: searchedId }, 
         {
@@ -172,7 +172,16 @@ const updateProfile = async (req, res) => {
             birthYear: req.body.birthYear},
         {new: true}
         );
+    alert("Tietosi on päivitetty!");
     res.render('profile', { profile: user.toJSON() });
 }
 
-module.exports = {getUser, getUserByAlias, getUserById, userLogin, addNewUser, getBooleanIfAliasInDB, updateProfile};
+//DELETE user
+const deleteUser = async (req, res) => {
+    const deleteId = req.params.id;
+    const user = await UserModel.findOneAndDelete({ _id: deleteId });
+    alert("Profiilisi on poistettu!");
+    res.render('index');
+}
+
+module.exports = {getUser, getUserByAlias, getUserById, userLogin, addNewUser, getBooleanIfAliasInDB, updateUser, deleteUser};
