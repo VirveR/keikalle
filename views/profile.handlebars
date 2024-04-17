@@ -1,7 +1,7 @@
 {{> header}}
 <h1>Oma profiilini</h1>
 
-<article class="white_card" id="profile-information">
+<main class="white_card" id="profile-information">
     <section id="profile-pic">
 
         <img src="../images/{{profile.imageSrc}}" alt="" style="background-color: white; padding: 15px">
@@ -50,10 +50,18 @@
 
             <p>
                 <button type="submit" class="submit-login-button">Tallenna muutokset</button>
-                <button type="submit" class="submit-login-button" style="background-color: red;">Poista profiili</button>
+                <button type="submit" class="submit-login-button" style="background-color: red;" onclick="confirmDelete();">Poista profiili</button>
             </p>
         </form>
     </section>
-</article>
+</main>
 
 {{> footer}}
+
+<script>
+    function confirmDelete() {
+        if (confirm("Oletko varma, että haluat poistaa profiilisi?")) {
+            window.location.href = "/delete-profile";
+        }
+    }
+</script>
