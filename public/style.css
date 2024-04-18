@@ -73,6 +73,15 @@ footer {
     background-size: auto 100%;
 }
 
+#error-box {
+    width: 40%;
+    margin-top: 30px;
+    padding: 10px;
+    text-align: center;
+    border: 2px solid red;
+    border-radius: 7px;
+}
+
 h1 {
     font-size: 60pt;
     font-weight: bold;
