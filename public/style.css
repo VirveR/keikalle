@@ -153,17 +153,20 @@ h2 {
 }
 
 .input_container {
-    margin: 10px 0;
+    display: grid;
+    justify-items: center;
+    margin: 7px 0;
 }
 
 .input_container_password {
-    padding-top: 5px;
-    margin-bottom: 10px;
+    display: grid;
+    justify-items: center;
+    margin: 7px 0;
 }
 
 .validation_info {
     font-size: 0.8rem;
-    text-align: right;
+    /*text-align: right;*/
     margin: 0px 10px;
     padding: 0;
 }
