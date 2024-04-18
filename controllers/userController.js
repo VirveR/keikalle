@@ -112,7 +112,8 @@ const addNewUser = async (req, res) => {
     try {
         // Check if alias is reseved
         const alias = req.body.alias;
-        const userFromDb = await UserModel.findOne({ alias: alias});
+        // using RegExp("i") fo case insensitive matches
+        const userFromDb = await UserModel.findOne({alias: { $regex : new RegExp("^" + alias + "$", "i") }});
 
         const password1 = req.body.password;
         const password2 = req.body.password2;
@@ -149,7 +150,8 @@ const addNewUser = async (req, res) => {
 const getBooleanIfAliasInDB = async (req, res) => {
     try {
         const alias = req.params.alias;
-        const userFromDb = await UserModel.findOne({ alias: alias});
+        // using RegExp("i") fo case insensitive matches
+        const userFromDb = await UserModel.findOne({alias: { $regex : new RegExp("^" + alias + "$", "i") }});
         if(userFromDb){
             res.json({found : true});
         }
