@@ -3,6 +3,8 @@ const router = express.Router();
 
 const userController = require('../controllers/userController');
 
+const upload = require('../middlewares/upload');
+
 // This is for the sessions. Can be cleaned out in a better place when everything works!!!!!!!
 const auth = (req, res, next) => {
     if (!req.session.user) {
@@ -33,6 +35,9 @@ router.post('/user', userController.addNewUser);
 
 //UPDATE user information
 router.post('/profile', userController.updateUser);
+
+//UPDATE users profile picture
+router.post('/profile/upload/profilepic', upload.single('uploadProfilePicture'), userController.uploadProfilePic);
 
 //DELETE user from the db
 router.post('/delete-profile', userController.deleteUser);

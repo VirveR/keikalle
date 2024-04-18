@@ -143,3 +143,12 @@ function validateAllSignUpFileds(){
         $('#submit-registration-button').prop('disabled', true);
     }
 }
+
+// profile.handlebars
+// Upload profile picture
+$(document).on('click','#selectPictureToUpload', function(){
+    $('#uploadProfilePicture').trigger('click');
+    $(document).on('change', '#uploadProfilePicture', function(){
+        $('#uploadProfilePictureForm').submit();
+    });
+});

@@ -5,7 +5,14 @@
     <section id="profile-pic">
 
         <img src="../images/{{profile.imageSrc}}" alt="" style="background-color: white; padding: 15px">
-        <button class="submit-login-button">Lataa toinen kuva</button>
+        <form action="/profile/upload/profilepic" method="post" id="uploadProfilePictureForm" enctype="multipart/form-data">
+            <label for="uploadProfilePicture">
+                <input type="file" name="uploadProfilePicture" id="uploadProfilePicture" style="display: none;">
+                <button type="button" class="submit-login-button" id="selectPictureToUpload">Lataa toinen kuva</button>
+            </label> 
+            <input type="hidden" name="userIdForPictureUpload" id="userIdForPictureUpload" value="{{profile._id}}">
+        </form>
+        
         <button class="submit-login-button" style="background-color: red;">Poista kuva</button>
     </section>
     <section id="profile-details">

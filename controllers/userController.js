@@ -5,6 +5,9 @@ const conString = `mongodb+srv://${process.env.DBUSERNAME}:${process.env.DBPASSW
 // For crypting passwords
 const bcrypt = require('bcryptjs');
 
+const fs = require('fs');
+const path = require('path');
+
 mongoose.connect(conString)
 .then(() => {
     console.log('userController connected to database');
@@ -14,6 +17,8 @@ mongoose.connect(conString)
 });
 
 const UserModel = require('../models/User');
+
+const upload = require('../middlewares/upload');
 
 
 //GET all users
@@ -184,6 +189,32 @@ const updateUser = async (req, res) => {
         helpers: { isEqual(a, b) { return a === b; } } });
 }
 
+//UPDATE profile picture
+const uploadProfilePic = async (req, res) => {
+    const userId = req.body.userIdForPictureUpload;
+    const user = await UserModel.findOne({ _id: userId })
+
+    var tmp_path = req.file.path;
+    var target_path = './public/images/profileimages/' + userId + path.extname(req.file.originalname);
+
+    var src = fs.createReadStream(tmp_path);
+    var dest = fs.createWriteStream(target_path);
+
+    src.pipe(dest);
+    src.on('end', function() {
+        res.render('profile', { 
+            profile: user.toJSON(),
+            helpers: { isEqual(a, b) { return a === b; } } 
+        }); 
+    });
+    src.on('error', function(err) { 
+        res.render('profile', { 
+            profile: user.toJSON(),
+            helpers: { isEqual(a, b) { return a === b; } } 
+        });  
+    });    
+}
+
 //DELETE user
 const deleteUser = async (req, res) => {
     try {
@@ -202,4 +233,4 @@ const deleteUser = async (req, res) => {
     }
 }
 
-module.exports = {getUser, getUserByAlias, getUserProfile, userLogin, addNewUser, getBooleanIfAliasInDB, updateUser, deleteUser};
+module.exports = {getUser, getUserByAlias, getUserProfile, userLogin, addNewUser, getBooleanIfAliasInDB, updateUser, uploadProfilePic, deleteUser};
