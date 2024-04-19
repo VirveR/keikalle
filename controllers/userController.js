@@ -184,11 +184,15 @@ const updateUser = async (req, res) => {
             );
         res.render('profile', { 
             profile: user.toJSON(),
-            helpers: { isEqual(a, b) { return a === b; } } });
+            helpers: { isEqual(a, b) { return a === b; } },
+            updateInfo: 'Muutokset tallennettu.'
+        });
     }
     catch(error) {
         res.status(500).render('profile', {
-            info: 'Update failed'
+            profile: user.toJSON(),
+            helpers: { isEqual(a, b) { return a === b; } },
+            updateInfo: 'Muutoksia ei voitu tallentaa.'
         });
         console.log(error);
     }
@@ -254,13 +258,11 @@ const deleteUser = async (req, res) => {
         console.log(req.body.id);
         const deleteId = req.body.id;
         const user = await UserModel.findOneAndDelete({ _id: deleteId });
-        res.render('index');
-        console.log(user);
-        console.log('poistettu');
+        res.render('index', { info: 'Käyttäjäprofiilisi on nyt poistettu.'});
     }
     catch(error) {
         res.status(404).render('profile', {
-            info: 'Test failed'
+            updateInfo: 'Jotain meni pieleen!'
         });
         console.log(error);
     }

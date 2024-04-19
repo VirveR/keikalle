@@ -244,3 +244,13 @@ function validateAllUpdateFileds(){
         $('#update-button').prop('disabled', true);
     }
 }
+
+$(document).on('click', '#delete_btn', function() {
+    $('#delete_btn').hide(500);
+    $('#confirm_delete').slideDown(500);
+});
+
+$(document).on('click', '#cancel_delete', function() {
+    $('#confirm_delete').hide(500);
+    $('#delete_btn').slideDown(500);
+})

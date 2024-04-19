@@ -2,9 +2,10 @@
 <h1>Oma profiilini</h1>
 
 <main class="white_card" id="profile-information">
+    <p role="text" aria-label="Information about success or failure of updates" class="update_info">{{updateInfo}}</p>
     <section id="profile-pic">
 
-        <img src="./images/profileimages/{{profile.imageSrc}}" id="profilePicture" alt="" style="background-color: white; padding: 15px">
+        <img src="../images/profileimages/{{profile.imageSrc}}" id="profilePicture" alt="" style="background-color: white; padding: 15px">
         <form action="./profile/upload/profilepic" method="post" id="uploadProfilePictureForm" enctype="multipart/form-data">
             <label for="uploadProfilePicture">
                 <input type="file" name="uploadProfilePicture" id="uploadProfilePicture" style="display: none;">
@@ -18,7 +19,6 @@
     </section>
 
     <section id="profile-details">
-        <span role="text" aria-label="Information about success or failure of updates" class="validation_info">{{info}}</span>
         <form action="/profile" method="post" enctype="x-www-form-urlencoded">
             <input type="hidden" name="id" id="update-id" value="{{profile._id}}">
             <p>
@@ -64,10 +64,14 @@
             </p>
         </form>
     </section>
+
     <section id="delete-profile">
-        <form action="/delete-profile" method="post" enctype="x-www-form-urlencoded">
+        <button type="button" class="submit-login-button" style="background-color: red;" id="delete_btn">Poista profiili</button>
+        <form action="/delete-profile" method="post" enctype="x-www-form-urlencoded" id="confirm_delete">
+        <p>Oletko aivan varma, että haluat poistaa profiilisi?</p>
             <input type="hidden" name="id" id="id" value="{{profile._id}}">
-            <button type="submit" class="submit-login-button" style="background-color: red;">Poista profiili</button>
+            <button type="button" class="submit-login-button" id="cancel_delete">Peruuta!</button>
+            <button type="submit" class="submit-login-button" id="delete-profile" style="background-color: red;">Kyllä, poista profiili</button>
         </form>
     </section>
 </main>
