@@ -35,7 +35,7 @@
             <p>
                 <label for="email" class="loginform-label">Sähköposti</label>
                 <input type="text" class="loginform-input" name="email" id="update-email" value="{{profile.email}}">
-                <span role="text" aria-label="Instructions for filling out the form" class="validation_info"></span>
+                <span role="text" aria-label="Instructions for filling out the form" class="validation_info" id="update-email-info"></span>
             </p>
             <p>
                 <label for="city" class="loginform-label">Paikkakunta</label>
@@ -58,7 +58,7 @@
             <p>
                 <input type="hidden" name="alias-validation-ok" id="update-alias-ok" value="0">
                 <input type="hidden" name="email-validation-ok" id="update-email-ok" value="0">
-                <button type="submit" class="submit-login-button">Tallenna muutokset</button>
+                <button type="submit" class="submit-login-button" id="update-button">Tallenna muutokset</button>
             </p>
         </form>
     </section>

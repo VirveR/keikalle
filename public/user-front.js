@@ -192,13 +192,13 @@ $(document).on('input', '#update-alias', function() {
                     $('#update-alias').css('background-color', 'red');
                     $('#update-alias-ok').val(0);
                     $('#update-alias-info').text('Nimimerkki on jo varattu');
-                    validateAllSignUpFileds();
+                    validateAllUpdateFileds();
                 }
                 else{
                     $('#update-alias').css('background-color', 'lightgreen');
                     $('#update-alias-ok').val(1);
                     $('#update-alias-info').text('nimerkki on vapaa');
-                    validateAllSignUpFileds();
+                    validateAllUpdateFileds();
                 }
             }
         });
@@ -207,12 +207,40 @@ $(document).on('input', '#update-alias', function() {
         $('#update-alias').css('background-color', 'red');
         $('#update-alias-ok').val(0);
         $('#update-alias-info').text('Nimimerkin tulisi olla enintään 20 merkkiä pitkä');
-        validateAllSignUpFileds();
+        validateUpdateFileds();
     }
     else {
         $('#update-alias').css('background-color', 'white');
         $('#update-alias-ok').val(0);
         $('#update-alias-info').text('Nimimerkin tulisi olla 3-20 merkkiä pitkä');
-        validateAllSignUpFileds();
+        validateAllUpdateFileds();
     }
 });
+
+// Validate update email
+$(document).on('blur', '#update-email', function() {
+    let email = $("#update-email").val();
+
+    if(isEmail(email)){
+        $('#update-email').css('background-color', 'lightgreen');
+        $('#update-email-ok').val(1);
+        validateAllUpdateFileds();
+    }
+    else{
+        $('#update-email').css('background-color', 'red');
+        $('#update-email-ok').val(0);
+        $('#update-email-info').text('Syötä toimiva sähköpostiosoite');
+        validateAllUpdateFileds();
+    }
+});
+
+function validateAllUpdateFileds(){
+    let aliasOk = $('#update-alias-ok').val();
+    let emailOk = $('#update-email-ok').val();
+    if(aliasOk == 1 && emailOk == 1){
+        $('#update-button').prop('disabled', false);
+    }
+    else{
+        $('#update-button').prop('disabled', true);
+    }
+}
