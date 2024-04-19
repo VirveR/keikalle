@@ -169,55 +169,26 @@ const getBooleanIfAliasInDB = async (req, res) => {
 
 //UPDATE profile information
 const updateUser = async (req, res) => {
+    const searchedId = req.body.id;
     try {
-        const searchedId = req.body.id;
-        const alias = req.body.alias;
-        const userFromDb = await UserModel.findOne({alias: { $regex : new RegExp("^" + alias + "$", "i") }});
-
-        if (!userFromDb) {
-            const user = await UserModel.findOneAndUpdate({ _id: searchedId }, 
-                {
-                    firstName: req.body.firstName,
-                    lastName: req.body.lastName,
-                    alias: req.body.alias,
-                    email: req.body.email,
-                    city: req.body.city,
-                    gender: req.body.gender,
-                    birthYear: req.body.birthYear},
-                {new: true}
-                );
-            res.render('profile', { 
-                profile: user.toJSON(),
-                helpers: { isEqual(a, b) { return a === b; } } });
-        }
-        else if (userFromDb.id === searchedId) {
-            const user = await UserModel.findOneAndUpdate({ _id: searchedId }, 
-                {
-                    firstName: req.body.firstName,
-                    lastName: req.body.lastName,
-                    alias: req.body.alias,
-                    email: req.body.email,
-                    city: req.body.city,
-                    gender: req.body.gender,
-                    birthYear: req.body.birthYear},
-                {new: true}
-                );
-            res.render('profile', { 
-                profile: user.toJSON(),
-                helpers: { isEqual(a, b) { return a === b; } } });
-        }
-        else {
-            const user = await UserModel.findById(searchedId);
-            res.render('profile', {
-                info: 'Nimimerkki on jo varattu.',
-                profile: user.toJSON(),
-                helpers: { isEqual(a, b) { return a === b; }}
-            });
-        }
+        const user = await UserModel.findOneAndUpdate({ _id: searchedId }, 
+            {
+                firstName: req.body.firstName,
+                lastName: req.body.lastName,
+                alias: req.body.alias,
+                email: req.body.email,
+                city: req.body.city,
+                gender: req.body.gender,
+                birthYear: req.body.birthYear},
+            {new: true}
+            );
+        res.render('profile', { 
+            profile: user.toJSON(),
+            helpers: { isEqual(a, b) { return a === b; } } });
     }
     catch(error) {
         res.status(500).render('profile', {
-            info: 'Upadate failed'
+            info: 'Update failed'
         });
         console.log(error);
     }
