@@ -233,7 +233,6 @@ const uploadProfilePic = async (req, res) => {
         }
     }
     await resizeImage();
-    console.log(req.file.path);
     try{
         fs.unlinkSync(req.file.path);
     }
