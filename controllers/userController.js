@@ -88,13 +88,11 @@ const userLogin = async (req, res) => {
                     isLoggedIn: true
                 };
                 await req.session.save();
-                console.log("salasana oikein")
                 res.render('profile', {
                     info: 'Käyttäjän hakeminen onnistui',
                     profile: user.toJSON(),
                     helpers: { isEqual(a, b) { return a === b; } }
                 });
-                console.log(user);
             }
             else {
                 res.render('user');
@@ -193,25 +191,31 @@ const updateUser = async (req, res) => {
 const uploadProfilePic = async (req, res) => {
     const userId = req.body.userIdForPictureUpload;
     const user = await UserModel.findOne({ _id: userId })
-
+    
+    // renaming file
     var tmp_path = req.file.path;
-    var target_path = './public/images/profileimages/' + userId + path.extname(req.file.originalname);
+    var filename = userId + path.extname(req.file.originalname);    
+    var target_path = './public/images/profileimages/' + filename;
 
     var src = fs.createReadStream(tmp_path);
     var dest = fs.createWriteStream(target_path);
 
     src.pipe(dest);
     src.on('end', function() {
-        res.render('profile', { 
-            profile: user.toJSON(),
-            helpers: { isEqual(a, b) { return a === b; } } 
-        }); 
+        UserModel.findById(userId).then((user) => {
+            user.imageSrc = filename;
+            user.save();
+        })
+        res.redirect('/profile');
     });
     src.on('error', function(err) { 
         res.render('profile', { 
             profile: user.toJSON(),
             helpers: { isEqual(a, b) { return a === b; } } 
         });  
+    });
+    src.on('close', function(){
+        fs.unlinkSync(tmp_path);
     });    
 }
 

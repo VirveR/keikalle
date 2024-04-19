@@ -4,8 +4,8 @@
 <main class="white_card" id="profile-information">
     <section id="profile-pic">
 
-        <img src="../images/{{profile.imageSrc}}" alt="" style="background-color: white; padding: 15px">
-        <form action="/profile/upload/profilepic" method="post" id="uploadProfilePictureForm" enctype="multipart/form-data">
+        <img src="./images/profileimages/{{profile.imageSrc}}" alt="" style="background-color: white; padding: 15px">
+        <form action="./profile/upload/profilepic" method="post" id="uploadProfilePictureForm" enctype="multipart/form-data">
             <label for="uploadProfilePicture">
                 <input type="file" name="uploadProfilePicture" id="uploadProfilePicture" style="display: none;">
                 <button type="button" class="submit-login-button" id="selectPictureToUpload">Lataa toinen kuva</button>
