@@ -7,6 +7,7 @@ const bcrypt = require('bcryptjs');
 
 const fs = require('fs');
 const path = require('path');
+const sharp = require('sharp');
 
 mongoose.connect(conString)
 .then(() => {
@@ -19,6 +20,7 @@ mongoose.connect(conString)
 const UserModel = require('../models/User');
 
 const upload = require('../middlewares/upload');
+const { setTimeout } = require('timers/promises');
 
 
 //GET all users
@@ -225,34 +227,45 @@ const updateUser = async (req, res) => {
 
 //UPDATE profile picture
 const uploadProfilePic = async (req, res) => {
-    const userId = req.body.userIdForPictureUpload;
-    const user = await UserModel.findOne({ _id: userId })
+
+    // function if file wasn't in image format (jpg, jpeg, png, gif)
+    if (req.fileValidationError) {
+        res.redirect('/profile');
+        console.log(req.fileValidationError);
+        return;
+    }
     
+    // get user id from request
+    const userId = req.body.userIdForPictureUpload;
+
     // renaming file
-    var tmp_path = req.file.path;
     var filename = userId + path.extname(req.file.originalname);    
     var target_path = './public/images/profileimages/' + filename;
+    
+    async function resizeImage() {
+        try {
+            // resize original (req.file.path) image, keep the aspect ratio and save new file
+            await sharp(req.file.path).resize(400, 400, {fit: 'inside'}).toFile(target_path);
 
-    var src = fs.createReadStream(tmp_path);
-    var dest = fs.createWriteStream(target_path);
-
-    src.pipe(dest);
-    src.on('end', function() {
-        UserModel.findById(userId).then((user) => {
-            user.imageSrc = filename;
-            user.save();
-        })
-        res.redirect('/profile');
-    });
-    src.on('error', function(err) { 
-        res.render('profile', { 
-            profile: user.toJSON(),
-            helpers: { isEqual(a, b) { return a === b; } } 
-        });  
-    });
-    src.on('close', function(){
-        fs.unlinkSync(tmp_path);
-    });    
+            // update filename to database
+            UserModel.findById(userId).then((user) => {
+                user.imageSrc = filename;
+                user.save();
+            })
+            res.redirect('/profile');
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    await resizeImage();
+    console.log(req.file.path);
+    try{
+        fs.unlinkSync(req.file.path);
+    }
+    catch(error){
+        console.log(error);
+    }
+    
 }
 
 //DELETE profile picture
