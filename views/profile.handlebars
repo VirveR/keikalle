@@ -2,21 +2,23 @@
 <h1>Oma profiilini</h1>
 
 <main class="white_card" id="profile-information">
+    <p role="text" aria-label="Information about success or failure of updates" class="update_info">{{updateInfo}}</p>
     <section id="profile-pic">
 
         <img src="./images/profileimages/{{profile.imageSrc}}" id="profilePicture" alt="" style="background-color: white; padding: 15px">
-        <form action="../profile/upload/profilepic" method="post" id="uploadProfilePictureForm" enctype="multipart/form-data">
+        <form action="./profile/upload/profilepic" method="post" id="uploadProfilePictureForm" enctype="multipart/form-data">
             <label for="uploadProfilePicture">
                 <input type="file" name="uploadProfilePicture" id="uploadProfilePicture" style="display: none;">
                 <button type="button" class="submit-login-button" id="selectPictureToUpload">Lataa toinen kuva</button>
             </label> 
             <input type="hidden" name="userIdForPictureUpload" id="userIdForPictureUpload" value="{{profile._id}}">
         </form>
-        
-        <button class="submit-login-button" onclick="removeProfilePicture()" style="background-color: red;">Poista kuva</button>
+        {{#unless (isEqual profile.imageSrc "kale.png") }}
+            <button class="submit-login-button" onclick="removeProfilePicture()" style="background-color: red;">Poista kuva</button>
+        {{/unless}}
     </section>
+
     <section id="profile-details">
-        <span role="text" aria-label="Information about success or failure of updates" class="validation_info">{{info}}</span>
         <form action="/profile" method="post" enctype="x-www-form-urlencoded">
             <input type="hidden" name="id" id="update-id" value="{{profile._id}}">
             <p>
@@ -35,7 +37,7 @@
             <p>
                 <label for="email" class="loginform-label">Sähköposti</label>
                 <input type="text" class="loginform-input" name="email" id="update-email" value="{{profile.email}}">
-                <span role="text" aria-label="Instructions for filling out the form" class="validation_info"></span>
+                <span role="text" aria-label="Instructions for filling out the form" class="validation_info" id="update-email-info"></span>
             </p>
             <p>
                 <label for="city" class="loginform-label">Paikkakunta</label>
@@ -52,20 +54,24 @@
             </p>
             <p>
                 <label for="birthYear" class="loginform-label">Syntymävuosi</label>
-                <input type="number" class="loginform-input" name="birthYear" id="update-birthYear" value="{{profile.birthYear}}">
+                <input type="number" class="loginform-input" name="birthYear" id="update-birthYear" value="{{profile.birthYear}}" min="1900" max="2024">
             </p>
 
             <p>
                 <input type="hidden" name="alias-validation-ok" id="update-alias-ok" value="0">
                 <input type="hidden" name="email-validation-ok" id="update-email-ok" value="0">
-                <button type="submit" class="submit-login-button">Tallenna muutokset</button>
+                <button type="submit" class="submit-login-button" id="update-button" style="display:none;">Tallenna muutokset</button>
             </p>
         </form>
     </section>
+
     <section id="delete-profile">
-        <form action="/delete-profile" method="post" enctype="x-www-form-urlencoded">
+        <button type="button" class="submit-login-button" style="background-color: red;" id="delete_btn">Poista profiili</button>
+        <form action="/delete-profile" method="post" enctype="x-www-form-urlencoded" id="confirm_delete">
+        <p>Oletko aivan varma, että haluat poistaa profiilisi?</p>
             <input type="hidden" name="id" id="id" value="{{profile._id}}">
-            <button type="submit" class="submit-login-button" style="background-color: red;">Poista profiili</button>
+            <button type="button" class="submit-login-button" id="cancel_delete">Peruuta!</button>
+            <button type="submit" class="submit-login-button" id="delete-profile" style="background-color: red;">Kyllä, poista profiili</button>
         </form>
     </section>
 </main>

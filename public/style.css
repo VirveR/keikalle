@@ -213,6 +213,8 @@ input {
     padding: 5px;
 }
 
+/* Profile page */
+
 .white_card {
     background-color: white;
     color: #182126;
@@ -221,7 +223,18 @@ input {
     border-radius: 7px;
 }
 
+#profilePicture {
+    padding: 15px;
+    max-width: 200px;
+}
 
+.update_info {
+    text-align: center;
+}
+
+#confirm_delete {
+    display: none;
+}
 
 @media only screen and (max-width: 950px) {
     .input_container {

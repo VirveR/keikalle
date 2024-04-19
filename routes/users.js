@@ -5,15 +5,9 @@ const userController = require('../controllers/userController');
 
 const upload = require('../middlewares/upload');
 
-// This is for the sessions. Can be cleaned out in a better place when everything works!!!!!!!
-const auth = (req, res, next) => {
-    if (!req.session.user) {
-        return res.render("index", {
-            info: "Kirjaudu sisään, niin pääset käyttämään ohjelman kaikkia toimintoja!"
-        });
-    }
-    else return next();
-}
+// Function to check if the user has signed in
+const { auth } = require('../middlewares/validate');
+
 
 //GET user
 router.get('/user', userController.getUser);
