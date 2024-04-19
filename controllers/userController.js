@@ -156,7 +156,7 @@ const getBooleanIfAliasInDB = async (req, res) => {
         // using RegExp("i") fo case insensitive matches
         const userFromDb = await UserModel.findOne({alias: { $regex : new RegExp("^" + alias + "$", "i") }});
         if(userFromDb){
-            res.json({found : true});
+            res.json({found : true, id: userFromDb.id});
         }
         else{
             res.json({found: false});
