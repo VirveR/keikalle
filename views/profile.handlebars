@@ -16,6 +16,7 @@
         <button class="submit-login-button" style="background-color: red;">Poista kuva</button>
     </section>
     <section id="profile-details">
+        <span role="text" aria-label="Information about success or failure of updates" class="validation_info">{{info}}</span>
         <form action="/profile" method="post" enctype="x-www-form-urlencoded">
             <input type="hidden" name="id" id="id" value="{{profile._id}}">
             <p>
@@ -29,10 +30,12 @@
             <p>
                 <label for="alias" class="loginform-label">Nimimerkki</label>
                 <input type="text" class="loginform-input" name="alias" id="alias" value="{{profile.alias}}">
+                <span role="text" aria-label="Instructions for filling out the form" class="validation_info">Nimimerkin tulisi olla 3-20 merkkiä pitkä</span>
             </p>
             <p>
                 <label for="email" class="loginform-label">Sähköposti</label>
                 <input type="text" class="loginform-input" name="email" id="email" value="{{profile.email}}">
+                <span role="text" aria-label="Instructions for filling out the form" class="validation_info">Syötä toimiva sähköpostiosoite</span>
             </p>
             <p>
                 <label for="city" class="loginform-label">Paikkakunta</label>
@@ -53,6 +56,8 @@
             </p>
 
             <p>
+                <input type="hidden" name="alias-validation-ok" id="signup_alias_ok" value="0">
+                <input type="hidden" name="email-validation-ok" id="signup_email_ok" value="0">
                 <button type="submit" class="submit-login-button">Tallenna muutokset</button>
             </p>
         </form>
