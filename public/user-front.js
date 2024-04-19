@@ -176,6 +176,11 @@ $(document).on('click','#selectPictureToUpload', function(){
     });
 });
 
+//Show Tallenna muutokset
+$(document).on('change', '#profile-details', function() {
+    $('#update-button').slideDown(500);
+})
+
 // Validate update alias
 $(document).on('input', '#update-alias', function() {
     let alias = $('#update-alias').val();
@@ -237,14 +242,12 @@ $(document).on('blur', '#update-email', function() {
 function validateAllUpdateFileds(){
     let aliasOk = $('#update-alias-ok').val();
     let emailOk = $('#update-email-ok').val();
-    if(aliasOk == 1 && emailOk == 1){
-        $('#update-button').prop('disabled', false);
-    }
-    else{
-        $('#update-button').prop('disabled', true);
+    if(aliasOk != 1 || emailOk != 1){
+        $('#update-button').hide();
     }
 }
 
+// Confirm delete profile
 $(document).on('click', '#delete_btn', function() {
     $('#delete_btn').hide(500);
     $('#confirm_delete').slideDown(500);

@@ -213,12 +213,19 @@ input {
     padding: 5px;
 }
 
+/* Profile page */
+
 .white_card {
     background-color: white;
     color: #182126;
     padding: 25px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     border-radius: 7px;
+}
+
+#profilePicture {
+    padding: 15px;
+    max-width: 200px;
 }
 
 .update_info {
