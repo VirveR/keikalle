@@ -178,7 +178,6 @@ const updateUser = async (req, res) => {
             lastName: req.body.lastName,
             alias: req.body.alias,
             email: req.body.email,
-            password: req.body.password,
             city: req.body.city,
             gender: req.body.gender,
             birthYear: req.body.birthYear},
