@@ -4,7 +4,7 @@
 <main class="white_card" id="profile-information">
     <section id="profile-pic">
 
-        <img src="./images/profileimages/{{profile.imageSrc}}" alt="" style="background-color: white; padding: 15px">
+        <img src="./images/profileimages/{{profile.imageSrc}}" id="profilePicture" alt="" style="background-color: white; padding: 15px">
         <form action="./profile/upload/profilepic" method="post" id="uploadProfilePictureForm" enctype="multipart/form-data">
             <label for="uploadProfilePicture">
                 <input type="file" name="uploadProfilePicture" id="uploadProfilePicture" style="display: none;">
@@ -13,7 +13,7 @@
             <input type="hidden" name="userIdForPictureUpload" id="userIdForPictureUpload" value="{{profile._id}}">
         </form>
         
-        <button class="submit-login-button" style="background-color: red;">Poista kuva</button>
+        <button class="submit-login-button" onclick="removeProfilePicture()" style="background-color: red;">Poista kuva</button>
     </section>
     <section id="profile-details">
         <span role="text" aria-label="Information about success or failure of updates" class="validation_info">{{info}}</span>

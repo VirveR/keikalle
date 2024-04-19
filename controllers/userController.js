@@ -226,6 +226,28 @@ const uploadProfilePic = async (req, res) => {
     });    
 }
 
+//DELETE profile picture
+const deleteProfilePicture = async (req, res) => {
+    try {
+        const userId = req.body.id;
+        const imgSrc = './public/images/profileimages/' + req.body.imgSrc;
+        if(fs.existsSync(imgSrc)){
+            fs.unlinkSync(imgSrc);
+        }
+        UserModel.findById(userId).then((user) => {
+            user.imageSrc = 'kale.png';
+            user.save();
+        });
+        res.redirect('/profile');
+    }
+    catch(error){
+        res.status(404).render('profile', {
+            info: 'Test failed'
+        });
+        console.log(error);
+    }
+}
+
 //DELETE user
 const deleteUser = async (req, res) => {
     try {
@@ -244,4 +266,4 @@ const deleteUser = async (req, res) => {
     }
 }
 
-module.exports = {getUser, getUserByAlias, getUserProfile, userLogin, addNewUser, getBooleanIfAliasInDB, updateUser, uploadProfilePic, deleteUser};
+module.exports = {getUser, getUserByAlias, getUserProfile, userLogin, addNewUser, getBooleanIfAliasInDB, updateUser, uploadProfilePic, deleteProfilePicture, deleteUser};

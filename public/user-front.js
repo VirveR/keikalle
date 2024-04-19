@@ -21,6 +21,29 @@ function closeAuthenticationArea() {
     $('#openSignupFormButton').removeClass('active_button');
 }
 
+function removeProfilePicture() {
+    const userId = $('#userIdForPictureUpload').val();
+    const path = $('#profilePicture').attr('src').split('/');
+    const fileName = path[path.length-1];
+    if(fileName === 'kale.png'){
+        alert('Sinulla ei ole ladattua profiilikuvaa');
+    }
+    else{
+        $.ajax({
+            url: '/profile/delete/profilepic',
+            type: 'POST',
+            data: {
+                id: userId,
+                imgSrc: fileName
+            },
+            success: function(){
+                console.log("Profile image deleted");
+                location.reload()
+            }
+        });
+    }
+}
+
 
 // Registration form validations
 //Checking if alias is reserved in database
