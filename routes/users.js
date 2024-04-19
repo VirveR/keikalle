@@ -39,6 +39,9 @@ router.post('/profile', userController.updateUser);
 //UPDATE users profile picture
 router.post('/profile/upload/profilepic', upload.single('uploadProfilePicture'), userController.uploadProfilePic);
 
+//DELETE profilepicture
+router.post('/profile/delete/profilepic', auth, userController.deleteProfilePicture);
+
 //DELETE user from the db
 router.post('/delete-profile', userController.deleteUser);
 
