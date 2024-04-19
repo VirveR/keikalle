@@ -175,3 +175,44 @@ $(document).on('click','#selectPictureToUpload', function(){
         $('#uploadProfilePictureForm').submit();
     });
 });
+
+// Validate update alias
+$(document).on('input', '#update-alias', function() {
+    let alias = $('#update-alias').val();
+    let id = $('#update-id').val()
+    if (alias.length > 2 && alias.length < 21){
+        $.ajax({
+            url: '/user/get_if_alias/'+alias,
+            type: "GET",
+            data: {
+                alias: alias
+            },
+            success: function(data){
+                if((data.found) && (data.id != id)){
+                    $('#update-alias').css('background-color', 'red');
+                    $('#update-alias-ok').val(0);
+                    $('#update-alias-info').text('Nimimerkki on jo varattu');
+                    validateAllSignUpFileds();
+                }
+                else{
+                    $('#update-alias').css('background-color', 'lightgreen');
+                    $('#update-alias-ok').val(1);
+                    $('#update-alias-info').text('nimerkki on vapaa');
+                    validateAllSignUpFileds();
+                }
+            }
+        });
+    }
+    else if(alias.length > 20) {
+        $('#update-alias').css('background-color', 'red');
+        $('#update-alias-ok').val(0);
+        $('#update-alias-info').text('Nimimerkin tulisi olla enintään 20 merkkiä pitkä');
+        validateAllSignUpFileds();
+    }
+    else {
+        $('#update-alias').css('background-color', 'white');
+        $('#update-alias-ok').val(0);
+        $('#update-alias-info').text('Nimimerkin tulisi olla 3-20 merkkiä pitkä');
+        validateAllSignUpFileds();
+    }
+});

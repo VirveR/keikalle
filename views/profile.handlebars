@@ -16,31 +16,34 @@
         <button class="submit-login-button" onclick="removeProfilePicture()" style="background-color: red;">Poista kuva</button>
     </section>
     <section id="profile-details">
+        <span role="text" aria-label="Information about success or failure of updates" class="validation_info">{{info}}</span>
         <form action="/profile" method="post" enctype="x-www-form-urlencoded">
-            <input type="hidden" name="id" id="id" value="{{profile._id}}">
+            <input type="hidden" name="id" id="update-id" value="{{profile._id}}">
             <p>
                 <label for="firstName" class="loginform-label">Etunimi</label>
-                <input type="text" class="loginform-input" name="firstName" id="firstName" value="{{profile.firstName}}">
+                <input type="text" class="loginform-input" name="firstName" id="update-firstName" value="{{profile.firstName}}">
             </p>
             <p>
                 <label for="lastName" class="loginform-label">Sukunimi</label>
-                <input type="text" class="loginform-input" name="lastName" id="lastName" value="{{profile.lastName}}">
+                <input type="text" class="loginform-input" name="lastName" id="update-lastName" value="{{profile.lastName}}">
             </p>
             <p>
                 <label for="alias" class="loginform-label">Nimimerkki</label>
-                <input type="text" class="loginform-input" name="alias" id="alias" value="{{profile.alias}}">
+                <input type="text" class="loginform-input" name="alias" id="update-alias" value="{{profile.alias}}">
+                <span role="text" aria-label="Instructions for filling out the form" class="validation_info" id="update-alias-info"></span>
             </p>
             <p>
                 <label for="email" class="loginform-label">Sähköposti</label>
-                <input type="text" class="loginform-input" name="email" id="email" value="{{profile.email}}">
+                <input type="text" class="loginform-input" name="email" id="update-email" value="{{profile.email}}">
+                <span role="text" aria-label="Instructions for filling out the form" class="validation_info"></span>
             </p>
             <p>
                 <label for="city" class="loginform-label">Paikkakunta</label>
-                <input type="text" class="loginform-input" name="city" id="city" value="{{profile.city}}">
+                <input type="text" class="loginform-input" name="city" id="update-city" value="{{profile.city}}">
             </p>
             <p>
                 <label for="gender">Sukupuoli</label>
-                <select class="loginform-input" name="gender" id="gender" style="float:right;">
+                <select class="loginform-input" name="gender" id="update-gender" style="float:right;">
                     <option value="ei valittu" {{#if (isEqual profile.gender "ei valittu")}} selected {{/if}}>ei valittu</option>
                     <option value="nainen" {{#if (isEqual profile.gender "nainen")}} selected {{/if}}>nainen</option>
                     <option value="mies" {{#if (isEqual profile.gender "mies")}} selected {{/if}}>mies</option>
@@ -49,10 +52,12 @@
             </p>
             <p>
                 <label for="birthYear" class="loginform-label">Syntymävuosi</label>
-                <input type="number" class="loginform-input" name="birthYear" id="birthYear" value="{{profile.birthYear}}">
+                <input type="number" class="loginform-input" name="birthYear" id="update-birthYear" value="{{profile.birthYear}}">
             </p>
 
             <p>
+                <input type="hidden" name="alias-validation-ok" id="update-alias-ok" value="0">
+                <input type="hidden" name="email-validation-ok" id="update-email-ok" value="0">
                 <button type="submit" class="submit-login-button">Tallenna muutokset</button>
             </p>
         </form>
