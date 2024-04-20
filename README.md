@@ -20,5 +20,9 @@ This application meets the need to find a friend to a music event.
 - dotenv
 - mongoose
 - express-handlebars
+- bcryptjs
+- connenct-mongo
+- express-session
+- sharp
 
 The language of the application is Finnish.
