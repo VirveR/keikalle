@@ -1,3 +1,4 @@
+
 // Check is user signed in
 const auth = (req, res, next) => {
     if (!req.session.user) {
@@ -7,5 +8,6 @@ const auth = (req, res, next) => {
     }
     else return next();
 }
+
 
 module.exports = { auth };

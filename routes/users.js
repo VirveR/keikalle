@@ -21,10 +21,10 @@ router.get('/profile', auth, userController.getUserProfile);
 //GET boolean whether the alias is in the database. returns json({found: true/false})
 router.get('/user/get_if_alias/:alias', userController.getBooleanIfAliasInDB);
 
-//POST send login information
+//POST send login information and start session if login is successful
 router.post('/user/login', userController.userLogin);
 
-//Add new user to the db
+//POST new user to the db
 router.post('/user', userController.addNewUser);
 
 //UPDATE user information
@@ -38,6 +38,10 @@ router.post('/profile/delete/profilepic', auth, userController.deleteProfilePict
 
 //DELETE user from the db
 router.post('/delete-profile', userController.deleteUser);
+
+//DESTROY the session when logging out
+router.get('/logout', auth, userController.userLogOut);
+
 
 module.exports = router;
 

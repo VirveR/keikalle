@@ -7,7 +7,7 @@ const bcrypt = require('bcryptjs');
 
 const fs = require('fs');
 const path = require('path');
-const sharp = require('sharp');
+/*const sharp = require('sharp');*/
 
 mongoose.connect(conString)
 .then(() => {
@@ -112,7 +112,7 @@ const userLogin = async (req, res) => {
     }
 }
 
-// Add new user to DB (data from a form)
+// POST new user to DB (data from a form)
 const addNewUser = async (req, res) => {
     try {
         // Check if alias is reseved
@@ -280,4 +280,18 @@ const deleteUser = async (req, res) => {
     }
 }
 
-module.exports = {getUser, getUserByAlias, getUserProfile, userLogin, addNewUser, getBooleanIfAliasInDB, updateUser, uploadProfilePic, deleteProfilePicture, deleteUser};
+// End session ant remove the session from db
+const userLogOut = async (req, res) => {
+    try {
+        await req.session.destroy();
+        res.render('index', { info: 'Uloskirjautuminen onnistui.'});
+    }
+    catch(error) {
+        res.status(500).render('profile', {
+            updateInfo: 'Error logging out!'
+    });
+    console.log(error);
+    }
+};
+
+module.exports = {getUser, getUserByAlias, getUserProfile, userLogin, addNewUser, getBooleanIfAliasInDB, updateUser, uploadProfilePic, deleteProfilePicture, deleteUser, userLogOut};

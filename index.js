@@ -1,5 +1,6 @@
 const express = require('express');
 const session = require('express-session');
+const store = require('./middlewares/validate');
 const MongoStore = require('connect-mongo');
 // for creating session uuid
 const { v4: uuidv4 } = require('uuid');
@@ -18,13 +19,19 @@ app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 app.use(express.static('public'));
 app.use(session( {
-        secret: 'testi_key', //Tähän pitää vaihtaa tietoturvallisempi key
+        secret: 'testi_key', //This must be more secure key
         resave: false,
         saveUninitialized: false,
         store: MongoStore.create({
+            mongooseConnection: mongoose.connection,
             mongoUrl: conString,
-        })
+            collection: 'sessions',
+            expires: 1000
+        }),
+        expires: 1000,// * 60 * 60 Commented this out for developement purposes
+       
 }));
+
 app.use('', require(__dirname +'/routes/testRoutes'));
 app.use('', require(__dirname +'/routes/users'));
 
