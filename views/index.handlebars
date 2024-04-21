@@ -40,7 +40,34 @@
         </p>
     </form>
     <section id="event_search_results" class="event_search_results">
-        Tähän hakutuloksia
+        <div>{{#if events}}
+    
+            {{events_info}} <br>
+
+            {{#each events}}
+                <div class="card">
+                    <img class="bandImage" src="./images/bandimages/{{this.image}}" alt="Band">
+                    <section class="eventInformation">
+                        <div class="artistName">
+                            <!--Shows the band names in a row, separated by a / -->
+                            {{#each this.artists}}
+                                {{#if @first}}
+                                    {{this}}
+                                {{else}}
+                                    / {{this}}
+                                {{/if}}
+                            {{/each}}
+                        </div>
+                        <p>Tähän päivämäärä</p>
+                        <p>Paikkakunta: {{this.city}}</p>
+                    </section>
+                    <section class="enrollmentCount">
+                        Ilmoittautuneita xxx
+                    </section>        
+                </div>
+            {{/each}}       
+        
+        {{/if}}
     </section>
 </section>
 

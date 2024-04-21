@@ -12,10 +12,28 @@ mongoose.connect(conString)
 });
 
 const UserModel = require('../models/User');
+const EventModel = require('../models/Event');
 
 //GET home
-const getHome = (req, res) => {
-    res.render('index', {userPressesLoginButtonShowThis: true});
-}
+const getHome = async (req, res) => {
+    try {
+        const concerts = await EventModel.find();
+        console.log('Toimii tähän asti');
+        console.log(concerts);
+        res.render('index', {
+            userPressesLoginButtonShowThis: true,
+            events_info: 'Tapahtuman hakeminen onnistui',
+            events: concerts.map(event => event.toJSON())
+        });
+    }
+    catch(error) {
+        res.status(404).render('index', {
+            userPressesLoginButtonShowThis: true,
+            events_info: 'Tapahtumien haku epäonnistui'
+        });
+        console.log(error);
+    }
+    
+};
 
 module.exports = {getHome};
