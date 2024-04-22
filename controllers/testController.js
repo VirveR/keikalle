@@ -22,7 +22,7 @@ const getHome = async (req, res) => {
             alias = req.session.user.alias
         }
         res.render('index', {
-            info: req.flash('info')[0],
+            info: req.flash('info'),
             alias: alias,
             userPressesLoginButtonShowThis: true,
             events: concerts.map(event => event.toJSON())
