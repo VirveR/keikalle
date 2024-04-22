@@ -287,16 +287,18 @@ const deleteUser = async (req, res) => {
     }
 }
 
-// End session ant remove the session from db
+// End session and remove the session from db
 const userLogOut = async (req, res) => {
     try {
         await req.session.destroy();
-        res.render('index', { info: 'Uloskirjautuminen onnistui.'});
+        res.render('index', {
+            info: 'Olet kirjautunut ulos.'
+        });
     }
     catch(error) {
-        res.status(500).render('profile', {
-            updateInfo: 'Error logging out!'
-    });
+        res.status(500).render('index', {
+            info: 'Jotain meni pieleen.'
+        });
     console.log(error);
     }
 };

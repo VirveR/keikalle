@@ -19,7 +19,6 @@ const getHome = async (req, res) => {
         const concerts = await EventModel.find();
         res.render('index', {
             userPressesLoginButtonShowThis: true,
-            //alias: req.session.user.alias,
             events: concerts.map(event => event.toJSON())
         });
     }
