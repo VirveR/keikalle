@@ -7,7 +7,7 @@ const bcrypt = require('bcryptjs');
 
 const fs = require('fs');
 const path = require('path');
-/*const sharp = require('sharp');*/
+const sharp = require('sharp');
 
 mongoose.connect(conString)
 .then(() => {
