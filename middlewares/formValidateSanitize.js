@@ -1,15 +1,15 @@
-const { query, validationResult } = require('express-validator');
+const { check, validationResult } = require('express-validator');
 
 exports.validateForm = [
-    query('alias')
+    check('alias')
         .trim()
         .escape()
-        .isEmpty().withMessage('Nimimerkki ei voi olla tyhjä').bail()
+        .not().isEmpty().withMessage('Nimimerkki ei voi olla tyhjä').bail()
         .isLength({min: 3, max: 20}).withMessage('Nimimerkin tulee olla 3-20 merkkiä pitkä.').bail(),
-    query('email')
+    check('email')
         .trim()
-        .isEmpty().withMessage('Sähköpostiosoite vaaditaan.').bail()
-        .not().isEmail().withMessage('Syötä toimiva sähköpostiosoite'),
+        .not().isEmpty().withMessage('Sähköpostiosoite vaaditaan.').bail()
+        .isEmail().withMessage('Syötä toimiva sähköpostiosoite'),
     (req, res, next) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
