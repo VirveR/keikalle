@@ -11,18 +11,14 @@ mongoose.connect(conString)
     console.log(error);
 });
 
-const UserModel = require('../models/User');
 const EventModel = require('../models/Event');
 
-//GET home
+//GET home and get the events to the home page
 const getHome = async (req, res) => {
     try {
         const concerts = await EventModel.find();
-        console.log('Toimii tähän asti');
-        console.log(concerts);
         res.render('index', {
             userPressesLoginButtonShowThis: true,
-            events_info: 'Tapahtuman hakeminen onnistui',
             events: concerts.map(event => event.toJSON())
         });
     }
