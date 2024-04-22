@@ -90,23 +90,29 @@ const userLogin = async (req, res) => {
                     isLoggedIn: true
                 };
                 await req.session.save();
-                res.render('profile', {
-                    info: 'Käyttäjän hakeminen onnistui',
+                res.render('index', {
+                    info: 'Olet kirjautunut sisään.',
+                    isLoggedIn: true,
+                    alias: req.session.user.alias,
                     profile: user.toJSON(),
                     helpers: { isEqual(a, b) { return a === b; } }
                 });
             }
             else {
-                res.render('user');
+                res.render('index', {
+                info: 'Tarkista käyttäjätunnus ja salasana.'
+                });
             }
         }
         else {
-            res.render('user');
+            res.render('index', {
+                info: 'Tarkista käyttäjätunnus ja salasana.'
+                });
         }
     }
     catch(error) {
-        res.status(404).render('profile', {
-            info: 'Test failed'
+        res.status(404).render('index', {
+            info: 'Sisäänkirjautuminen ei onnistunut.'
         });
         console.log(error);
     }
@@ -214,13 +220,13 @@ const uploadProfilePic = async (req, res) => {
     const userId = req.body.userIdForPictureUpload;
 
     // renaming file
-    var filename = userId + path.extname(req.file.originalname);    
+    var filename = userId  + '.jpg'; //+ path.extname(req.file.originalname);    
     var target_path = './public/images/profileimages/' + filename;
     
     async function resizeImage() {
         try {
             // resize original (req.file.path) image, keep the aspect ratio and save new file
-            await sharp(req.file.path).resize(400, 400, {fit: 'inside'}).toFile(target_path);
+            await sharp(req.file.path).resize(500, 500, {fit: 'inside'}).jpeg({ quality: 90 }).toFile(target_path);
 
             // update filename to database
             UserModel.findById(userId).then((user) => {
