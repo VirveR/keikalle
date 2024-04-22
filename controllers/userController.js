@@ -90,23 +90,29 @@ const userLogin = async (req, res) => {
                     isLoggedIn: true
                 };
                 await req.session.save();
-                res.render('profile', {
-                    info: 'Käyttäjän hakeminen onnistui',
+                res.render('index', {
+                    info: 'Olet kirjautunut sisään.',
+                    isLoggedIn: true,
+                    alias: req.session.user.alias,
                     profile: user.toJSON(),
                     helpers: { isEqual(a, b) { return a === b; } }
                 });
             }
             else {
-                res.render('user');
+                res.render('index', {
+                info: 'Tarkista käyttäjätunnus ja salasana.'
+                });
             }
         }
         else {
-            res.render('user');
+            res.render('index', {
+                info: 'Tarkista käyttäjätunnus ja salasana.'
+                });
         }
     }
     catch(error) {
-        res.status(404).render('profile', {
-            info: 'Test failed'
+        res.status(404).render('index', {
+            info: 'Sisäänkirjautuminen ei onnistunut.'
         });
         console.log(error);
     }

@@ -1,9 +1,11 @@
 <header class="dark_bg">
     <nav>
         <a href="/" class="logo">Keikalle.com</a>
-        <p style="display: inline;">loput menu items tähän jatkoksi</p>
-        <a href="/profile" id="profile_link">Profiili</a>
-        <a href="/logout" class="logOut" onclick="userLogOut()">Kirjaudu ulos</a>
+        {{#if alias}}
+            <p style="display: inline;">Olet kirjautunut sisään: {{alias}}</p>
+            <a href="/logout" class="logOut" onclick="userLogOut()">Kirjaudu ulos</a>
+            <a href="/profile" id="profile_link">Profiili</a>
+        {{/if}}
     </nav>
     <!-- {{#if userPressesLoginButtonShowThis}}
     {{>loginform}}
