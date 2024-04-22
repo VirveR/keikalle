@@ -39,16 +39,18 @@
             <input type="text" id="search_place" name="search_place">
         </p>
     </form>
+
+    <!-- Events from the database -->
     <section id="event_search_results" class="event_search_results">
-        <div>{{#if events}}
+        {{#if events}}
     
             {{events_info}} <br>
 
             {{#each events}}
-                <div class="card">
-                    <img class="bandImage" src="./images/bandimages/{{this.image}}" alt="Band">
+                <div class="event_card">
+                    <img class="bandImage" src="./images/bandimages/rock_band_01.jpg" alt="Band">
                     <section class="eventInformation">
-                        <div class="artistName">
+                        <h3 class="artistName">
                             <!--Shows the band names in a row, separated by a / -->
                             {{#each this.artists}}
                                 {{#if @first}}
@@ -57,12 +59,13 @@
                                     / {{this}}
                                 {{/if}}
                             {{/each}}
-                        </div>
+                        </h3>
                         <p>Tähän päivämäärä</p>
-                        <p>Paikkakunta: {{this.city}}</p>
+                        <p>{{this.place}}, {{this.city}}</p>
                     </section>
                     <section class="enrollmentCount">
-                        Ilmoittautuneita xxx
+                        <dt><label for="enrollment_count">Ilmoittautuneita</label></dt>
+                        <dd id="enrolment_count">xxx</dd>
                     </section>        
                 </div>
             {{/each}}       

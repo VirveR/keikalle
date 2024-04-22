@@ -94,6 +94,11 @@ h2 {
     margin: 30px;
 }
 
+h3 {
+    font-size: 16pt;
+    font-weight: normal;
+}
+
 .signIn_button {
     cursor: pointer;
     background-color: #73D5FF;
@@ -205,6 +210,7 @@ h2 {
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 60%;
 }
 
 input {
@@ -212,6 +218,62 @@ input {
     width: 400px;
     margin-left: 20px;
     padding: 5px;
+}
+
+
+/* Event cards in event search */
+.event_card {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    border: 2px solid #8A8E9B;
+    margin: 20px 0;
+}
+
+.bandImage {
+    width: 22% !important;
+    height: auto;
+    object-fit: contain;
+}
+
+.eventInformation {
+    width: 61%;
+    padding-left: 25px;
+}
+
+.eventInformation p {
+    font-size: 12pt;
+}
+
+.artistName {
+    /* Allow text to wrap to multiple lines */
+    white-space: normal;
+    /* Limit to 2 lines, hiding the rest with an ellipsis (...) */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Limit to 2 lines */
+    -webkit-box-orient: vertical;
+}
+
+.enrollmentCount {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-end;
+    width: 17%;
+    background-color: #8A8E9B;
+    padding: 0 10px 5px 0;
+}
+
+.enrollmentCount dt {
+    
+    font-size: 11pt;
+
+}
+
+.enrollmentCount dd {
+    font-size: 16pt;
 }
 
 /* Profile page */
