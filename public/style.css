@@ -222,6 +222,7 @@ input {
 
 
 /* Event cards in event search */
+
 .event_card {
     display: flex;
     flex-direction: row;
@@ -237,8 +238,18 @@ input {
 }
 
 .eventInformation {
+    display: flex;
+    flex-direction: column;
     width: 61%;
     padding-left: 25px;
+}
+
+.eventInformation h3 {
+    margin-top: 15px;
+}
+
+.eventInformation p {
+    margin-top: 5px;
 }
 
 .eventInformation p {
