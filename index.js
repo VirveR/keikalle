@@ -1,5 +1,6 @@
 const express = require('express');
 const session = require('express-session');
+const flash = require('express-flash');
 const store = require('./middlewares/validate');
 const MongoStore = require('connect-mongo');
 // for creating session uuid
@@ -31,6 +32,7 @@ app.use(session( {
         expires: 1000,// * 60 * 60 Commented this out for developement purposes
        
 }));
+app.use(flash());
 
 app.use('', require(__dirname +'/routes/testRoutes'));
 app.use('', require(__dirname +'/routes/users'));

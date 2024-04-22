@@ -17,7 +17,13 @@ const EventModel = require('../models/Event');
 const getHome = async (req, res) => {
     try {
         const concerts = await EventModel.find();
+        let alias = "";
+        if (req.session.user) {
+            alias = req.session.user.alias
+        }
         res.render('index', {
+            info: req.flash('info')[0],
+            alias: alias,
             userPressesLoginButtonShowThis: true,
             events: concerts.map(event => event.toJSON())
         });

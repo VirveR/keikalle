@@ -256,4 +256,4 @@ $(document).on('click', '#delete_btn', function() {
 $(document).on('click', '#cancel_delete', function() {
     $('#confirm_delete').hide(500);
     $('#delete_btn').slideDown(500);
-})
+});
