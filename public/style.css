@@ -240,6 +240,7 @@ input {
 .eventInformation {
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     width: 61%;
     padding-left: 25px;
 }
