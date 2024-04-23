@@ -21,6 +21,10 @@ function closeAuthenticationArea() {
     $('#openSignupFormButton').removeClass('active_button');
 }
 
+function closeInfoBox() {
+    $('#error-box').hide(500);
+}
+
 function removeProfilePicture() {
     const userId = $('#userIdForPictureUpload').val();
     const path = $('#profilePicture').attr('src').split('/');
