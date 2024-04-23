@@ -365,8 +365,9 @@ h3 {
 }
 
 #profilePicture {
-    padding: 15px;
     max-width: 300px;
+    background-color: white;
+    margin: 15px;
 }
 
 #profile-details {
