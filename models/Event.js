@@ -8,7 +8,8 @@ const concertSchema = new mongoose.Schema({
     time: Date,
     city: String,
     address: String,
-    place: String
+    place: String,
+    imgSrc: String
 });
 
 module.exports = mongoose.model('Concert', concertSchema);
