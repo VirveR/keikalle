@@ -19,7 +19,7 @@ const getHome = async (req, res) => {
         const concerts = await EventModel.find();
         let alias = "";
         if (req.session.user) {
-            alias = req.session.user.alias
+            alias = req.session.user.alias;
         }
         res.render('index', {
             info: req.flash('info'),
@@ -38,9 +38,47 @@ const getHome = async (req, res) => {
     
 };
 
+//POST search events according to search criteria
+const searchEvents = async (req, res) => {
+    try {
+        const artist = req.body.search_performer;
+        const city = req.body.search_city;
+        const place = req.body.search_place;
+
+        const query = {};
+
+        if (artist) { query.artists = { $in: [artist] }; }
+        if (city) { query.city = city; }
+        if (place) { query.place = place; }
+
+        const events = await EventModel.find(query);
+
+        let alias = "";
+        if (req.session.user) {
+            alias = req.session.user.alias;
+        }
+        if (events.length == 0) {
+            req.flash('info', 'Hakuehdoilla ei löytynyt tapahtumia');
+            res.redirect('/');
+        }
+        else {
+            res.render('index', {
+                alias: alias,
+                events: events.map(event => event.toJSON())
+            });
+        }
+    }
+    catch(error) {
+        res.status(404).render('index', {
+            alias: alias,
+            info: 'Hakuehdoilla ei löydy tapahtumia'
+        });
+    }
+}
+
 // GET event page
 const getEvent = async (req, res) => {
     res.render('event');
 }
 
-module.exports = { getHome, getEvent };
+module.exports = { getHome, searchEvents, getEvent };
