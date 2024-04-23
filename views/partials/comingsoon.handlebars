@@ -1,9 +1,20 @@
 <div role="region" aria-label="Event Carousel" class="carousel">
     {{#each showcase}}
-    <p class="carusel-item">{{this.date}}</p>
+        <div class="carousel-item">
+            <h3>{{this.date}}<br>
+            {{#each this.artists}}
+                {{#if @first}}
+                    {{this}}
+                {{else}}
+                    / {{this}}
+                {{/if}}
+            {{/each}}<br></h3>
+            <p>
+            {{this.place}}<br>
+            {{this.city}}
+            </p>
+            <img src="./images/bandimages/rock_band_01.jpg">
+        </div>
+        
     {{/each}}
 </div>
-
-<script>
-    
-</script>
