@@ -66,6 +66,7 @@ const getUserProfile = async (req, res) => {
         const user = await UserModel.findOne({ alias: alias });
         res.render('profile', {
             info: 'Käyttäjän hakeminen onnistui',
+            alias: alias,
             profile: user.toJSON(),
             helpers: { isEqual(a, b) { return a === b; } }
         });
