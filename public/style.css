@@ -238,7 +238,7 @@ h3 {
 }
 
 input {
-    /*float: right;*/
+    float: right;
     width: 400px;
     margin-left: 20px;
     padding: 5px;
