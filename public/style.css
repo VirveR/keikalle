@@ -124,6 +124,17 @@ h3 {
     border-radius: 7px;
 }
 
+.signOut_button {
+    cursor: pointer;
+    background-color: #73D5FF;
+    font-family: "inika";
+    font-size: 12pt;
+    width: 150px;
+    padding: 6px 12px;
+    border: 2px solid #182126;
+    border-radius: 4px;
+}
+
 /* Ei käytössä ainakaan etusivulla tällä hetkellä */
 .signUp_button {
     cursor: pointer;
