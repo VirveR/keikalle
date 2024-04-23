@@ -335,6 +335,26 @@ input {
     display: none;
 }
 
+
+/* Event page */
+
+#find_friend {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#friend_search {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 60%;
+}
+
+/* Event page ends */
+
+
 @media only screen and (max-width: 950px) {
     .input_container {
         flex-direction: column;
