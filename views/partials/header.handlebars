@@ -1,11 +1,13 @@
 <header class="dark_bg">
-    <nav>
+    <nav id="nav-main">
         <a href="/" class="logo">Keikalle.com</a>
-        {{#if alias}}
-            <p style="display: inline;">Olet kirjautunut sisään: {{alias}}</p>
-            <button type="button" id="log-out-btn" class="sign-out-btn" onclick="location.href='/logout'">Kirjaudu ulos</button>
-            <a href="/profile" id="profile_link">Profiili</a>
-        {{/if}}
+        <div id="sign-in-info">
+            {{#if alias}}
+                <p style="display: inline;">Olet kirjautunut sisään: {{alias}}</p>
+                <button type="button" id="sign-out-btn" class="sign-out-btn" onclick="location.href='/logout'">Kirjaudu ulos</button>
+                <a href="/profile" class="nav-link">Profiili</a>
+            {{/if}}
+        </div>
     </nav>
     <!-- {{#if userPressesLoginButtonShowThis}}
     {{>loginform}}
