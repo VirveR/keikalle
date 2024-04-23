@@ -25,5 +25,6 @@ This application meets the need to find a friend to a music event.
 - express-session
 - express-flash
 - sharp
+- date-fns
 
 The language of the application is Finnish.
