@@ -2,7 +2,13 @@
     {{>header}} 
 
 <article class="top_section">
-    <section id="error-box" aria-live="polite" role="alert" {{#if info}}style="display:block; border: 2px solid red;"{{else if infoArray}}style="display:block; border: 2px solid red;"{{else}}style="display: none;"{{/if}}>{{info}}{{#each infoArray}} <p> {{this}} </p> {{/each}}</section>
+    <section id="error-box" aria-live="polite" role="alert" {{#if info}}style="display:block; border: 2px solid red;"{{else if infoArray}}style="display:block; border: 2px solid red;"{{else}}style="display: none;"{{/if}}>
+        {{info}}
+        {{#each infoArray}} 
+            <p> {{this}} </p> 
+        {{/each}}
+        <button type="button" id="close-info-btn" onclick="closeInfoBox()">&#10006;</button>
+    </section>
     <h1>Keikalle</h1>
     <p class="content_width">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam non diam malesuada, scelerisque arcu at, consectetur lorem. Proin sollicitudin elit id ante ornare sagittis. Ut est massa, hendrerit vel lorem id, ultrices aliquet ipsum. Sed sem orci, consequat eu maximus eu, mattis et urna. Nunc non lorem auctor, sodales arcu eu, vestibulum mauris. Morbi elit sapien, posuere ac eros non, feugiat interdum ex. Cras tincidunt est nibh, vitae pellentesque nulla pharetra et. Pellentesque erat velit, interdum eget justo at, viverra ultrices ligula. Etiam quis facilisis augue. Sed molestie suscipit urna in posuere.</p>
     {{#unless alias}}
