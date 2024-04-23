@@ -72,3 +72,35 @@ exports.sanitizeEventSearch = [
         next();
     },
 ];
+
+exports.sanitizeProfileUpdate = [
+    check('firstName')
+        .escape()
+        .custom((value,{req, loc, path}) => {
+            if (value !== encodeURIComponent(value)) {
+                throw new Error("Etunimi ei voi sisältää erikoismerkkejä.");
+            } else {
+                return value;
+            }
+        }),
+    check('lastName')
+        .escape(),
+    check('alias')
+        .escape(),
+    check('email')
+        .escape(),
+    check('city')
+        .escape(),
+    check('gender')
+        .escape(),
+    check('birthYear')
+        .escape(),
+    (req, res, next) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            const infoArray = errors.array().map(error => `${error.msg}`);
+            req.body.sanitizingErrors = infoArray.toString();
+        }
+        next();
+    },
+]

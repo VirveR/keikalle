@@ -172,31 +172,49 @@ const getBooleanIfAliasInDB = async (req, res) => {
 //UPDATE profile information
 const updateUser = async (req, res) => {
     const searchedId = req.body.id;
-    try {
-        const user = await UserModel.findOneAndUpdate({ _id: searchedId }, 
-            {
-                firstName: req.body.firstName,
-                lastName: req.body.lastName,
-                alias: req.body.alias,
-                email: req.body.email,
-                city: req.body.city,
-                gender: req.body.gender,
-                birthYear: req.body.birthYear},
-            {new: true}
-            );
-        res.render('profile', { 
-            profile: user.toJSON(),
-            helpers: { isEqual(a, b) { return a === b; } },
-            updateInfo: 'Muutokset tallennettu.'
-        });
+    if(req.body.sanitizingErrors){
+        try {
+            const user = await UserModel.findOne({ _id: searchedId });
+            res.render('profile', { 
+                profile: user.toJSON(),
+                helpers: { isEqual(a, b) { return a === b; } },
+                updateInfo: req.body.sanitizingErrors
+            });
+        }
+        catch(error){
+            res.render("index", {
+                infoArray: 'Käyttäjän lataaminen epäonnistui'
+            });
+        }
     }
-    catch(error) {
-        res.status(500).render('profile', {
-            profile: user.toJSON(),
-            helpers: { isEqual(a, b) { return a === b; } },
-            updateInfo: 'Muutoksia ei voitu tallentaa.'
-        });
-        console.log(error);
+    else{
+
+        try {
+            const user = await UserModel.findOneAndUpdate({ _id: searchedId }, 
+                {
+                    firstName: req.body.firstName,
+                    lastName: req.body.lastName,
+                    alias: req.body.alias,
+                    email: req.body.email,
+                    city: req.body.city,
+                    gender: req.body.gender,
+                    birthYear: req.body.birthYear},
+                {new: true}
+                );
+            res.render('profile', { 
+                profile: user.toJSON(),
+                helpers: { isEqual(a, b) { return a === b; } },
+                updateInfo: 'Muutokset tallennettu.'
+            });
+        }
+        catch(error) {
+            res.status(500).render('profile', {
+                profile: user.toJSON(),
+                helpers: { isEqual(a, b) { return a === b; } },
+                updateInfo: 'Muutoksia ei voitu tallentaa.'
+            });
+            console.log(error);
+        }
     }
 }
 

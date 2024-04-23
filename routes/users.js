@@ -8,7 +8,7 @@ const upload = require('../middlewares/upload');
 // Function to check if the user has signed in
 const { auth } = require('../middlewares/validate');
 // Function to validate and sanitate form data
-const { validateForm, validateLogin } = require('../middlewares/formValidateSanitize');
+const { validateForm, validateLogin, sanitizeProfileUpdate } = require('../middlewares/formValidateSanitize');
 
 
 //GET user
@@ -30,7 +30,7 @@ router.post('/user/login', validateLogin, userController.userLogin);
 router.post('/user', validateForm, userController.addNewUser);
 
 //UPDATE user information
-router.post('/profile', userController.updateUser);
+router.post('/profile', sanitizeProfileUpdate, userController.updateUser);
 
 //UPDATE users profile picture
 router.post('/profile/upload/profilepic', upload.single('uploadProfilePicture'), userController.uploadProfilePic);
