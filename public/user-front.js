@@ -160,9 +160,12 @@ $(document).on('input', '#signup_password2', function() {
 
 
 function validateAllSignUpFileds(){
-    let aliasOk = $('#signup_alias_ok').val();
-    let emailOk = $('#signup_email_ok').val();
-    let passwordOk = $('#signup_password_ok').val();
+    // Function not in use in this assigment, so validation can be done in backend by express-validator
+    // So registration button is enabled, even when there are incorrect inputs in registration form.
+    // remove 1's and comment // to enable front-end validation.
+    let aliasOk = 1; // $('#signup_alias_ok').val();
+    let emailOk = 1; // $('#signup_email_ok').val();
+    let passwordOk = 1; // $('#signup_password_ok').val();
     if(aliasOk == 1 && emailOk == 1 && passwordOk == 1){
         $('#submit-registration-button').prop('disabled', false);
     }
