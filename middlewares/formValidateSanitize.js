@@ -5,7 +5,14 @@ exports.validateForm = [
         .trim()
         .escape()
         .not().isEmpty().withMessage('Nimimerkki ei voi olla tyhjä').bail()
-        .isLength({min: 3, max: 20}).withMessage('Nimimerkin tulee olla 3-20 merkkiä pitkä.').bail(),
+        .isLength({min: 3, max: 20}).withMessage('Nimimerkin tulee olla 3-20 merkkiä pitkä.').bail()
+        .custom((value,{req, loc, path}) => {
+            if (value !== encodeURIComponent(value)) {
+                throw new Error(`Nimimerkki ei voi sisältää erikoismerkkejä: < " ' > &`);
+            } else {
+                return value;
+            }
+        }),
     check('email')
         .trim()
         .escape()
@@ -78,19 +85,46 @@ exports.sanitizeProfileUpdate = [
         .escape()
         .custom((value,{req, loc, path}) => {
             if (value !== encodeURIComponent(value)) {
-                throw new Error("Etunimi ei voi sisältää erikoismerkkejä.");
+                throw new Error(`Etunimi ei voi sisältää erikoismerkkejä: < " ' > &`);
+            } else {
+                return value;
+            }
+        }).optional({values: 'falsy'}),
+    check('lastName')
+        .escape()
+        .custom((value,{req, loc, path}) => {
+            if (value !== encodeURIComponent(value)) {
+                throw new Error(`Sukunimi ei voi sisältää erikoismerkkejä: < " ' > &`);
+            } else {
+                return value;
+            }
+        }).optional({values: 'falsy'}),
+    check('alias')
+        .trim()
+        .escape()
+        .not().isEmpty().withMessage('Nimimerkki ei voi olla tyhjä').bail()
+        .isLength({min: 3, max: 20}).withMessage('Nimimerkin tulee olla 3-20 merkkiä pitkä.').bail()
+        .custom((value,{req, loc, path}) => {
+            if (value !== encodeURIComponent(value)) {
+                throw new Error(`Nimimerkki ei voi sisältää erikoismerkkejä: < " ' > &`);
             } else {
                 return value;
             }
         }),
-    check('lastName')
-        .escape(),
-    check('alias')
-        .escape(),
     check('email')
-        .escape(),
+        .trim()
+        .escape()
+        .not().isEmpty().withMessage('Sähköpostiosoite vaaditaan.').bail()
+        .isEmail().withMessage('Syötä toimiva sähköpostiosoite'),
     check('city')
-        .escape(),
+        .escape()
+        .custom((value,{req, loc, path}) => {
+            if (value !== encodeURIComponent(value)) {
+                throw new Error(`Paikkakunta ei voi sisältää erikoismerkkejä: < " ' > &`);
+            } else {
+                return value;
+            }
+        }).optional({values: 'falsy'}),
     check('gender')
         .escape(),
     check('birthYear')
