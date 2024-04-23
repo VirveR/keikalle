@@ -104,6 +104,7 @@ h1 {
 
 h2 {
     font-size: 32pt;
+    text-align: center;
     margin: 30px;
 }
 
@@ -125,11 +126,16 @@ h3 {
     border-radius: 7px;
 }
 
-.signOut_button {
+.red-btn {
+    background-color: darkred !important;
+    color: white;
+}
+
+.sign-out-btn {
     cursor: pointer;
     background-color: #73D5FF;
     font-family: "inika";
-    font-size: 12pt;
+    font-size: 14pt;
     width: 150px;
     padding: 6px 12px;
     border: 2px solid #182126;
@@ -341,17 +347,39 @@ h3 {
 
 /* Profile page */
 
-.white_card {
-    background-color: white;
-    color: #182126;
-    padding: 25px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    border-radius: 7px;
+#profile-container {
+    width: 100%;
+    background-color: #182126;
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding: 40px;
+}
+
+#profile-pic-section {
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 #profilePicture {
     padding: 15px;
-    max-width: 200px;
+    max-width: 300px;
+}
+
+#profile-details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#delete-profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
 }
 
 .update_info {

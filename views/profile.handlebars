@@ -1,79 +1,86 @@
 {{> header}}
-<h1>Oma profiilini</h1>
 
-<main class="white_card" id="profile-information">
+<main class="top_section">
+    <h2>Oma profiilini</h2>
     <p role="text" aria-label="Information about success or failure of updates" class="update_info">{{updateInfo}}</p>
-    <section id="profile-pic">
 
-        <img src="./images/profileimages/{{profile.imageSrc}}" id="profilePicture" alt="" style="background-color: white; padding: 15px">
-        <form action="../profile/upload/profilepic" method="post" id="uploadProfilePictureForm" enctype="multipart/form-data">
-            <label for="uploadProfilePicture">
-                <input type="file" name="uploadProfilePicture" id="uploadProfilePicture" style="display: none;">
-                <button type="button" class="submit-login-button" id="selectPictureToUpload">Lataa toinen kuva</button>
-            </label> 
-            <input type="hidden" name="userIdForPictureUpload" id="userIdForPictureUpload" value="{{profile._id}}">
-        </form>
-        {{#unless (isEqual profile.imageSrc "kale.png") }}
-            <button class="submit-login-button" onclick="removeProfilePicture()" style="background-color: red;">Poista kuva</button>
-        {{/unless}}
-    </section>
+    <div id="profile-container">
 
-    <section id="profile-details">
-        <form action="/profile" method="post" enctype="x-www-form-urlencoded">
-            <input type="hidden" name="id" id="update-id" value="{{profile._id}}">
-            <p>
-                <label for="firstName" class="loginform-label">Etunimi</label>
-                <input type="text" class="loginform-input" name="firstName" id="update-firstName" value="{{profile.firstName}}">
-            </p>
-            <p>
-                <label for="lastName" class="loginform-label">Sukunimi</label>
-                <input type="text" class="loginform-input" name="lastName" id="update-lastName" value="{{profile.lastName}}">
-            </p>
-            <p>
-                <label for="alias" class="loginform-label">Nimimerkki</label>
-                <input type="text" class="loginform-input" name="alias" id="update-alias" value="{{profile.alias}}">
-                <span role="text" aria-label="Instructions for filling out the form" class="validation_info" id="update-alias-info"></span>
-            </p>
-            <p>
-                <label for="email" class="loginform-label">Sähköposti</label>
-                <input type="text" class="loginform-input" name="email" id="update-email" value="{{profile.email}}">
-                <span role="text" aria-label="Instructions for filling out the form" class="validation_info" id="update-email-info"></span>
-            </p>
-            <p>
-                <label for="city" class="loginform-label">Paikkakunta</label>
-                <input type="text" class="loginform-input" name="city" id="update-city" value="{{profile.city}}">
-            </p>
-            <p>
-                <label for="gender">Sukupuoli</label>
-                <select class="loginform-input" name="gender" id="update-gender" style="float:right;">
-                    <option value="ei valittu" {{#if (isEqual profile.gender "ei valittu")}} selected {{/if}}>ei valittu</option>
-                    <option value="nainen" {{#if (isEqual profile.gender "nainen")}} selected {{/if}}>nainen</option>
-                    <option value="mies" {{#if (isEqual profile.gender "mies")}} selected {{/if}}>mies</option>
-                    <option value="muu" {{#if (isEqual profile.gender "muu")}} selected {{/if}}>muu</option>
-                </select>
-            </p>
-            <p>
-                <label for="birthYear" class="loginform-label">Syntymävuosi</label>
-                <input type="number" class="loginform-input" name="birthYear" id="update-birthYear" value="{{profile.birthYear}}" min="1900" max="2024">
-            </p>
+        <!-- Profile image -->
+        <section id="profile-pic-section">
+            <img src="./images/profileimages/{{profile.imageSrc}}" id="profilePicture" alt="">
+            <form action="../profile/upload/profilepic" method="post" id="uploadProfilePictureForm" enctype="multipart/form-data">
+                <label for="uploadProfilePicture">
+                    <input type="file" name="uploadProfilePicture" id="uploadProfilePicture" style="display: none;">
+                    <button type="button" class="sign-out-btn" id="selectPictureToUpload">Lataa kuva</button>
+                </label> 
+                <input type="hidden" name="userIdForPictureUpload" id="userIdForPictureUpload" value="{{profile._id}}">
+                {{#unless (isEqual profile.imageSrc "kale.png") }}
+                <button class="sign-out-btn red-btn" onclick="removeProfilePicture()">Poista kuva</button>
+                {{/unless}}
+            </form>
+        </section>
 
-            <p>
-                <input type="hidden" name="alias-validation-ok" id="update-alias-ok" value="0">
-                <input type="hidden" name="email-validation-ok" id="update-email-ok" value="0">
-                <button type="submit" class="submit-login-button" id="update-button" style="display:none;">Tallenna muutokset</button>
-            </p>
-        </form>
-    </section>
+        <!-- Profile details -->
+        <section id="profile-details">
+            <form action="/profile" method="post" enctype="x-www-form-urlencoded">
+                <input type="hidden" name="id" id="update-id" value="{{profile._id}}">
+                <p class="input_container">
+                    <label for="firstName" class="loginform-label">Etunimi</label>
+                    <input type="text" class="loginform-input" name="firstName" id="update-firstName" value="{{profile.firstName}}">
+                </p>
+                <p class="input_container">
+                    <label for="lastName" class="loginform-label">Sukunimi</label>
+                    <input type="text" class="loginform-input" name="lastName" id="update-lastName" value="{{profile.lastName}}">
+                </p>
+                <p class="input_container">
+                    <label for="alias" class="loginform-label">Nimimerkki</label>
+                    <input type="text" class="loginform-input" name="alias" id="update-alias" value="{{profile.alias}}">
+                    <span role="text" aria-label="Instructions for filling out the form" class="validation_info" id="update-alias-info"></span>
+                </p>
+                <p class="input_container">
+                    <label for="email" class="loginform-label">Sähköposti</label>
+                    <input type="text" class="loginform-input" name="email" id="update-email" value="{{profile.email}}">
+                    <span role="text" aria-label="Instructions for filling out the form" class="validation_info" id="update-email-info"></span>
+                </p>
+                <p class="input_container">
+                    <label for="city" class="loginform-label">Paikkakunta</label>
+                    <input type="text" class="loginform-input" name="city" id="update-city" value="{{profile.city}}">
+                </p>
+                <p class="input_container">
+                    <label for="gender" class="loginform-label">Sukupuoli</label>
+                    <select class="loginform-input" name="gender" id="update-gender">
+                        <option value="ei valittu" {{#if (isEqual profile.gender "ei valittu")}} selected {{/if}}>ei valittu</option>
+                        <option value="nainen" {{#if (isEqual profile.gender "nainen")}} selected {{/if}}>nainen</option>
+                        <option value="mies" {{#if (isEqual profile.gender "mies")}} selected {{/if}}>mies</option>
+                        <option value="muu" {{#if (isEqual profile.gender "muu")}} selected {{/if}}>muu</option>
+                    </select>
+                </p>
+                <p class="input_container">
+                    <label for="birthYear" class="loginform-label">Syntymävuosi</label>
+                    <input type="number" class="loginform-input" name="birthYear" id="update-birthYear" value="{{profile.birthYear}}" min="1900" max="2024">
+                </p>
 
+                <p class="input_container">
+                    <input type="hidden" name="alias-validation-ok" id="update-alias-ok" value="0">
+                    <input type="hidden" name="email-validation-ok" id="update-email-ok" value="0">
+                    <button type="submit" class="sign-out-btn" id="update-button" style="display:none;">Tallenna muutokset</button>
+                </p>
+            </form>
+        </section>
+    </div>
+
+    <!-- Delete profile -->
     <section id="delete-profile">
-        <button type="button" class="submit-login-button" style="background-color: red;" id="delete_btn">Poista profiili</button>
+        <button type="button" class="sign-out-btn red-btn" id="delete_btn">Poista profiili</button>
         <form action="/delete-profile" method="post" enctype="x-www-form-urlencoded" id="confirm_delete">
-        <p>Oletko aivan varma, että haluat poistaa profiilisi?</p>
+            <p>Oletko aivan varma, että haluat poistaa profiilisi?</p>
             <input type="hidden" name="id" id="id" value="{{profile._id}}">
-            <button type="button" class="submit-login-button" id="cancel_delete">Peruuta!</button>
-            <button type="submit" class="submit-login-button" id="delete-profile" style="background-color: red;">Kyllä, poista profiili</button>
+            <button type="button" class="sign-out-btn" id="cancel_delete">Peruuta!</button>
+            <button type="submit" class="sign-out-btn red-btn" id="delete-profile">Kyllä, poista profiili</button>
         </form>
     </section>
+
 </main>
 
 {{> footer}}
