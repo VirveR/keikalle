@@ -38,4 +38,9 @@ const getHome = async (req, res) => {
     
 };
 
-module.exports = {getHome};
+// GET event page
+const getEvent = async (req, res) => {
+    res.render('event');
+}
+
+module.exports = { getHome, getEvent };

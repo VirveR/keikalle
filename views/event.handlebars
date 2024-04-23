@@ -1,0 +1,106 @@
+
+    {{>header}} 
+
+<article class="top_section">
+    <section id="error-box" aria-live="polite" role="alert" {{#if info}}style="display:block; border: 2px solid red;"{{else if infoArray}}style="display:block; border: 2px solid red;"{{else}}style="display: none;"{{/if}}>{{info}}{{#each infoArray}} <p> {{this}} </p> {{/each}}</section>
+    <section id="event_info_img">
+        <img class="bandImage" src="./images/bandimages/rock_band_01.jpg" alt="Band">
+        <section class="event_info">
+            <h3 class="artistName">
+                <!--Shows the band names in a row, separated by a / -->
+                {{#each this.artists}}
+                    {{#if @first}}
+                        {{this}}
+                    {{else}}
+                        / {{this}}
+                    {{/if}}
+                {{/each}}
+            </h3>
+            <p>Tähän päivämäärä</p>
+            <p>{{this.place}}, {{this.city}}</p>
+        </section>
+        <section class="enrollmentCount">
+            <dt><label for="enrollment_count">Ilmoittautuneita</label></dt>
+            <dd id="enrolment_count">xxx</dd>
+        </section>        
+    </section>
+</article>
+
+<section id="find_friend" class="find_friend dark_bg">
+    <section id="friend_search">
+        <h2>Hae kaveria keikalle</h2>
+        <form id="friend_search_form" role="search" aria-label="Friend search">
+            <fieldset>
+                <legend>Ikä</legend>
+                <div class="range-inputs">
+                    <label for="min">Minimum Age:</label>
+                    <input type="number" id="min" name="min" aria-label="Minimum Age" aria-describedby="min-error" value="18" min="18" max="100">
+
+                    <label for="max">Maximum Age:</label>
+                    <input type="number" id="max" name="max" aria-label="Maximum Age" aria-describedby="max-error" value="120" min="18" max="120">
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend>Ikä</legend>
+                <label for="min_friend_age" class="loginform-label">Vähintään</label>
+                <input type="text" class="loginform-input-small" id="min_friend_age" name="min_friend_age">
+                <label for="max_friend_age" class="loginform-label">Enintään</label>
+                <input type="text" class="loginform-input-small" id="max_friend_age" name="max_friend_age">
+            </fieldset>
+            <p>
+                <label for="friend_gender" class="loginform-label">Sukupuoli</label>
+                <select class="loginform-input" name="friend_gender" id="friend_gender" style="float:right;">
+                    <option value="ei valittu">ei valittu</option>
+                    <option value="nainen">nainen</option>
+                    <option value="mies">mies</option>
+                    <option value="muu">muu</option>
+                </select>
+            </p>
+            <p>
+                <label for="friend_city" class="loginform-label">Paikkakunta</label>
+                <input type="text" class="loginform-input" name="friend_city" id="friend_city">
+            </p>
+        </form>
+    </section>
+
+    <!-- Events from the database -->
+    <section id="event_search_results" class="event_search_results">
+        Kaveriehdotuksia tähän
+        {{#if events}}
+    
+            {{events_info}} <br>
+
+            {{#each events}}
+                <div class="event_card">
+                    <img class="bandImage" src="./images/bandimages/rock_band_01.jpg" alt="Band">
+                    <section class="eventInformation">
+                        <h3 class="artistName">
+                            <!--Shows the band names in a row, separated by a / -->
+                            {{#each this.artists}}
+                                {{#if @first}}
+                                    {{this}}
+                                {{else}}
+                                    / {{this}}
+                                {{/if}}
+                            {{/each}}
+                        </h3>
+                        <p>Tähän päivämäärä</p>
+                        <p>{{this.place}}, {{this.city}}</p>
+                    </section>
+                    <section class="enrollmentCount">
+                        <dt><label for="enrollment_count">Ilmoittautuneita</label></dt>
+                        <dd id="enrolment_count">xxx</dd>
+                    </section>        
+                </div>
+            {{/each}}       
+        
+        {{/if}}
+    </section>
+</section>
+
+<!-- Testilinkki -->
+<a href="/user">user</a>
+
+    {{>footer}}
+
+

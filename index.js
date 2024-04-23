@@ -34,7 +34,7 @@ app.use(session( {
 }));
 app.use(flash());
 
-app.use('', require(__dirname +'/routes/testRoutes'));
+app.use('', require(__dirname +'/routes/events'));
 app.use('', require(__dirname +'/routes/users'));
 
 
