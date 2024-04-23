@@ -214,6 +214,8 @@ h3 {
     border-radius: 7px;
 }
 
+/* Coming Soon */
+
 .carousel_area {
     width: 100%;
     display: flex;
@@ -221,13 +223,12 @@ h3 {
     align-items: center;
 }
 
-/* nämä muotoilut voi poistaa, kunhan on oikeaa karusellisisältöä */
-.carousel {
-    color: black;
-    height: 200px;
-    background-color: gainsboro;
-    padding: 15px;
-    margin: 20px;
+.carousel-item {
+    display: flex;
+    flex-direction: row;
+    width: 20%;
+    border: 2px solid #8A8E9B;
+    margin: 20px 0;
 }
 
 /* Event Search */

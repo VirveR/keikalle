@@ -13,10 +13,17 @@ mongoose.connect(conString)
 
 const EventModel = require('../models/Event');
 
+//for formatting dates
+const { format } = require('date-fns');
+
 //GET home and get the events to the home page
 const getHome = async (req, res) => {
     try {
-        const concerts = await EventModel.find();
+        const e = await EventModel.find().sort({date: 1}).limit(4);
+        const events = e.map(event => {
+            const formattedDate = format(event.date, 'dd.MM.yyy', 'fi');
+            return {...event.toObject(), date: formattedDate};
+        });
         let alias = "";
         if (req.session.user) {
             alias = req.session.user.alias;
@@ -25,7 +32,8 @@ const getHome = async (req, res) => {
             info: req.flash('info'),
             alias: alias,
             userPressesLoginButtonShowThis: true,
-            events: concerts.map(event => event.toJSON())
+            //events: concerts.map(event => event.toJSON()),
+            showcase: events
         });
     }
     catch(error) {
@@ -51,7 +59,11 @@ const searchEvents = async (req, res) => {
         if (city) { query.city = city; }
         if (place) { query.place = place; }
 
-        const events = await EventModel.find(query);
+        const e = await EventModel.find(query).sort({date: 1});
+        const events = e.map(event => {
+            const formattedDate = format(event.date, 'dd.MM.yyy', 'fi');
+            return {...event.toObject(), date: formattedDate};
+        });
 
         let alias = "";
         if (req.session.user) {
@@ -64,14 +76,15 @@ const searchEvents = async (req, res) => {
         else {
             res.render('index', {
                 alias: alias,
-                events: events.map(event => event.toJSON())
+                events: events,
+                showcase: events.slice(0, 4)
             });
         }
     }
     catch(error) {
         res.status(404).render('index', {
             alias: alias,
-            info: 'Hakuehdoilla ei löydy tapahtumia'
+            info: 'Tapahtumien hakeminen epäonnistui'
         });
     }
 }

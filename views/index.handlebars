@@ -30,15 +30,12 @@
     <!-- Coming soon -->
     <section aria-labelledby="soonToCome-heading" class="carousel_area dark_bg">
         <h2 id="soonToCome_heading">Tapahtuu pian</h2>
-        <div role="region" aria-label="Event Carousel" class="carousel">
-            Tähän korttikaruselli tulevista tapahtumista
-        </div>
+        {{>comingsoon}}
     </section>
 
     <!-- Event Search -->
     <section id="event_search" class="event_search">
         <h2>Hae tapahtumia</h2>
-        
         {{>eventsearchform}}
 
         <!-- Events from the database -->

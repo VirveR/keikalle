@@ -283,6 +283,7 @@ const deleteUser = async (req, res) => {
 // End session and remove the session from db
 const userLogOut = async (req, res) => {
     try {
+        req.flash('info', 'Olet kirjautunut ulos.');
         await req.session.destroy();
         res.redirect('/');
     }
