@@ -32,21 +32,15 @@
         <form id="friend_search_form" role="search" aria-label="Friend search">
             <fieldset>
                 <legend>Ikä</legend>
-                <div class="range-inputs">
-                    <label for="min">Minimum Age:</label>
-                    <input type="number" id="min" name="min" aria-label="Minimum Age" aria-describedby="min-error" value="18" min="18" max="100">
+                <div class="age-inputs">
+                    <label for="min_friend_age" class="loginform-label_small">Vähintään</label>
+                    <input type="number" id="min_friend_age" name="min_friend_age" class="loginform-input_small" aria-label="Minimum Age" value="" min="18" max="120">
 
-                    <label for="max">Maximum Age:</label>
-                    <input type="number" id="max" name="max" aria-label="Maximum Age" aria-describedby="max-error" value="120" min="18" max="120">
+                    <label for="max_friend_age" class="loginform-label_small">Enintään</label>
+                    <input type="number" id="max_friend_age" name="max_friend_age" class="loginform-input_small" aria-label="Maximum Age" aria-describedby="max-error" value="" min="18" max="120">
                 </div>
             </fieldset>
-            <fieldset>
-                <legend>Ikä</legend>
-                <label for="min_friend_age" class="loginform-label">Vähintään</label>
-                <input type="text" class="loginform-input-small" id="min_friend_age" name="min_friend_age">
-                <label for="max_friend_age" class="loginform-label">Enintään</label>
-                <input type="text" class="loginform-input-small" id="max_friend_age" name="max_friend_age">
-            </fieldset>
+            
             <p>
                 <label for="friend_gender" class="loginform-label">Sukupuoli</label>
                 <select class="loginform-input" name="friend_gender" id="friend_gender" style="float:right;">
@@ -56,7 +50,7 @@
                     <option value="muu">muu</option>
                 </select>
             </p>
-            <p>
+            <p class="input_container">
                 <label for="friend_city" class="loginform-label">Paikkakunta</label>
                 <input type="text" class="loginform-input" name="friend_city" id="friend_city">
             </p>
