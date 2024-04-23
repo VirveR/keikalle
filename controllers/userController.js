@@ -91,24 +91,17 @@ const userLogin = async (req, res) => {
                     isLoggedIn: true
                 };
                 await req.session.save();
-                res.render('index', {
-                    info: 'Olet kirjautunut sisään.',
-                    isLoggedIn: true,
-                    alias: req.session.user.alias,
-                    profile: user.toJSON(),
-                    helpers: { isEqual(a, b) { return a === b; } }
-                });
+                req.flash('info', 'Olet kirjautunut sisään');
+                res.redirect('/');
             }
             else {
-                res.render('index', {
-                info: 'Tarkista käyttäjätunnus ja salasana.'
-                });
+                req.flash('info', 'Tarkista käyttäjätunnus ja salasana.');
+                res.redirect('/');
             }
         }
         else {
-            res.render('index', {
-                info: 'Tarkista käyttäjätunnus ja salasana.'
-                });
+            req.flash('info', 'Tarkista käyttäjätunnus ja salasana.');
+            res.redirect('/');
         }
     }
     catch(error) {
@@ -287,16 +280,16 @@ const deleteUser = async (req, res) => {
     }
 }
 
-// End session ant remove the session from db
+// End session and remove the session from db
 const userLogOut = async (req, res) => {
     try {
         await req.session.destroy();
-        res.render('index', { info: 'Uloskirjautuminen onnistui.'});
+        res.redirect('/');
     }
     catch(error) {
-        res.status(500).render('profile', {
-            updateInfo: 'Error logging out!'
-    });
+        res.status(500).render('index', {
+            info: 'Jotain meni pieleen.'
+        });
     console.log(error);
     }
 };
