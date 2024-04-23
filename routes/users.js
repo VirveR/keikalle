@@ -8,7 +8,7 @@ const upload = require('../middlewares/upload');
 // Function to check if the user has signed in
 const { auth } = require('../middlewares/validate');
 // Function to validate and sanitate form data
-const { validateForm } = require('../middlewares/formValidateSanitize');
+const { validateForm, validateLogin } = require('../middlewares/formValidateSanitize');
 
 
 //GET user
@@ -24,7 +24,7 @@ router.get('/profile', auth, userController.getUserProfile);
 router.get('/user/get_if_alias/:alias', userController.getBooleanIfAliasInDB);
 
 //POST send login information and start session if login is successful
-router.post('/user/login', userController.userLogin);
+router.post('/user/login', validateLogin, userController.userLogin);
 
 //POST new user to the db
 router.post('/user', validateForm, userController.addNewUser);

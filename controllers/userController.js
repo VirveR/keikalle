@@ -81,7 +81,7 @@ const getUserProfile = async (req, res) => {
 const userLogin = async (req, res) => {
     try {
         const alias = req.body.alias;
-        const password = req.body.password
+        const password = req.body.password;
         const user = await UserModel.findOne({ alias: alias});
         if (user) {
             // Check password
