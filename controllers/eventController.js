@@ -52,6 +52,7 @@ const searchEvents = async (req, res) => {
         const artist = req.body.search_performer;
         const city = req.body.search_city;
         const place = req.body.search_place;
+        //console.log(`artist: ${artist}, city: ${city}, place: ${place}`);
 
         const query = {};
 

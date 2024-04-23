@@ -53,3 +53,22 @@ exports.validateLogin = [
         next();
     },
 ];
+
+exports.sanitizeEventSearch = [
+    check('search_performer')
+        .escape(),
+    check('search_city')
+        .escape(),
+    check('search_place')
+        .escape(),
+    (req, res, next) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            const infoArray = errors.array().map(error => `${error.msg}`);
+            return res.render("index", {
+                infoArray: infoArray
+            });
+        }
+        next();
+    },
+];
