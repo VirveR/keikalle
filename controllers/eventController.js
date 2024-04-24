@@ -12,6 +12,7 @@ mongoose.connect(conString)
 });
 
 const EventModel = require('../models/Event');
+const UserModel = require('../models/User');
 
 //for formatting dates
 const { format } = require('date-fns');
@@ -143,4 +144,30 @@ const registerToEvent = async (req, res) => {
 
 }
 
-module.exports = { getHome, searchEvents, getEvent, registerToEvent }; 
+// POST Friend Search via Event Page
+const searchFriends = async (req, res) => {
+    try {
+        const eventId = req.params.id;
+        const concert = await EventModel.findById(eventId);
+        if (concert) {
+            const friends = await UserModel.find();
+            res.status(200).render('event', {
+                concert: concert.toJSON(),
+                friends: friends.map(friend => friend.toJSON())
+            })
+        }
+        else {
+            res.status(404).render('event', {
+                info: req.flash('info')
+            });
+        }
+    }
+    catch(error) {
+        res.status(404).render('index', {
+            info: 'Tapahtuman haku epäonnistui'
+        });
+        console.log(error);
+    }
+}
+
+module.exports = { getHome, searchEvents, getEvent, registerToEvent, searchFriends }; 

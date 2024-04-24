@@ -315,9 +315,4 @@ const userLogOut = async (req, res) => {
     }
 };
 
-// Friend Search via Event Page
-const searchFriends = async (req, res) => {
-    res.render('event');
-}
-
-module.exports = {getUser, getUserByAlias, getUserProfile, userLogin, addNewUser, getBooleanIfAliasInDB, updateUser, uploadProfilePic, deleteProfilePicture, deleteUser, userLogOut, searchFriends};
+module.exports = {getUser, getUserByAlias, getUserProfile, userLogin, addNewUser, getBooleanIfAliasInDB, updateUser, uploadProfilePic, deleteProfilePicture, deleteUser, userLogOut };

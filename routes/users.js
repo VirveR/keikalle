@@ -44,9 +44,6 @@ router.post('/delete-profile', userController.deleteUser);
 //DESTROY the session when logging out
 router.get('/logout', auth, userController.userLogOut);
 
-//GET assorted users via event page
-router.post('/:event_id', userController.searchFriends);
-
 
 module.exports = router;
 

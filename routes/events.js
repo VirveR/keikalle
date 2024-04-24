@@ -18,4 +18,7 @@ router.get('/event/:id', eventController.getEvent);
 //POST register user to event
 router.post('/registerToEvent', eventController.registerToEvent);
 
+//POST assorted users via event page
+router.post('/event/:id', eventController.searchFriends);
+
 module.exports = router;
