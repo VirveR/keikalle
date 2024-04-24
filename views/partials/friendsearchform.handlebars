@@ -1,0 +1,27 @@
+<form action="/event" method="post" id="friend_search_form" role="search" aria-label="Friend search">
+    <fieldset>
+        <legend>Ikä</legend>
+        <div class="age-inputs">
+            <label for="min_friend_age" class="loginform-label_small">Vähintään</label>
+            <input type="number" id="min_friend_age" name="min_friend_age" class="loginform-input_small" aria-label="Minimum Age" value="" min="18" max="120">
+
+            <label for="max_friend_age" class="loginform-label_small">Enintään</label>
+            <input type="number" id="max_friend_age" name="max_friend_age" class="loginform-input_small" aria-label="Maximum Age" aria-describedby="max-error" value="" min="18" max="120">
+        </div>
+    </fieldset>
+    
+    <p>
+        <label for="friend_gender" class="loginform-label">Sukupuoli</label>
+        <select class="loginform-input" name="friend_gender" id="friend_gender" style="float:right;">
+            <option value="ei valittu">ei valittu</option>
+            <option value="nainen">nainen</option>
+            <option value="mies">mies</option>
+            <option value="muu">muu</option>
+        </select>
+    </p>
+    <p class="input_container">
+        <label for="friend_city" class="loginform-label">Paikkakunta</label>
+        <input type="text" class="loginform-input" name="friend_city" id="friend_city">
+    </p>
+    <button type="submit" class="submit-login-button">Hae kaverit</button>
+</form>
