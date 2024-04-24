@@ -110,6 +110,7 @@ const getEvent = async (req, res) => {
                 date: formattedDate
             };
             res.status(200).render('event', {
+                alias: req.session.user.alias,
                 concert: eventWithFormattedDate
             });
         }
