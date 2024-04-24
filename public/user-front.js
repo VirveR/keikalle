@@ -48,9 +48,25 @@ function removeProfilePicture() {
     }
 }
 
-function registerUserToConcert() {
-    alert("toimii");
-}
+$(document).on('click', '.registerToEvent', function() {
+    const eventId = this.id;
+    $.ajax({
+        url: '/registerToEvent',
+        type: 'POST',
+        data: {eventId: eventId},
+        success: function(data){
+            if(data.added){
+                location.reload();
+                console.log("registered to event");
+            }
+            else{
+                console.log("registration to event failed");
+            }
+        }
+    });
+});
+
+
 
 $(document).on('click', '#show-all-btn', function() {
     $('#search_performer').val("");

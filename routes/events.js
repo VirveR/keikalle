@@ -15,4 +15,7 @@ router.post('/', sanitizeEventSearch, eventController.searchEvents);
 //GET event page
 router.get('/event', eventController.getEvent);
 
+//POST register user to event
+router.post('/registerToEvent', eventController.registerToEvent);
+
 module.exports = router;

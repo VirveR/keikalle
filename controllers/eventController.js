@@ -98,4 +98,26 @@ const getEvent = async (req, res) => {
     res.render('event');
 }
 
-module.exports = { getHome, searchEvents, getEvent };
+// POST user to event
+const registerToEvent = async (req, res) => {
+    var userId;
+    var eventId = req.body.eventId;
+    if (req.session.user) {
+        userId = req.session.user.userId;
+    }
+
+    try{
+        await EventModel.findOneAndUpdate(
+            {_id: eventId },
+            {$push: {usersRegistered: userId}}
+        );
+        res.json({added : true});
+    }
+    catch(error){
+        console.log(error);
+        res.json({added : false});
+    }
+
+}
+
+module.exports = { getHome, searchEvents, getEvent, registerToEvent }; 

@@ -89,6 +89,7 @@ const userLogin = async (req, res) => {
             if(bcrypt.compareSync(password, user.password)){
                 req.session.user = { 
                     alias: req.body.alias,
+                    userId: user.id,
                     isLoggedIn: true
                 };
                 await req.session.save();
