@@ -324,6 +324,12 @@ h3 {
     margin: 20px 0;
 }
 
+.card-link {
+    display: block;
+    text-decoration: none;
+    color: #fff;
+}
+
 .event_card_image-container {
     width: 190px;
     height: 190px;

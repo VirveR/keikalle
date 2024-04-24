@@ -2,7 +2,9 @@
 
 {{#each events}}
     <div class="event_card">
-        <img class="bandImage" src="./images/bandimages/{{this.imgSrc}}" alt="Band">
+        <div class="event_card_image-container">
+            <img class="bandImage" src="./images/bandimages/{{this.imgSrc}}" alt="Band">
+        </div>
         <section class="eventInformation">
             <h3 class="artistName">
                 <!--Shows the band names in a row, separated by a / -->
@@ -23,3 +25,4 @@
         </section>        
     </div>
 {{/each}}  
+
