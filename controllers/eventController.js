@@ -100,6 +100,10 @@ const searchEvents = async (req, res) => {
 
 // GET event page
 const getEvent = async (req, res) => {
+    let alias = "";
+    if (req.session.user) {
+        alias = req.session.user.alias;
+    }
     try {
         const eventId = req.params.id;
         const concert = await EventModel.findById(eventId);
@@ -110,8 +114,9 @@ const getEvent = async (req, res) => {
                 date: formattedDate
             };
             res.status(200).render('event', {
-                alias: req.session.user.alias,
-                concert: eventWithFormattedDate
+                concert: eventWithFormattedDate,
+                pagetitle: 'Tapahtuma',
+                alias: alias
             });
         }
         else {
