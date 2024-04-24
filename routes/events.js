@@ -12,7 +12,7 @@ router.get('/', eventController.getHome);
 //GET assorted events
 router.post('/', sanitizeEventSearch, eventController.searchEvents);
 
-//GET event page
+//GET event page by event ID
 router.get('/event/:id', eventController.getEvent);
 
 //POST register user to event
