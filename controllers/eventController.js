@@ -149,23 +149,44 @@ const searchFriends = async (req, res) => {
     try {
         const eventId = req.params.id;
         const concert = await EventModel.findById(eventId);
+        const thisYear = new Date().getFullYear();
         if (concert) {
-            const friends = await UserModel.find();
-            res.status(200).render('event', {
-                concert: concert.toJSON(),
-                friends: friends.map(friend => friend.toJSON())
-            })
+            let minYear = thisYear;
+            if (req.body.min_friend_age) { minYear = thisYear - Number(req.body.min_friend_age); }
+            let maxYear = thisYear - 120;
+            if (req.body.max_friend_age) { maxYear = thisYear - Number(req.body.max_friend_age); }
+            const gender = req.body.friend_gender;
+            const city = req.body.friend_city;
+            const users = concert.usersRegistered;
+
+            const query = {};
+            query._id = { $in: users };
+            query.birthYear = { $lte: minYear, $gte: maxYear };
+            if (gender && gender !== 'ei valittu') { query.gender = gender; }
+            if (city) { query.city = city; }
+
+            const friends = await UserModel.find(query);
+            if (friends.length < 1) {
+                res.render('event', {
+                    info: 'Hakuehdoilla ei löydy ketään',
+                    concert: concert.toJSON()
+                });
+            }
+            else {
+                res.status(200).render('event', {
+                    concert: concert.toJSON(),
+                    friends: friends.map(friend => friend.toJSON())
+                });
+            }
         }
         else {
-            res.status(404).render('event', {
-                info: req.flash('info')
-            });
+            req.flash('info', 'Jotain meni pieleen');
+            res.status(404).redirect('/');
         }
     }
     catch(error) {
-        res.status(404).render('index', {
-            info: 'Tapahtuman haku epäonnistui'
-        });
+        req.flash('info', 'Jotain meni pieleen')
+        res.status(404).redirect('/');
         console.log(error);
     }
 }
