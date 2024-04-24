@@ -262,6 +262,7 @@ h3 {
 }
 
 .carousel-item {
+    cursor: pointer;
     display: flex;
     flex-direction: column;
     align-content: center;

@@ -1,6 +1,6 @@
 <div role="region" aria-label="Event Carousel" class="carousel">
     {{#each showcase}}
-        <div class="carousel-item">
+        <div class="carousel-item" onclick="location.href='/event/{{this._id}}'">
             <h3>{{this.date}}<br>
             {{#each this.artists}}
                 {{#if @first}}
@@ -15,6 +15,6 @@
             </p>
             <img src="./images/bandimages/{{this.imgSrc}}">
         </div>
-        
     {{/each}}
+    
 </div>
