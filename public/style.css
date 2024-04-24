@@ -310,32 +310,49 @@ h3 {
     align-items: center;
 }
 
+.event_search_results {
+    width: 60%;
+}
+
 /* Event cards in event search */
 
 .event_card {
     display: flex;
     flex-direction: row;
     width: 100%;
+    height: 190px;
     border: 2px solid #8A8E9B;
     margin: 20px 0;
 }
 
+.card-link {
+    display: block;
+    text-decoration: none;
+    color: #fff;
+}
+
+.event_card_image-container {
+    width: 190px;
+    height: 190px;
+    overflow: hidden;
+}
+
 .bandImage {
-    width: 22% !important;
-    height: auto;
-    object-fit: contain;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
 }
 
 .eventInformation {
     display: flex;
+    flex: 1;
     flex-direction: column;
     justify-content: space-between;
-    width: 61%;
     padding-left: 25px;
 }
 
 .eventInformation h3 {
-    margin-top: 15px;
+    margin-left: 0;
 }
 
 .eventInformation p {

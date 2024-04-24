@@ -40,40 +40,10 @@
 
         <!-- Events from the database -->
         <section id="event_search_results" class="event_search_results">
-            {{#if events}}
-        
-                {{events_info}} <br>
-
-                {{#each events}}
-                    <div class="event_card">
-                        <img class="bandImage" src="./images/bandimages/{{this.imgSrc}}" alt="Band">
-                        <section class="eventInformation">
-                            <h3 class="artistName">
-                                <!--Shows the band names in a row, separated by a / -->
-                                {{#each this.artists}}
-                                    {{#if @first}}
-                                        {{this}}
-                                    {{else}}
-                                        / {{this}}
-                                    {{/if}}
-                                {{/each}}
-                            </h3>
-                            <p>Tähän päivämäärä</p>
-                            <p>{{this.place}}, {{this.city}}</p>
-                        </section>
-                        <section class="enrollmentCount">
-                            <dt><label for="enrollment_count">Ilmoittautuneita</label></dt>
-                            <dd id="enrolment_count">xxx</dd>
-                        </section>        
-                    </div>
-                {{/each}}       
-            
-            {{/if}}
+            {{>searchedEvents}}
         </section>
     </section>
 
 </main>
 
 {{>footer}}
-
-
