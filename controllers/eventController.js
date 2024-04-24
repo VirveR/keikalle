@@ -165,7 +165,11 @@ const searchFriends = async (req, res) => {
             if (gender && gender !== 'ei valittu') { query.gender = gender; }
             if (city) { query.city = city; }
 
-            const friends = await UserModel.find(query);
+            const f = await UserModel.find(query);
+            const friends = f.map(friend => {
+                const age = thisYear - Number(friend.birthYear);
+                return {...friend.toObject(), age};
+            });
             if (friends.length < 1) {
                 res.render('event', {
                     info: 'Hakuehdoilla ei löydy ketään',
@@ -175,7 +179,7 @@ const searchFriends = async (req, res) => {
             else {
                 res.status(200).render('event', {
                     concert: concert.toJSON(),
-                    friends: friends.map(friend => friend.toJSON())
+                    friends: friends
                 });
             }
         }

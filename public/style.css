@@ -534,6 +534,41 @@ legend {
     margin: 13px 0;
 }
 
+#friends-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.friend-card {
+    width: 60%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border: 2px solid #8A8E9B;
+    margin: 20px;
+}
+
+.friend-img-container {
+    background-color: #8A8E9B;
+    width: 200px;
+    height: 200px;
+}
+
+.friend-img-container > img {
+    width: 100%;
+    height: 100%;
+}
+
+.friend-details > p {
+    padding: 0 17px;
+    margin: 0;
+}
+
+.friend-connect {
+    padding: 20px;
+}
+
 /* Event page ends */
 
 

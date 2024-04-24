@@ -1,7 +1,20 @@
 {{#if friends}}
-
-    {{#each friends}}
-        <br>{{this.alias}}
-    {{/each}}       
-
+    <div id="friends-container">
+        {{#each friends}}
+            <div class="friend-card">
+                <div class="friend-img-container">
+                    <img src="../images/profileimages/{{this.imageSrc}}" alt="">
+                </div>
+                <div class="friend-details">
+                    <h3>{{this.alias}}</h3>
+                    <p>Paikkakunta: {{this.city}}</p>
+                    <p>Sukupuoli: {{this.gender}}</p>
+                    <p>Ikä: {{this.age}}</p>
+                </div>
+                <div class="friend-connect">
+                    <button type="button" class="sign-out-btn">Ota yhteyttä</button>
+                </div>
+            </div>
+        {{/each}}  
+    </div>    
 {{/if}}
