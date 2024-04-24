@@ -456,6 +456,7 @@ h3 {
     flex-direction: row;
     width: 93%;
     margin: 2em;
+    align-items: flex-end;
 }
 
 .event_band_image-container {
@@ -467,14 +468,34 @@ h3 {
 .event_info {
     flex: 1;
     text-align: left;
-    padding-left: 3em;
+    padding-left: 5em;
 }
 
 .event_info h1 {
     margin-top: 0;
     margin-left: 0;
-    font-size: 35pt;
+    font-size: 38pt;
     text-align: left;
+}
+
+.event_info h2 {
+    margin-top: 0;
+    margin-left: 0;
+    font-size: 22pt;
+    text-align: left;
+}
+
+.event_container .enrollmentCount {
+    height: 100px;
+    width: 15%;
+}
+
+.event_container .enrollmentCount dt{
+    font-size: 18pt;
+}
+
+.event_container .enrollmentCount dd{
+    font-size: 25pt;
 }
 
 #find_friend {

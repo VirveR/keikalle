@@ -104,21 +104,22 @@ const getEvent = async (req, res) => {
         const eventId = req.params.id;
         const concert = await EventModel.findById(eventId);
         if (concert) {
+            const formattedDate = format(concert.date, 'dd.MM.yyy', 'fi');
+            const eventWithFormattedDate = {
+                ...concert.toJSON(),
+                date: formattedDate
+            };
             res.status(200).render('event', {
-                pagetitle: 'Tapahtuma',
-                alias: req.session.user.alias,
-                concert: concert.toJSON()
-            })
+                concert: eventWithFormattedDate
+            });
         }
         else {
             res.status(404).render('event', {
-                pagetitle: 'Tapahtuma',
                 info: req.flash('info')
             });
         }
-        
-        
     }
+
     catch(error) {
         res.status(404).render('index', {
             pagetitle: 'Etusivu',
