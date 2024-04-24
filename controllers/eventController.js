@@ -189,10 +189,15 @@ const searchFriends = async (req, res) => {
                 });
             }
             else {
+                const formattedDate = format(concert.date, 'dd.MM.yyy', 'fi');
+                const eventWithFormattedDate = {
+                    ...concert.toJSON(),
+                    date: formattedDate
+                };
                 res.status(200).render('event', {
                     pagetitle: 'Tapahtuma',
                     alias: req.session.user.alias,
-                    concert: concert.toJSON(),
+                    concert: eventWithFormattedDate,
                     friends: friends
                 });
             }
