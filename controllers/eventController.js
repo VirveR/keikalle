@@ -19,7 +19,8 @@ const { format } = require('date-fns');
 //GET home and get the events to the home page
 const getHome = async (req, res) => {
     try {
-        const e = await EventModel.find().sort({date: 1}).limit(4);
+        const today = new Date();
+        const e = await EventModel.find({ date: { $gte: today } }).sort({date: 1}).limit(4);
         const events = e.map(event => {
             const formattedDate = format(event.date, 'dd.MM.yyy', 'fi');
             return {...event.toObject(), date: formattedDate};
@@ -48,10 +49,15 @@ const getHome = async (req, res) => {
 
 //POST search events according to search criteria
 const searchEvents = async (req, res) => {
+    let alias = "";
+    if (req.session.user) {
+        alias = req.session.user.alias;
+    }
     try {
         const artist = req.body.search_performer;
         const city = req.body.search_city;
         const place = req.body.search_place;
+        const today = new Date();
         //console.log(`artist: ${artist}, city: ${city}, place: ${place}`);
 
         const query = {};
@@ -59,6 +65,7 @@ const searchEvents = async (req, res) => {
         if (artist) { query.artists = { $in: [artist] }; }
         if (city) { query.city = city; }
         if (place) { query.place = place; }
+        query.date = { $gte: today };
 
         const e = await EventModel.find(query).sort({date: 1});
         const events = e.map(event => {
@@ -66,10 +73,6 @@ const searchEvents = async (req, res) => {
             return {...event.toObject(), date: formattedDate};
         });
 
-        let alias = "";
-        if (req.session.user) {
-            alias = req.session.user.alias;
-        }
         if (events.length == 0) {
             req.flash('info', 'Hakuehdoilla ei löytynyt tapahtumia');
             res.redirect('/');

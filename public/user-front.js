@@ -48,6 +48,11 @@ function removeProfilePicture() {
     }
 }
 
+$(document).on('click', '#show-all-btn', function() {
+    $('#search_performer').val("");
+    $('#search_city').val("");
+    $('#search_place').val("");
+});
 
 // Registration form validations
 //Checking if alias is reserved in database
