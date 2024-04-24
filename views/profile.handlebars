@@ -2,8 +2,8 @@
 
 <main class="top_section">
     <h2>Oma profiilini</h2>
-    <p role="text" aria-label="Information about success or failure of updates" class="update_info">{{updateInfo}}</p>
-
+    <section id="error-box" aria-live="polite" role="alert" {{#if info}}style="display:block; border: 2px solid red;"{{else if infoArray}}style="display:block; border: 2px solid red;"{{else}}style="display: none;"{{/if}}></section>
+    
     <div id="profile-container">
 
         <!-- Profile image -->
@@ -62,8 +62,6 @@
                 </p>
 
                 <p class="input_container">
-                    <input type="hidden" name="alias-validation-ok" id="update-alias-ok" value="0">
-                    <input type="hidden" name="email-validation-ok" id="update-email-ok" value="0">
                     <button type="submit" class="sign-out-btn" id="update-button" style="display:none;">Tallenna muutokset</button>
                 </p>
             </form>

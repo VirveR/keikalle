@@ -65,6 +65,7 @@ const getUserProfile = async (req, res) => {
         const alias = req.session.user.alias;
         const user = await UserModel.findOne({ alias: alias });
         res.render('profile', {
+            pagetitle: 'Profiili',
             info: 'Käyttäjän hakeminen onnistui',
             alias: alias,
             profile: user.toJSON(),
@@ -72,9 +73,8 @@ const getUserProfile = async (req, res) => {
         });
     }
     catch(error) {
-        res.status(404).render('profile', {
-            info: 'Test failed'
-        });
+        req.flash('info', 'Jotain meni pieleen');
+        res.redirect('/');
     }
 };
 
@@ -178,13 +178,16 @@ const updateUser = async (req, res) => {
         try {
             const user = await UserModel.findOne({ _id: searchedId });
             res.render('profile', { 
+                pagetitle: 'Profiili',
+                alias: req.session.user.alias,
                 profile: user.toJSON(),
                 helpers: { isEqual(a, b) { return a === b; } },
-                updateInfo: req.body.sanitizingErrors
+                info: req.body.sanitizingErrors
             });
         }
         catch(error){
             res.render("index", {
+                patetitle: 'Etusivu',
                 infoArray: 'Käyttäjän lataaminen epäonnistui'
             });
         }
@@ -204,16 +207,19 @@ const updateUser = async (req, res) => {
                 {new: true}
                 );
             res.render('profile', { 
+                pagetitle: 'Profiili',
+                alias: req.session.alias,
                 profile: user.toJSON(),
                 helpers: { isEqual(a, b) { return a === b; } },
-                updateInfo: 'Muutokset tallennettu.'
+                info: 'Muutokset tallennettu.'
             });
         }
         catch(error) {
             res.status(500).render('profile', {
+                pagetitle: 'Profiili',
                 profile: user.toJSON(),
                 helpers: { isEqual(a, b) { return a === b; } },
-                updateInfo: 'Muutoksia ei voitu tallentaa.'
+                info: 'Muutoksia ei voitu tallentaa.'
             });
             console.log(error);
         }
@@ -278,6 +284,7 @@ const deleteProfilePicture = async (req, res) => {
     }
     catch(error){
         res.status(404).render('profile', {
+            pagetitle: 'Profiili',
             info: 'Test failed'
         });
         console.log(error);
@@ -290,11 +297,15 @@ const deleteUser = async (req, res) => {
         console.log(req.body.id);
         const deleteId = req.body.id;
         const user = await UserModel.findOneAndDelete({ _id: deleteId });
-        res.render('index', { info: 'Käyttäjäprofiilisi on nyt poistettu.'});
+        res.render('index', { 
+            pagetitle: 'Etusivu',
+            info: 'Käyttäjäprofiilisi on nyt poistettu.'
+        });
     }
     catch(error) {
         res.status(404).render('profile', {
-            updateInfo: 'Jotain meni pieleen!'
+            pagetitle: 'Profiili',
+            info: 'Jotain meni pieleen!'
         });
         console.log(error);
     }
@@ -309,6 +320,7 @@ const userLogOut = async (req, res) => {
     }
     catch(error) {
         res.status(500).render('index', {
+            pagetitle: 'Etusivu',
             info: 'Jotain meni pieleen.'
         });
     console.log(error);

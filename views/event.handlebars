@@ -29,17 +29,21 @@
     </div>
 </article>
 
-<section id="find_friend" class="find_friend dark_bg">
-    <section id="friend_search">
-        <h2>Hae kaveria keikalle</h2>
-        {{>friendsearchform}}
-    </section>
+{{#if alias}}
+    <section id="find_friend" class="find_friend dark_bg">
+        <section id="friend_search">
+            <h2>Hae kaveria keikalle</h2>
+            {{>friendsearchform}}
+        </section>
 
-    <!-- Friends from the database -->
-    <section id="find-friend-results" class="event_search_results">
-        {{>searchedFriends}}
+        <!-- Friends from the database -->
+        <section id="find-friend-results" class="event_search_results">
+            {{>searchedFriends}}
+        </section>
     </section>
-</section>
+{{else}}
+    <p>Kirjaudu sisään, niin pääset hakemaan kavereita.</p>
+{{/if}}
 
 {{>footer}}
 

@@ -30,7 +30,8 @@ const getHome = async (req, res) => {
         if (req.session.user) {
             alias = req.session.user.alias;
         }
-        res.render('index', {
+        res.status(200).render('index', {
+            pagetitle: 'Etusivu',
             info: req.flash('info'),
             alias: alias,
             userPressesLoginButtonShowThis: true,
@@ -40,6 +41,7 @@ const getHome = async (req, res) => {
     }
     catch(error) {
         res.status(404).render('index', {
+            pagetitle: 'Etusivu',
             userPressesLoginButtonShowThis: true,
             events_info: 'Tapahtumien haku epäonnistui'
         });
@@ -79,7 +81,8 @@ const searchEvents = async (req, res) => {
             res.redirect('/');
         }
         else {
-            res.render('index', {
+            res.status(200).render('index', {
+                pagetitle: 'Etusivu',
                 alias: alias,
                 events: events,
                 showcase: events.slice(0, 4)
@@ -88,6 +91,7 @@ const searchEvents = async (req, res) => {
     }
     catch(error) {
         res.status(404).render('index', {
+            pagetitle: 'Etusivu',
             alias: alias,
             info: 'Tapahtumien hakeminen epäonnistui'
         });
@@ -101,11 +105,14 @@ const getEvent = async (req, res) => {
         const concert = await EventModel.findById(eventId);
         if (concert) {
             res.status(200).render('event', {
+                pagetitle: 'Tapahtuma',
+                alias: req.session.user.alias,
                 concert: concert.toJSON()
             })
         }
         else {
             res.status(404).render('event', {
+                pagetitle: 'Tapahtuma',
                 info: req.flash('info')
             });
         }
@@ -114,6 +121,7 @@ const getEvent = async (req, res) => {
     }
     catch(error) {
         res.status(404).render('index', {
+            pagetitle: 'Etusivu',
             info: 'Tapahtuman haku epäonnistui'
         });
         console.log(error);
@@ -157,7 +165,7 @@ const searchFriends = async (req, res) => {
             if (req.body.max_friend_age) { maxYear = thisYear - Number(req.body.max_friend_age); }
             const gender = req.body.friend_gender;
             const city = req.body.friend_city;
-            const users = concert.usersRegistered;
+            const users = concert.usersRegistered.filter(id => id !== req.session.user.userId);
 
             const query = {};
             query._id = { $in: users };
@@ -172,12 +180,16 @@ const searchFriends = async (req, res) => {
             });
             if (friends.length < 1) {
                 res.render('event', {
+                    pagetitle: 'Tapahtuma',
+                    alias: req.session.user.alias,
                     info: 'Hakuehdoilla ei löydy ketään',
                     concert: concert.toJSON()
                 });
             }
             else {
                 res.status(200).render('event', {
+                    pagetitle: 'Tapahtuma',
+                    alias: req.session.user.alias,
                     concert: concert.toJSON(),
                     friends: friends
                 });
