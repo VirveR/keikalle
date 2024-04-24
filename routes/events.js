@@ -13,7 +13,7 @@ router.get('/', eventController.getHome);
 router.post('/', sanitizeEventSearch, eventController.searchEvents);
 
 //GET event page
-router.get('/event', eventController.getEvent);
+router.get('/event/:id', eventController.getEvent);
 
 //POST register user to event
 router.post('/registerToEvent', eventController.registerToEvent);

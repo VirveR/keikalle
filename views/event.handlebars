@@ -4,11 +4,11 @@
 <article class="top_section">
     <section id="error-box" aria-live="polite" role="alert" {{#if info}}style="display:block; border: 2px solid red;"{{else if infoArray}}style="display:block; border: 2px solid red;"{{else}}style="display: none;"{{/if}}>{{info}}{{#each infoArray}} <p> {{this}} </p> {{/each}}</section>
     <section id="event_info_img">
-        <img class="bandImage" src="./images/bandimages/rock_band_01.jpg" alt="Band">
+        <img src="/images/bandimages/{{concert.imgSrc}}" alt="Band" class="bandImage">
         <section class="event_info">
             <h3 class="artistName">
                 <!--Shows the band names in a row, separated by a / -->
-                {{#each this.artists}}
+                {{#each concert.artists}}
                     {{#if @first}}
                         {{this}}
                     {{else}}
@@ -17,7 +17,7 @@
                 {{/each}}
             </h3>
             <p>Tähän päivämäärä</p>
-            <p>{{this.place}}, {{this.city}}</p>
+            <p>{{concert.place}}, {{concert.city}}</p>
         </section>
         <section class="enrollmentCount">
             <dt><label for="enrollment_count">Ilmoittautuneita</label></dt>

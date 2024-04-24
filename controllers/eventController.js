@@ -95,7 +95,30 @@ const searchEvents = async (req, res) => {
 
 // GET event page
 const getEvent = async (req, res) => {
-    res.render('event');
+    try {
+        const eventId = req.params.id;
+        const concert = await EventModel.findById(eventId);
+        if (concert) {
+            res.status(200).render('event', {
+                concert: concert.toJSON()
+            })
+        }
+        else {
+            res.status(404).render('event', {
+                info: req.flash('info')
+            });
+        }
+        
+        
+    }
+    catch(error) {
+        res.status(404).render('index', {
+            info: 'Tapahtuman haku epäonnistui'
+        });
+        console.log(error);
+    }
+
+    //res.render('event');
 }
 
 // POST user to event
