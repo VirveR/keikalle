@@ -14,12 +14,13 @@
                     {{/if}}
                 {{/each}}
             </h3>
-            <p>Tähän päivämäärä</p>
+            <p>{{this.date}}</p>
             <p>{{this.place}}, {{this.city}}</p>
         </section>
         <section class="enrollmentCount">
+            <button aria-label="Ilmoittaudu keikalle" onclick="registerUserToConcert()" type="button">Ilmoittaudu Keikalle</button>
             <dt><label for="enrollment_count">Ilmoittautuneita</label></dt>
-            <dd id="enrolment_count">xxx</dd>
+            <dd id="enrolment_count">{{#if this.usersRegistered}}{{this.usersRegistered.length}}{{else}}0{{/if}}</dd>
         </section>        
     </div>
 {{/each}}  

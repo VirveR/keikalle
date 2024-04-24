@@ -48,6 +48,10 @@ function removeProfilePicture() {
     }
 }
 
+function registerUserToConcert() {
+    alert("toimii");
+}
+
 $(document).on('click', '#show-all-btn', function() {
     $('#search_performer').val("");
     $('#search_city').val("");
