@@ -81,10 +81,11 @@ const searchEvents = async (req, res) => {
 
         const query = {};
 
-        if (artist) { query.artists = { $in: [artist] }; }
-        if (city) { query.city = city; }
-        if (place) { query.place = place; }
+        if (artist) { query.artists = { $elemMatch: { $regex: new RegExp(artist, 'i') }}; }
+        if (city) { query.city = { $regex: city, $options: 'i' }; }
+        if (place) { query.place = { $regex: place, $options: 'i' }; }
         query.date = { $gte: today };
+        console.log(query);
 
         const e = await EventModel.find(query).sort({date: 1});
         const events = e.map(event => {
