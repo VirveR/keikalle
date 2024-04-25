@@ -77,13 +77,12 @@ const searchEvents = async (req, res) => {
         const city = req.body.search_city;
         const place = req.body.search_place;
         const today = new Date();
-        //console.log(`artist: ${artist}, city: ${city}, place: ${place}`);
 
         const query = {};
 
-        if (artist) { query.artists = { $in: [artist] }; }
-        if (city) { query.city = city; }
-        if (place) { query.place = place; }
+        if (artist) { query.artists = { $elemMatch: { $regex: new RegExp(artist, 'i') }}; }
+        if (city) { query.city = { $regex: city, $options: 'i' }; }
+        if (place) { query.place = { $regex: place, $options: 'i' }; }
         query.date = { $gte: today };
 
         const e = await EventModel.find(query).sort({date: 1});
@@ -237,7 +236,7 @@ const searchFriends = async (req, res) => {
             query._id = { $in: users };
             query.birthYear = { $lte: minYear, $gte: maxYear };
             if (gender && gender !== 'ei valittu') { query.gender = gender; }
-            if (city) { query.city = city; }
+            if (city) { query.city = { $regex: city, $options: 'i' }; }
 
             const f = await UserModel.find(query);
             const friends = f.map(friend => {

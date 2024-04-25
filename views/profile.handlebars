@@ -2,13 +2,16 @@
 
 <main class="top_section" style="border:none">
     <h1>Oma profiilini</h1>
-    <section id="error-box_profile" class="error-box" aria-live="polite" role="alert" {{#if info}}style="display:block; border: 2px solid darkred;"{{else if infoArray}}style="display:block; border: 2px solid darkred;"{{else}}style="display: none;"{{/if}}>
-            {{info}}
-            {{#each infoArray}} 
-                <p> {{this}} </p> 
-            {{/each}}
-            <button type="button" id="close-info-btn" onclick="closeInfoBox()">&#10006;</button>
-        </section>
+    <section id="error-box_profile" class="error-box" aria-live="polite" role="alert" 
+        {{#if info}}style="display:block; border: 2px solid darkred;"
+        {{else if infoArray}}style="display:block; border: 2px solid darkred;"
+        {{else}}style="display: none;"{{/if}}>
+        {{info}}
+        {{#each infoArray}} 
+            <p> {{this}} </p> 
+        {{/each}}
+        <button type="button" id="close-info-btn" onclick="closeInfoBox()">&#10006;</button>
+    </section>
     
     <div id="profile-container">
 
@@ -42,13 +45,13 @@
                 </p>
                 <p class="input_container">
                     <label for="alias" class="loginform-label">Nimimerkki*</label>
-                    <input type="text" class="loginform-input" name="alias" id="update-alias" value="{{profile.alias}}" required="true">
-                    <span role="text" aria-label="Instructions for filling out the form" class="validation_info" id="update-alias-info">Nimimerkin tulisi olla 3-20 merkkiä pitkä, ei erikoismerkkejä</span>
+                    <input type="text" class="loginform-input" name="alias" id="update-alias" value="{{profile.alias}}" aria-required="true" aria-describedby="update-alias-info">
+                    <span role="text" aria-label="Nimimerkkikentän ohje" class="validation_info" id="update-alias-info">Nimimerkin tulisi olla 3-20 merkkiä pitkä, ei erikoismerkkejä</span>
                 </p>
                 <p class="input_container">
                     <label for="email" class="loginform-label">Sähköposti*</label>
-                    <input type="text" class="loginform-input" name="email" id="update-email" value="{{profile.email}}" required="true">
-                    <span role="text" aria-label="Instructions for filling out the form" class="validation_info" id="update-email-info"></span>
+                    <input type="text" class="loginform-input" name="email" id="update-email" value="{{profile.email}}" aria-required="true" aria-describedby="update-email-info">
+                    <span role="text" aria-label="Sähköpostikentän ohje" class="validation_info" id="update-email-info">Toimiva sähköpostiosoite vaaditaan</span>
                 </p>
                 <p class="input_container">
                     <label for="city" class="loginform-label">Paikkakunta</label>
