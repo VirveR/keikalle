@@ -22,7 +22,8 @@ sharp.cache(false);
 
 const upload = require('../middlewares/upload');
 const { setTimeout } = require('timers/promises');
-const session = require('express-session');
+const { sendMail } = require('../middlewares/mailer');
+
 
 /* ROUTES
     - GET /user (Get all users from db)
@@ -76,7 +77,6 @@ const addNewUser = async (req, res) => {
             req.body.password = hash;
             // create a document
             const newUser = new UserModel(req.body);
-            newUser.imageSrc = 'kale.png';
             // save the data to db
             await newUser.save();
             req.flash('info', 'Rekisteröityminen onnistui. Voit nyt kirjautua sisään.');
@@ -191,6 +191,16 @@ const getUserProfile = async (req, res) => {
         res.status(404).redirect('/');
     }
 };
+
+// GET send Email to other user
+const sendEmail = async (req, res) => {
+    console.log("Yritetään!");
+    await sendMail("anttimutanen@gmail.com", "Testiviesti");
+    console.log("Onnistutaanko?")
+    res.render('/event', {
+        info: "Viestiä yritetty lähettää"
+    });
+}
 
 
 
@@ -328,12 +338,13 @@ const deleteProfilePicture = async (req, res) => {
 // POST /delete-profile (Remove user from db)
 const deleteUser = async (req, res) => {
     try {
-        req.flash('info', 'Käyttäjäprofiilisi on nyt poistettu');
         console.log(req.body.id);
         const deleteId = req.body.id;
         const user = await UserModel.findOneAndDelete({ _id: deleteId });
-        await req.session.destroy();
-        res.redirect('/');
+        res.render('index', { 
+            pagetitle: 'Etusivu',
+            info: 'Käyttäjäprofiilisi on nyt poistettu.'
+        });
     }
     catch(error) {
         res.status(404).render('profile', {
@@ -364,6 +375,6 @@ const userLogOut = async (req, res) => {
 
 module.exports = {
     getUser, addNewUser, getUserByAlias, getBooleanIfAliasInDB, userLogin, 
-    getUserProfile, updateUser, uploadProfilePic, deleteProfilePicture, 
+    getUserProfile, sendEmail, updateUser, uploadProfilePic, deleteProfilePicture, 
     deleteUser, userLogOut 
 };
