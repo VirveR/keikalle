@@ -1,10 +1,11 @@
 <div id="signupForm" style="display: none;">
     <h2>Rekisteröidy käyttäjäksi</h2>
+    <p>Täytä kaikki kentät</p>
     <form action="/user" method="post" enctype="x-www-form-urlencoded">
         <p class="input_container">
             <label for="signup_alias" class="loginform-label">Nimimerkki</label>
             <input type="text" class="loginform-input" name="alias" id="signup_alias">
-            <span role="text" aria-label="Instructions for filling out the form" class="validation_info" id="alias_validation">Nimimerkin tulisi olla 3-20 merkkiä pitkä</span>
+            <span role="text" aria-label="Ohje nimimerkkikentän täyttämiseen" class="validation_info" id="alias_validation">Nimimerkin tulisi olla 3-20 merkkiä pitkä</span>
         </p>
 
         <p class="input_container">
