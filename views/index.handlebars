@@ -13,11 +13,11 @@
 
         <h1>Keikalle</h1>
         <p class="content_width">Tervetuloa Keikalle! Selaa tapahtumia alta ja valkkaa mieleisesi kaveri mukaan.</p>
-        <p class="content_width">Voit hakea tapahtumia esiintyjän, paikkakunnan tai paikan perusteella. Valitsemalla haluamasi keikan pääset näkemään 
+        <p class="content_width">Voit hakea tapahtumia esiintyjän, paikkakunnan tai paikan perusteella. Kun kirjaudut sisään, valitsemalla haluamasi keikan pääset näkemään 
             mukaan jo ilmoittautuneet kaverit ja pyytämään heitä mukaasi keikalle.</p>
 
         {{#unless userId}}
-            <section role="region" aria-label="Sign In / Sign Up">
+            <section role="region" aria-label="Kirjaudu sisään tai rekisteröidy käyttäjäksi">
                 <button type="button" class="signIn_button" id="openLoginFormButton" onClick="toggleSignInForm()">Kirjaudu</button>
                 <button type="button" class="signIn_button" id="openSignupFormButton" onClick="toggleSignUpForm()">Rekisteröidy</button>
             </section>

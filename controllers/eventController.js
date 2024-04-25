@@ -236,7 +236,7 @@ const searchFriends = async (req, res) => {
             query._id = { $in: users };
             query.birthYear = { $lte: minYear, $gte: maxYear };
             if (gender && gender !== 'ei valittu') { query.gender = gender; }
-            if (city) { query.city = city; }
+            if (city) { query.city = { $regex: city, $options: 'i' }; }
 
             const f = await UserModel.find(query);
             const friends = f.map(friend => {
