@@ -21,7 +21,7 @@ router.post('/unRegisterFromEvent', eventController.unRegisterFromEvent);
 // GET /event/:id (Get Event Page by event ID from db)
 router.get('/event/:id', eventController.getEvent);
 
-//POST assorted users via event page
+// POST /event/:id (Event Page with Friend Search results)
 router.post('/event/:id', eventController.searchFriends);
 
 module.exports = router;
