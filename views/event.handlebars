@@ -23,7 +23,7 @@
         </section>
         <section class="enrollmentCount">
             <dt><label for="enrollment_count_event">Ilmoittautuneita</label></dt>
-            <dd id="enrolment_count_event">xxx</dd>
+            <dd id="enrolment_count_event">{{#if concert.usersRegistered}}{{concert.usersRegistered.length}}{{else}}0{{/if}}</dd>
         </section>
       
     </div>
