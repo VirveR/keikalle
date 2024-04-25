@@ -1,7 +1,10 @@
 <header class="dark_bg">
     <nav id="nav-main">
-        <a href="/" class="logo">Keikalle.com</a>
-        <div id="sign-in-info">
+        <div class="sign-in-info">
+            <a href="/" class="logo">Keikalle.com</a>
+            <a href="/" class="nav-link">Etusivu</a>
+        </div>
+        <div class="sign-in-info">
             {{#if alias}}
                 <p style="display: inline;">Olet kirjautunut sisään: {{alias}}</p>
                 <button type="button" id="sign-out-btn" class="sign-out-btn" onclick="location.href='/logout'">Kirjaudu ulos</button>

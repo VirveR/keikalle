@@ -23,6 +23,7 @@
 
         <!-- Profile details -->
         <section id="profile-details">
+            <p>Pakolliset tiedot on merkitty tähdellä (*)</p>
             <form action="/profile" method="post" enctype="x-www-form-urlencoded">
                 <input type="hidden" name="id" id="update-id" value="{{profile._id}}">
                 <p class="input_container">
@@ -34,13 +35,13 @@
                     <input type="text" class="loginform-input" name="lastName" id="update-lastName" value="{{profile.lastName}}">
                 </p>
                 <p class="input_container">
-                    <label for="alias" class="loginform-label">Nimimerkki</label>
-                    <input type="text" class="loginform-input" name="alias" id="update-alias" value="{{profile.alias}}">
-                    <span role="text" aria-label="Instructions for filling out the form" class="validation_info" id="update-alias-info"></span>
+                    <label for="alias" class="loginform-label">Nimimerkki*</label>
+                    <input type="text" class="loginform-input" name="alias" id="update-alias" value="{{profile.alias}}" required="true">
+                    <span role="text" aria-label="Instructions for filling out the form" class="validation_info" id="update-alias-info">Nimimerkin tulisi olla 3-20 merkkiä pitkä, ei erikoismerkkejä</span>
                 </p>
                 <p class="input_container">
-                    <label for="email" class="loginform-label">Sähköposti</label>
-                    <input type="text" class="loginform-input" name="email" id="update-email" value="{{profile.email}}">
+                    <label for="email" class="loginform-label">Sähköposti*</label>
+                    <input type="text" class="loginform-input" name="email" id="update-email" value="{{profile.email}}" required="true">
                     <span role="text" aria-label="Instructions for filling out the form" class="validation_info" id="update-email-info"></span>
                 </p>
                 <p class="input_container">
@@ -58,11 +59,12 @@
                 </p>
                 <p class="input_container">
                     <label for="birthYear" class="loginform-label">Syntymävuosi</label>
-                    <input type="number" class="loginform-input" name="birthYear" id="update-birthYear" value="{{profile.birthYear}}" min="1900" max="2024">
+                    <input type="number" class="loginform-input" name="birthYear" id="update-birthYear" value="{{profile.birthYear}}" min="1904" max="2024">
                 </p>
 
                 <p class="input_container">
                     <button type="submit" class="sign-out-btn" id="update-button" style="display:none;">Tallenna muutokset</button>
+                    <button type="button" class="sign-out-btn" id="cancel-update" style="display:none;">Peruuta</button>
                 </p>
             </form>
         </section>

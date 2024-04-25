@@ -24,6 +24,7 @@ body {
 
 header {
     width: 100%;
+    padding: 20px 0 15px 0;
 }
 
 #nav-main {
@@ -31,31 +32,33 @@ header {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: space-between;    
+    justify-content: space-between; 
+    align-items: center;
 }
 
 .logo {
     text-decoration: none;
-    font-size: 24pt;
+    font-size: 32pt;
     font-weight: bold;
     color: white;
-    margin: 20px;
+    padding-bottom: 10px;
 }
 
 .nav-link {
     text-decoration: none;
     font-weight: bold;
     color: white;
-    padding: 20px;
 }
 
-#sign-in-info {
-    align-self: center;
+.sign-in-info {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
 
-#sign-in-info > * {
+.sign-in-info > * {
     display: inline;
-    margin: 0 20px;
+    margin: 0 30px;
 }
 
 @media only screen and (max-width: 910px) {
@@ -237,6 +240,7 @@ h3 {
     /*text-align: right;*/
     margin: 0px 10px;
     padding: 0;
+    width: 300px;
 }
 
 .loginform-input {
