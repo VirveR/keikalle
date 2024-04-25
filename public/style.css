@@ -470,20 +470,8 @@ h3 {
 }
 
 #delete-profile {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     padding: 20px;
 }
-
-.update_info {
-    text-align: center;
-}
-
-#confirm_delete {
-    display: none;
-}
-
 
 /* Event page */
 

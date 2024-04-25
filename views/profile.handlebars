@@ -1,6 +1,6 @@
 {{> header}}
 
-<main class="top_section">
+<main class="top_section" style="border:none">
     <h1>Oma profiilini</h1>
     <section id="error-box_profile" class="error-box" aria-live="polite" role="alert" {{#if info}}style="display:block; border: 2px solid darkred;"{{else if infoArray}}style="display:block; border: 2px solid darkred;"{{else}}style="display: none;"{{/if}}>
             {{info}}
@@ -78,13 +78,15 @@
 
     <!-- Delete profile -->
     <section id="delete-profile">
-        <button type="button" class="sign-out-btn red-btn" id="delete_btn">Poista profiili</button>
-        <form action="/delete-profile" method="post" enctype="x-www-form-urlencoded" id="confirm_delete">
-            <p>Oletko aivan varma, että haluat poistaa profiilisi?</p>
-            <input type="hidden" name="id" id="id" value="{{profile._id}}">
-            <button type="button" class="sign-out-btn" id="cancel_delete" onclick="location.href=location.href">Peruuta!</button>
-            <button type="submit" class="sign-out-btn red-btn" id="delete-profile">Kyllä, poista profiili</button>
-        </form>
+        <button type="button" class="sign-out-btn red-btn" id="delete-profile-btn">Poista profiili</button>
+        <div id="confirm-delete-container" style="display:none">
+            <form action="/delete-profile" method="post" enctype="x-www-form-urlencoded" id="confirm-delete-form">
+                <p>Oletko aivan varma, että haluat poistaa profiilisi?</p>
+                <input type="hidden" name="id" id="id" value="{{profile._id}}">
+                <button type="button" class="sign-out-btn" id="cancel-delete" onclick="location.href=location.href">Peruuta!</button>
+                <button type="submit" class="sign-out-btn red-btn" id="confirm-delete-profile">Kyllä, poista profiili</button>
+            </form>
+        </div>
     </section>
 
 </main>

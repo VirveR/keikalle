@@ -234,7 +234,7 @@ $(document).on('focus', '#profile-details', function() {
 });
 
 // Confirm delete profile
-$(document).on('click', '#delete_btn', function() {
-    $('#delete_btn').hide(500);
-    $('#confirm_delete').slideDown(500);
+$(document).on('click', '#delete-profile-btn', function() {
+    $('#delete-profile-btn').hide(500);
+    $('#confirm-delete-container').slideDown(500);
 });
