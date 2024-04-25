@@ -49,7 +49,7 @@ function removeProfilePicture() {
 }
 
 $(document).on('click', '.registerToEvent', function() {
-    const eventId = this.id;
+    const eventId = this.id.split("_")[1];
     $.ajax({
         url: '/registerToEvent',
         type: 'POST',
@@ -64,6 +64,27 @@ $(document).on('click', '.registerToEvent', function() {
             }
         }
     });
+});
+
+
+$(document).on('click', '.unRegisterFromEvent', function() {
+    const eventId = this.id.split("_")[1];
+    alert(eventId);
+    /*
+    $.ajax({
+        url: '/registerToEvent',
+        type: 'POST',
+        data: {eventId: eventId},
+        success: function(data){
+            if(data.added){
+                location.reload();
+                console.log("registered to event");
+            }
+            else{
+                console.log("registration to event failed");
+            }
+        }
+    });*/
 });
 
 

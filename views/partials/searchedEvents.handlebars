@@ -21,7 +21,15 @@
                 <p>{{this.place}}, {{this.city}}</p>
             </section>
             <section class="enrollmentCount">
-                <button aria-label="Ilmoittaudu keikalle" class="registerToEvent" id="{{this._id}}" type="button">Ilmoittaudu Keikalle</button>
+                {{#if userLoggedIn}}
+                    {{#if userRegisteredToEvent}}
+                        <button aria-label="Poista ilmoittautuminen" class="unRegisterFromEvent" id="delete_{{this._id}}" type="button">Poista ilmoittautuminen</button>
+                    {{else}}
+                        <button aria-label="Ilmoittaudu keikalle" class="registerToEvent" id="add_{{this._id}}" type="button">Ilmoittaudu Keikalle</button>
+                    {{/if}}
+                {{else}}
+                    <p>Sinun täytyy olla kirjautunut sisään ilmoittautuaksesi keikalle</p>
+                {{/if}}
                 <dt><label for="enrollment_count">Ilmoittautuneita</label></dt>
                 <dd id="enrolment_count">{{#if this.usersRegistered}}{{this.usersRegistered.length}}{{else}}0{{/if}}</dd>
             </section>    

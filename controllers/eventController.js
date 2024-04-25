@@ -55,6 +55,7 @@ const searchEvents = async (req, res) => {
     let alias = "";
     if (req.session.user) {
         alias = req.session.user.alias;
+        userId = req.session.user.userId;
     }
     try {
         const artist = req.body.search_performer;
@@ -73,7 +74,15 @@ const searchEvents = async (req, res) => {
         const e = await EventModel.find(query).sort({date: 1});
         const events = e.map(event => {
             const formattedDate = format(event.date, 'dd.MM.yyy', 'fi');
-            return {...event.toObject(), date: formattedDate};
+
+            if (req.session.user) {
+                userLoggedIn = true;
+                userRegisteredToEvent = event.usersRegistered.includes(userId);
+            }
+            else {
+                userLoggedIn = false;
+            }
+            return {...event.toObject(), date: formattedDate, userRegisteredToEvent: userRegisteredToEvent, userLoggedIn: userLoggedIn};
         });
 
         if (events.length == 0) {
@@ -133,8 +142,6 @@ const getEvent = async (req, res) => {
         });
         console.log(error);
     }
-
-    //res.render('event');
 }
 
 // POST user to event
