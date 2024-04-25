@@ -13,30 +13,15 @@ const transporter = nodemailer.createTransport(smtpTransport({
         pass: process.env.EMAILPASS,
   }
 }));
-/*
-const mailOptions = {
-    from: 'keikalle@fribago.com',
-    to: 'anttimutanen@gmail.com',
-    subject: 'Hello from Nodemailer',
-    text: 'This is a test email sent using Nodemailer.'
-};
 
-const sendMail = transporter.sendMail(mailOptions, (error, info) => {
-    if (error) {
-    console.log('Error:', error);
-    } else {
-    console.log('Email sent:', info.response);
-    }
-});*/
-
-exports.sendMail = (recipient, message) => {
+exports.sendMail = (recipient, sentBy, to, message) => {
 
     return new Promise((resolve, reject) => {
   
       const email = {
         from: 'keikalle@fribago.com',
         to: recipient,
-        subject: 'Joku haluaisi lähteä kanssasi keikalle',
+        subject: `Hei ${to}, ${sentBy} haluaisi lähteä kanssasi keikalle!`,
         text: message
       };
   

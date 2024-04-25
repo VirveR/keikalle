@@ -30,7 +30,7 @@ router.post('/user/login', validateLogin, userController.userLogin);
 router.get('/profile', auth, userController.getUserProfile);
 
 // GET send email to other user
-router.get('/sendEmail', userController.sendEmail);
+router.post('/sendEmail', userController.sendEmail);
 
 // POST /profile (Edit user information on Profile Page)
 router.post('/profile', sanitizeProfileUpdate, userController.updateUser);

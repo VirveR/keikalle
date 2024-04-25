@@ -12,6 +12,10 @@ mongoose.connect(conString)
 });
 
 const UserModel = require('../models/User');
+const EventModel = require('../models/Event'); // Used when sending messages to other users.
+
+//for formatting dates
+const { format } = require('date-fns');
 
 // Other necessary stuff
 const bcrypt = require('bcryptjs'); // For crypting passwords
@@ -192,14 +196,24 @@ const getUserProfile = async (req, res) => {
     }
 };
 
-// GET send Email to other user
+// POST send Email to other user
 const sendEmail = async (req, res) => {
-    console.log("Yritetään!");
-    await sendMail("anttimutanen@gmail.com", "Testiviesti");
-    console.log("Onnistutaanko?")
-    res.render('/event', {
-        info: "Viestiä yritetty lähettää"
+    
+    const concert = await EventModel.findById(req.body.eventId);
+    const concertDate = format(concert.date, 'dd.MM.yyyy', 'fi');
+    let artists = "";
+    concert.artists.forEach(artist => {
+        artists += artist + "\n";
     });
+
+    console.log(req.body.emailAddress);
+
+    const userId = req.session.user.userId;
+    const sender = req.session.user.alias;
+    const sendTo = req.body.sendTo;
+    const message = `Keikan tiedot:\n\n pvm: ${concertDate} \n\n Esiintyjinä: \n ${artists} \n\n Viesti kaverilta:\n ${req.body.emailMessage} \n\n Terveisin ${sender}`;
+    await sendMail(emailAddress, sender, sendTo, message);
+    res.status(200).redirect('/');
 }
 
 

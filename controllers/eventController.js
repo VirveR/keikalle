@@ -258,7 +258,8 @@ const searchFriends = async (req, res) => {
                     userId: req.session.user.userId,
                     alias: req.session.user.alias,
                     concert: eventWithFormattedDate,
-                    friends: friends
+                    friends: friends,
+                    eventId: eventId
                 });
             }
         }

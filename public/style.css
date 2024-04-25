@@ -536,6 +536,10 @@ h3 {
     width: 60%;
 }
 
+.messageContainer {
+    margin: 0;
+}
+
 .age-inputs {
     display: flex;
     align-items: center;
