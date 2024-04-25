@@ -197,6 +197,7 @@ const updateUser = async (req, res) => {
     const searchedId = req.body.id;
     let alias = req.session.user.alias;
     if (req.body.sanitizingErrors) {
+        console.log(req.body.sanitizingErrors);
         try {
             const user = await UserModel.findOne({ _id: searchedId });
             res.render('profile', { 
@@ -207,6 +208,7 @@ const updateUser = async (req, res) => {
                 helpers: { isEqual(a, b) { return a === b; } },
                 info: req.body.sanitizingErrors
             });
+            console.log(searchedId);
         }
         catch(error) {
             res.render("index", {

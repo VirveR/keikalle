@@ -22,7 +22,7 @@ function closeAuthenticationArea() {
 }
 
 function closeInfoBox() {
-    $('#error-box').hide(500);
+    $('.error-box').hide(500);
 }
 
 function removeProfilePicture() {
@@ -86,8 +86,7 @@ $(document).on('click', '.unRegisterFromEvent', function() {
     });
 });
 
-
-
+// Show all events
 $(document).on('click', '#show-all-btn', function() {
     $('#search_performer').val("");
     $('#search_city').val("");
@@ -228,77 +227,11 @@ $(document).on('click','#selectPictureToUpload', function(){
     });
 });
 
-//Show Tallenna muutokset
-$(document).on('change', '#profile-details', function() {
-    $('#update-button').slideDown(500);
-    $('#cancel-update').slideDown(500);
+// Able Tallenna muutokset and Peruuta buttons
+$(document).on('focus', '#profile-details', function() {
+    $('#update-button').prop("disabled", false);
+    $('#cancel-update').prop("disabled", false);
 })
-
-// Validate update alias
-$(document).on('input', '#update-alias', function() {
-    let alias = $('#update-alias').val();
-    let id = $('#update-id').val()
-    if (alias.length > 2 && alias.length < 21){
-        $.ajax({
-            url: '/user/get_if_alias/'+alias,
-            type: "GET",
-            data: {
-                alias: alias
-            },
-            success: function(data){
-                if((data.found) && (data.id != id)){
-                    $('#update-alias').css('background-color', 'red');
-                    $('#update-alias-ok').val(0);
-                    $('#update-alias-info').text('Nimimerkki on jo varattu');
-                    validateAllUpdateFileds();
-                }
-                else{
-                    $('#update-alias').css('background-color', 'lightgreen');
-                    $('#update-alias-ok').val(1);
-                    $('#update-alias-info').text('nimerkki on vapaa');
-                    validateAllUpdateFileds();
-                }
-            }
-        });
-    }
-    else if(alias.length > 20) {
-        $('#update-alias').css('background-color', 'red');
-        $('#update-alias-ok').val(0);
-        $('#update-alias-info').text('Nimimerkin tulisi olla enintään 20 merkkiä pitkä');
-        validateUpdateFileds();
-    }
-    else {
-        $('#update-alias').css('background-color', 'white');
-        $('#update-alias-ok').val(0);
-        $('#update-alias-info').text('Nimimerkin tulisi olla 3-20 merkkiä pitkä');
-        validateAllUpdateFileds();
-    }
-});
-
-// Validate update email
-$(document).on('blur', '#update-email', function() {
-    let email = $("#update-email").val();
-
-    if(isEmail(email)){
-        $('#update-email').css('background-color', 'lightgreen');
-        $('#update-email-ok').val(1);
-        validateAllUpdateFileds();
-    }
-    else{
-        $('#update-email').css('background-color', 'red');
-        $('#update-email-ok').val(0);
-        $('#update-email-info').text('Syötä toimiva sähköpostiosoite');
-        validateAllUpdateFileds();
-    }
-});
-
-function validateAllUpdateFileds(){
-    let aliasOk = $('#update-alias-ok').val();
-    let emailOk = $('#update-email-ok').val();
-    if(aliasOk != 1 || emailOk != 1){
-        $('#update-button').hide();
-    }
-}
 
 // Confirm delete profile
 $(document).on('click', '#delete_btn', function() {

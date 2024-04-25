@@ -2,7 +2,13 @@
 
 <main class="top_section">
     <h1>Oma profiilini</h1>
-    <section id="error-box" aria-live="polite" role="alert" {{#if info}}style="display:block; border: 2px solid red;"{{else if infoArray}}style="display:block; border: 2px solid red;"{{else}}style="display: none;"{{/if}}></section>
+    <section id="error-box_profile" class="error-box" aria-live="polite" role="alert" {{#if info}}style="display:block; border: 2px solid darkred;"{{else if infoArray}}style="display:block; border: 2px solid darkred;"{{else}}style="display: none;"{{/if}}>
+            {{info}}
+            {{#each infoArray}} 
+                <p> {{this}} </p> 
+            {{/each}}
+            <button type="button" id="close-info-btn" onclick="closeInfoBox()">&#10006;</button>
+        </section>
     
     <div id="profile-container">
 
@@ -24,7 +30,7 @@
         <!-- Profile details -->
         <section id="profile-details">
             <p>Pakolliset tiedot on merkitty tähdellä (*)</p>
-            <form action="/profile" method="post" enctype="x-www-form-urlencoded">
+            <form action="/profile" method="post" enctype="x-www-form-urlencoded" id="update-profile-form">
                 <input type="hidden" name="id" id="update-id" value="{{profile._id}}">
                 <p class="input_container">
                     <label for="firstName" class="loginform-label">Etunimi</label>
@@ -63,7 +69,8 @@
                 </p>
 
                 <p class="input_container">
-                    <button type="submit" class="sign-out-btn" id="update-button" style="display:none;">Tallenna muutokset</button>
+                    <button type="submit" class="sign-out-btn" id="update-button" disabled="true">Tallenna muutokset</button>
+                    <button type="button" class="sign-out-btn" id="cancel-update" disabled="true" onclick="#update-profile.form.reset()">Peruuta</button>
                 </p>
             </form>
         </section>
