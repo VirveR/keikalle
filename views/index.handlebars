@@ -1,49 +1,55 @@
-{{>header}} 
+{{>header}}
 <main>
-    <!-- Intro & info box -->
-    <section class="top_section">
 
-        <section id="error-box_index" class="error-box" aria-live="polite" role="alert" {{#if info}}style="display:block; border: 2px solid darkred;"{{else if infoArray}}style="display:block; border: 2px solid darkred;"{{else}}style="display: none;"{{/if}}>
+    <!-- Top section -->
+    <section id="intro" class="top_section">
+
+        <!-- Info box to display messages -->
+        <div id="error-box_index" class="error-box" aria-live="polite" role="alert" 
+            {{#if info}}style="display:block; border: 2px solid darkred;"
+                {{else if infoArray}}style="display:block; border: 2px solid darkred;"
+                {{else}}style="display: none;"
+            {{/if}}>
             {{info}}
             {{#each infoArray}} 
                 <p> {{this}} </p> 
             {{/each}}
             <button type="button" id="close-info-btn" onclick="closeInfoBox()">&#10006;</button>
-        </section>
+        </div>
 
+        <!-- Page intro -->
         <h1>Keikalle</h1>
         <p class="content_width">Tervetuloa Keikalle! Selaa tapahtumia alta ja valkkaa mieleisesi kaveri mukaan.</p>
-        <p class="content_width">Voit hakea tapahtumia esiintyjän, paikkakunnan tai paikan perusteella. Kun kirjaudut sisään, valitsemalla haluamasi keikan pääset näkemään 
-            mukaan jo ilmoittautuneet kaverit ja pyytämään heitä mukaasi keikalle.</p>
+        <p class="content_width">Voit hakea tapahtumia esiintyjän, paikkakunnan tai paikan perusteella. Kun kirjaudut sisään, 
+            valitsemalla haluamasi keikan pääset näkemään mukaan jo ilmoittautuneet kaverit ja pyytämään heitä mukaasi keikalle.</p>
 
+        <!-- Sign in/up unless already signed in -->
         {{#unless userId}}
-            <section role="region" aria-label="Kirjaudu sisään tai rekisteröidy käyttäjäksi">
+            <div role="region" aria-label="Kirjaudu sisään tai rekisteröidy käyttäjäksi">
                 <button type="button" class="signIn_button" id="openLoginFormButton" onClick="toggleSignInForm()">Kirjaudu</button>
                 <button type="button" class="signIn_button" id="openSignupFormButton" onClick="toggleSignUpForm()">Rekisteröidy</button>
-            </section>
+            </div>
             {{>loginform}}
             {{>signupform}}
         {{/unless}}
-
     </section>
 
     <!-- Coming soon -->
-    <section aria-labelledby="soonToCome-heading" class="carousel_area dark_bg">
-        <h2 id="soonToCome_heading">Tapahtuu pian</h2>
+    <section id="carousel-area" class="carousel_area dark_bg" aria-labelledby="soonToCome-heading" >
+        <h2 id="soonToCome-heading">Tapahtuu pian</h2>
         {{>comingsoon}}
     </section>
 
     <!-- Event Search -->
-    <section id="event_search" class="event_search">
-        <h2>Hae tapahtumia</h2>
+    <section id="event_search" class="event_search" aria-labelledby="event-search-heading">
+        <h2 id="event-search-heading">Hae tapahtumia</h2>
         {{>eventsearchform}}
 
         <!-- Events from the database -->
-        <section id="event_search_results" class="event_search_results">
+        <div id="event_search_results" class="event_search_results" role="region" aria-label="Tapahtumahaun tulokset">
             {{>searchedEvents}}
-        </section>
+        </div>
     </section>
 
 </main>
-
 {{>footer}}
