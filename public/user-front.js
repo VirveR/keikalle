@@ -48,6 +48,7 @@ function removeProfilePicture() {
     }
 }
 
+// event search event cards registration to event button function
 $(document).on('click', '.registerToEvent', function() {
     const eventId = this.id.split("_")[1];
     $.ajax({
@@ -66,25 +67,23 @@ $(document).on('click', '.registerToEvent', function() {
     });
 });
 
-
+// event search event cards unregister from event button function
 $(document).on('click', '.unRegisterFromEvent', function() {
     const eventId = this.id.split("_")[1];
-    alert(eventId);
-    /*
     $.ajax({
-        url: '/registerToEvent',
+        url: '/unRegisterFromEvent',
         type: 'POST',
         data: {eventId: eventId},
         success: function(data){
-            if(data.added){
+            if(data.removed){
                 location.reload();
-                console.log("registered to event");
+                console.log("unregistered from event");
             }
             else{
-                console.log("registration to event failed");
+                console.log("unregistration failed");
             }
         }
-    });*/
+    });
 });
 
 

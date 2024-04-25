@@ -165,7 +165,27 @@ const registerToEvent = async (req, res) => {
         console.log(error);
         res.json({added : false});
     }
+}
 
+// DELETE user from event
+const unRegisterFromEvent = async (req, res) => {
+    var userId;
+    var eventId = req.body.eventId;
+    if (req.session.user) {
+        userId = req.session.user.userId;
+    }
+
+    try{
+        await EventModel.findOneAndUpdate(
+            {_id: eventId },
+            {$pull: {usersRegistered: userId}}
+        );
+        res.json({removed : true});
+    }
+    catch(error){
+        console.log(error);
+        res.json({removed : false});
+    }
 }
 
 // POST Friend Search via Event Page
@@ -228,4 +248,4 @@ const searchFriends = async (req, res) => {
     }
 }
 
-module.exports = { getHome, searchEvents, getEvent, registerToEvent, searchFriends }; 
+module.exports = { getHome, searchEvents, getEvent, registerToEvent, unRegisterFromEvent, searchFriends }; 

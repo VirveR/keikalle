@@ -18,6 +18,9 @@ router.get('/event/:id', eventController.getEvent);
 //POST register user to event
 router.post('/registerToEvent', eventController.registerToEvent);
 
+//POST remove user from event
+router.post('/unRegisterFromEvent', eventController.unRegisterFromEvent);
+
 //POST assorted users via event page
 router.post('/event/:id', eventController.searchFriends);
 
