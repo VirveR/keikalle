@@ -115,7 +115,7 @@ $(document).on('input', '#signup_alias', function() {
                 else{
                     $('#signup_alias').css('background-color', 'lightgreen');
                     $('#signup_alias_ok').val(1);
-                    $('#alias_validation').text('nimerkki on vapaa');
+                    $('#alias_validation').text('Nimimerkki on vapaa');
                     validateAllSignUpFileds();
                 }
             }
@@ -231,6 +231,7 @@ $(document).on('click','#selectPictureToUpload', function(){
 //Show Tallenna muutokset
 $(document).on('change', '#profile-details', function() {
     $('#update-button').slideDown(500);
+    $('#cancel-update').slideDown(500);
 })
 
 // Validate update alias

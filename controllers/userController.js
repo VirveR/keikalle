@@ -64,17 +64,16 @@ const getUserProfile = async (req, res) => {
     try {
         const alias = req.session.user.alias;
         const user = await UserModel.findOne({ alias: alias });
-        res.render('profile', {
+        res.status(200).render('profile', {
             pagetitle: 'Profiili',
-            info: 'Käyttäjän hakeminen onnistui',
             alias: alias,
             profile: user.toJSON(),
             helpers: { isEqual(a, b) { return a === b; } }
         });
     }
     catch(error) {
-        req.flash('info', 'Jotain meni pieleen');
-        res.redirect('/');
+        req.flash('info', 'Käyttäjää ei löydy');
+        res.status(404).redirect('/');
     }
 };
 
