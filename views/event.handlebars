@@ -22,6 +22,15 @@
             <h2>{{concert.place}}, {{concert.city}}</h2>
         </section>
         <section class="enrollmentCount">
+                {{#if alias}}
+                    {{#if userRegisteredToEvent}}
+                        <button aria-label="Poista ilmoittautuminen" class="unRegisterFromEvent" id="delete_{{concert._id}}" type="button">Poista ilmoittautuminen</button>
+                    {{else}}
+                        <button aria-label="Ilmoittaudu keikalle" class="registerToEvent" id="add_{{concert._id}}" type="button">Ilmoittaudu Keikalle</button>
+                    {{/if}}
+                {{else}}
+                    <p>Sinun täytyy olla kirjautunut sisään ilmoittautuaksesi keikalle</p>
+                {{/if}}
             <dt><label for="enrollment_count_event">Ilmoittautuneita</label></dt>
             <dd id="enrolment_count_event">{{#if concert.usersRegistered}}{{concert.usersRegistered.length}}{{else}}0{{/if}}</dd>
         </section>
