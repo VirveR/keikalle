@@ -11,6 +11,7 @@ Inika
 */ 
 
 body {
+    min-width: fit-content;
     background-color: #0B354F;
     font-family: "inika";
     font-size: 16pt;
@@ -18,6 +19,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 100% !important;
 }
 
 header {
@@ -394,6 +396,32 @@ h3 {
     font-size: 16pt;
 }
 
+.registerToEvent {
+    cursor: pointer;
+    background-color: #73D5FF;
+    font-family: "inika";
+    font-size: 0.8rem;
+    width: 95%;
+    padding: 10px 5px;
+    margin: 20px 0;
+    border: 2px solid #182126;
+    border-radius: 7px;
+}
+
+.unRegisterFromEvent {
+    cursor: pointer;
+    background-color: darkred !important;
+    color: white;
+    font-family: "inika";
+    font-size: 0.8rem;
+    width: 95%;
+    padding: 10px 5px;
+    margin: 20px 0;
+    border: 2px solid #182126;
+    border-radius: 7px;
+}
+
+
 /* Profile page */
 
 #profile-container {
@@ -418,6 +446,9 @@ h3 {
     #profile-pic-section {
         width: 100%;
         padding: 0;
+    }
+    .event_search_results {
+        width: 100%;
     }
 }
 
@@ -487,8 +518,8 @@ h3 {
 }
 
 .event_container .enrollmentCount {
-    height: 100px;
-    width: 15%;
+    height: 100%;
+    width: 17%;
 }
 
 .event_container .enrollmentCount dt{
