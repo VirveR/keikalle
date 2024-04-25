@@ -1,4 +1,4 @@
-//Database connection
+// Database
 const mongoose = require('mongoose');
 require('dotenv').config();
 const conString = `mongodb+srv://${process.env.DBUSERNAME}:${process.env.DBPASSWORD}@${process.env.CLUSTER}.mongodb.net/${process.env.DB}?retryWrites=true&w=majority&appName=Keikalle`
@@ -12,12 +12,22 @@ mongoose.connect(conString)
 });
 
 const EventModel = require('../models/Event');
-const UserModel = require('../models/User');
+const UserModel = require('../models/User'); //used in Event Page friend search
 
 //for formatting dates
 const { format } = require('date-fns');
+const { id } = require('date-fns/locale');
 
-//GET home and get the events to the home page
+/* ROUTES
+    - GET / (Get Home Page with Events)
+    - POST / (Home Page with Event Search results)
+    - POST /registerToEvent (Register user to event)
+    - POST /unRegisterFromEvent (Remove user from event)
+    - GET /event/:id (Get Event Page by event ID from db)
+    - POST /event/:id (Event Page with Friend Search results)
+*/
+
+// GET / (Get Home Page with Events)
 const getHome = async (req, res) => {
     try {
         const today = new Date();
@@ -26,14 +36,17 @@ const getHome = async (req, res) => {
             const formattedDate = format(event.date, 'dd.MM.yyy', 'fi');
             return {...event.toObject(), date: formattedDate};
         });
+        let userId = "";
         let alias = "";
         let currentPage = "";
         if (req.session.user) {
             alias = req.session.user.alias;
+            userId = req.session.user.userId;
         }
         res.status(200).render('index', {
             pagetitle: 'Etusivu',
             info: req.flash('info'),
+            userId: userId,
             alias: alias,
             userPressesLoginButtonShowThis: true,
             //events: concerts.map(event => event.toJSON()),
@@ -49,11 +62,11 @@ const getHome = async (req, res) => {
         });
         console.log(error);
     }
-    
 };
 
-//POST search events according to search criteria
+// POST / (Home Page with Event Search results)
 const searchEvents = async (req, res) => {
+    let userId = "";
     let alias = "";
     if (req.session.user) {
         alias = req.session.user.alias;
@@ -75,11 +88,11 @@ const searchEvents = async (req, res) => {
 
         const e = await EventModel.find(query).sort({date: 1});
         const events = e.map(event => {
-            const formattedDate = format(event.date, 'dd.MM.yyy', 'fi');
+            const formattedDate = format(event.date, 'dd.MM.yyyy', 'fi');
 
             if (req.session.user) {
                 userLoggedIn = true;
-                userRegisteredToEvent = event.usersRegistered.includes(userId);
+                userRegisteredToEvent = event.usersRegistered.includes(id);
             }
             else {
                 userLoggedIn = false;
@@ -94,6 +107,7 @@ const searchEvents = async (req, res) => {
         else {
             res.status(200).render('index', {
                 pagetitle: 'Etusivu',
+                userId: userId,
                 alias: alias,
                 events: events,
                 showcase: events.slice(0, 4)
@@ -103,13 +117,56 @@ const searchEvents = async (req, res) => {
     catch(error) {
         res.status(404).render('index', {
             pagetitle: 'Etusivu',
+            userId: userId,
             alias: alias,
             info: 'Tapahtumien hakeminen epäonnistui'
         });
     }
 }
 
-// GET event page
+// POST /registerToEvent (Register user to event)
+const registerToEvent = async (req, res) => {
+    var userId;
+    var eventId = req.body.eventId;
+    if (req.session.user) {
+        userId = req.session.user.userId;
+    }
+
+    try{
+        await EventModel.findOneAndUpdate(
+            {_id: eventId },
+            {$push: {usersRegistered: userId}}
+        );
+        res.json({added : true});
+    }
+    catch(error){
+        console.log(error);
+        res.json({added : false});
+    }
+}
+
+// POST /unRegisterFromEvent (Remove user from event)
+const unRegisterFromEvent = async (req, res) => {
+    var userId;
+    var eventId = req.body.eventId;
+    if (req.session.user) {
+        userId = req.session.user.userId;
+    }
+
+    try{
+        await EventModel.findOneAndUpdate(
+            {_id: eventId },
+            {$pull: {usersRegistered: userId}}
+        );
+        res.json({removed : true});
+    }
+    catch(error){
+        console.log(error);
+        res.json({removed : false});
+    }
+}
+
+// GET /event/:id (Get Event Page by event ID from db)
 const getEvent = async (req, res) => {
     let alias = "";
     let currentPage = "";
@@ -148,55 +205,15 @@ const getEvent = async (req, res) => {
     catch(error) {
         res.status(404).render('index', {
             pagetitle: 'Etusivu',
+            userId: userId,
+            alias: alias,
             info: 'Tapahtuman haku epäonnistui'
         });
         console.log(error);
     }
 }
 
-// POST user to event
-const registerToEvent = async (req, res) => {
-    var userId;
-    var eventId = req.body.eventId;
-    if (req.session.user) {
-        userId = req.session.user.userId;
-    }
-
-    try{
-        await EventModel.findOneAndUpdate(
-            {_id: eventId },
-            {$push: {usersRegistered: userId}}
-        );
-        res.json({added : true});
-    }
-    catch(error){
-        console.log(error);
-        res.json({added : false});
-    }
-}
-
-// DELETE user from event
-const unRegisterFromEvent = async (req, res) => {
-    var userId;
-    var eventId = req.body.eventId;
-    if (req.session.user) {
-        userId = req.session.user.userId;
-    }
-
-    try{
-        await EventModel.findOneAndUpdate(
-            {_id: eventId },
-            {$pull: {usersRegistered: userId}}
-        );
-        res.json({removed : true});
-    }
-    catch(error){
-        console.log(error);
-        res.json({removed : false});
-    }
-}
-
-// POST Friend Search via Event Page
+// POST /event/:id (Event Page with Friend Search results)
 const searchFriends = async (req, res) => {
     try {
         const eventId = req.params.id;
@@ -230,6 +247,7 @@ const searchFriends = async (req, res) => {
             if (friends.length < 1) {
                 res.render('event', {
                     pagetitle: 'Tapahtuma',
+                    userId: req.session.user.userId,
                     alias: req.session.user.alias,
                     concert: eventWithFormattedDate,
                     info: 'Hakuehdoilla ei löydy ketään',
@@ -238,6 +256,7 @@ const searchFriends = async (req, res) => {
             else {
                 res.status(200).render('event', {
                     pagetitle: 'Tapahtuma',
+                    userId: req.session.user.userId,
                     alias: req.session.user.alias,
                     concert: eventWithFormattedDate,
                     friends: friends
@@ -256,4 +275,8 @@ const searchFriends = async (req, res) => {
     }
 }
 
-module.exports = { getHome, searchEvents, getEvent, registerToEvent, unRegisterFromEvent, searchFriends }; 
+module.exports = { 
+    getHome, searchEvents, 
+    registerToEvent, unRegisterFromEvent,
+    getEvent,  searchFriends 
+}; 

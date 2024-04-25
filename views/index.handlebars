@@ -16,7 +16,7 @@
         <p class="content_width">Voit hakea tapahtumia esiintyjän, paikkakunnan tai paikan perusteella. Valitsemalla haluamasi keikan pääset näkemään 
             mukaan jo ilmoittautuneet kaverit ja pyytämään heitä mukaasi keikalle.</p>
 
-        {{#unless alias}}
+        {{#unless userId}}
             <section role="region" aria-label="Sign In / Sign Up">
                 <button type="button" class="signIn_button" id="openLoginFormButton" onClick="toggleSignInForm()">Kirjaudu</button>
                 <button type="button" class="signIn_button" id="openSignupFormButton" onClick="toggleSignUpForm()">Rekisteröidy</button>

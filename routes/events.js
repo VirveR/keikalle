@@ -6,20 +6,20 @@ const eventController = require('../controllers/eventController');
 // Function to validate and sanitate form data
 const { sanitizeEventSearch } = require('../middlewares/formValidateSanitize');
 
-//GET home
+// GET / (Get Home Page with Events)
 router.get('/', eventController.getHome);
 
-//GET assorted events
+// POST / (Home Page with Event Search results)
 router.post('/', sanitizeEventSearch, eventController.searchEvents);
 
-//GET event page by event ID
-router.get('/event/:id', eventController.getEvent);
-
-//POST register user to event
+// POST /registerToEvent (Register user to event)
 router.post('/registerToEvent', eventController.registerToEvent);
 
-//POST remove user from event
+// POST /unRegisterFromEvent (Remove user from event)
 router.post('/unRegisterFromEvent', eventController.unRegisterFromEvent);
+
+// GET /event/:id (Get Event Page by event ID from db)
+router.get('/event/:id', eventController.getEvent);
 
 //POST assorted users via event page
 router.post('/event/:id', eventController.searchFriends);

@@ -173,11 +173,13 @@ const userLogin = async (req, res) => {
 // GET /profile (Show User Profile Page)
 const getUserProfile = async (req, res) => {
     try {
-        const id = req.session.user.userId;
-        const user = await UserModel.findOne({ _id: id });
+        const userId = req.session.user.userId;
+        const user = await UserModel.findOne({ _id: userId });
+        const alias = user.alias;
         res.status(200).render('profile', {
             pagetitle: 'Profiili',
-            id: id,
+            userId: userId,
+            alias: alias,
             profile: user.toJSON(),
             helpers: { isEqual(a, b) { return a === b; } }
         });
@@ -193,21 +195,24 @@ const getUserProfile = async (req, res) => {
 // POST /profile (Edit user information on Profile Page)
 const updateUser = async (req, res) => {
     const searchedId = req.body.id;
-    if(req.body.sanitizingErrors){
+    let alias = req.session.user.alias;
+    if (req.body.sanitizingErrors) {
         try {
             const user = await UserModel.findOne({ _id: searchedId });
             res.render('profile', { 
                 pagetitle: 'Profiili',
-                id: req.searchedId,
+                userId: req.searchedId,
+                alias: alias,
                 profile: user.toJSON(),
                 helpers: { isEqual(a, b) { return a === b; } },
                 info: req.body.sanitizingErrors
             });
         }
-        catch(error){
+        catch(error) {
             res.render("index", {
                 patetitle: 'Etusivu',
-                id: req.searchedId,
+                userId: req.searchedId,
+                alias: alias,
                 infoArray: 'Käyttäjän lataaminen epäonnistui'
             });
         }
@@ -225,9 +230,11 @@ const updateUser = async (req, res) => {
                     birthYear: req.body.birthYear},
                 {new: true}
                 );
-            res.render('profile', { 
+            alias = user.alias;
+            res.status(200).render('profile', { 
                 pagetitle: 'Profiili',
-                id: searchedId,
+                userId: searchedId,
+                alias: alias,
                 profile: user.toJSON(),
                 helpers: { isEqual(a, b) { return a === b; } },
                 info: 'Muutokset tallennettu.'
@@ -236,7 +243,8 @@ const updateUser = async (req, res) => {
         catch(error) {
             res.status(500).render('profile', {
                 pagetitle: 'Profiili',
-                id: searchedId,
+                userId: searchedId,
+                alias: alias,
                 profile: user.toJSON(),
                 helpers: { isEqual(a, b) { return a === b; } },
                 info: 'Muutoksia ei voitu tallentaa.'
@@ -305,6 +313,8 @@ const deleteProfilePicture = async (req, res) => {
     catch(error){
         res.status(404).render('profile', {
             pagetitle: 'Profiili',
+            userId: userId,
+            alias: alias,
             info: 'Test failed'
         });
         console.log(error);
@@ -325,7 +335,8 @@ const deleteUser = async (req, res) => {
     catch(error) {
         res.status(404).render('profile', {
             pagetitle: 'Profiili',
-            id: deleteId,
+            userId: deleteId,
+            alias: alias,
             info: 'Käyttäjäprofiilin poisto ei onnistunut'
         });
         console.log(error);
@@ -351,4 +362,5 @@ const userLogOut = async (req, res) => {
 module.exports = {
     getUser, addNewUser, getUserByAlias, getBooleanIfAliasInDB, userLogin, 
     getUserProfile, updateUser, uploadProfilePic, deleteProfilePicture, 
-    deleteUser, userLogOut };
+    deleteUser, userLogOut 
+};

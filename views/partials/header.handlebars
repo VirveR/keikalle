@@ -5,7 +5,7 @@
             <a href="/" class="nav-link">Etusivu</a>
         </div>
         <div class="sign-in-info">
-            {{#if alias}}
+            {{#if userId}}
                 <p style="display: inline;">Olet kirjautunut sisään: {{alias}}</p>
                 <button type="button" id="sign-out-btn" class="sign-out-btn" onclick="location.href='/logout'">Kirjaudu ulos</button>
                 <a href="/profile" class="nav-link">Profiili</a>
