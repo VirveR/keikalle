@@ -70,7 +70,7 @@
 
                 <p class="input_container">
                     <button type="submit" class="sign-out-btn" id="update-button" disabled="true">Tallenna muutokset</button>
-                    <button type="button" class="sign-out-btn" id="cancel-update" disabled="true" onclick="#update-profile.form.reset()">Peruuta</button>
+                    <button type="button" class="sign-out-btn" id="cancel-update" disabled="true" onclick="location.href=location.href">Peruuta</button>
                 </p>
             </form>
         </section>
@@ -82,7 +82,7 @@
         <form action="/delete-profile" method="post" enctype="x-www-form-urlencoded" id="confirm_delete">
             <p>Oletko aivan varma, että haluat poistaa profiilisi?</p>
             <input type="hidden" name="id" id="id" value="{{profile._id}}">
-            <button type="button" class="sign-out-btn" id="cancel_delete">Peruuta!</button>
+            <button type="button" class="sign-out-btn" id="cancel_delete" onclick="location.href=location.href">Peruuta!</button>
             <button type="submit" class="sign-out-btn red-btn" id="delete-profile">Kyllä, poista profiili</button>
         </form>
     </section>
