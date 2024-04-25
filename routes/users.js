@@ -11,39 +11,38 @@ const { auth } = require('../middlewares/validate');
 const { validateForm, validateLogin, sanitizeProfileUpdate } = require('../middlewares/formValidateSanitize');
 
 
-//GET user
+// GET /user (Get all users from db)
 router.get('/user', userController.getUser);
 
-//GET user by alias (from url, /user/alias)
-router.get('/user/:alias', userController.getUserByAlias);
-
-//GET user by id --> go to profile
-router.get('/profile', auth, userController.getUserProfile);
-
-//GET boolean whether the alias is in the database. returns json({found: true/false})
-router.get('/user/get_if_alias/:alias', userController.getBooleanIfAliasInDB);
-
-//POST send login information and start session if login is successful
-router.post('/user/login', validateLogin, userController.userLogin);
-
-//POST new user to the db
+// POST /user (Add new user to db)
 router.post('/user', validateForm, userController.addNewUser);
 
-//UPDATE user information
+// GET /user/:alias (Get user by alias from url)
+router.get('/user/:alias', userController.getUserByAlias);
+
+// GET /user/get_if_alias/:alias (returns json({found: true/false})
+router.get('/user/get_if_alias/:alias', userController.getBooleanIfAliasInDB);
+
+// POST /user/login (User login, create session)
+router.post('/user/login', validateLogin, userController.userLogin);
+
+// GET /profile (Show User Profile Page)
+router.get('/profile', auth, userController.getUserProfile);
+
+// POST /profile (Edit user information on Profile Page)
 router.post('/profile', sanitizeProfileUpdate, userController.updateUser);
 
-//UPDATE users profile picture
+// POST /profile/upload/profilepic (Upload new profile pic on Profile Page)
 router.post('/profile/upload/profilepic', upload.single('uploadProfilePicture'), userController.uploadProfilePic);
 
-//DELETE profilepicture
+// POST /profile/upload/profilepic (Delete profile pic on Profile Page)
 router.post('/profile/delete/profilepic', auth, userController.deleteProfilePicture);
 
-//DELETE user from the db
+// POST /delete-profile (Remove user from db)
 router.post('/delete-profile', userController.deleteUser);
 
-//DESTROY the session when logging out
+// GET /logout (Logout user, destroy session)
 router.get('/logout', auth, userController.userLogOut);
-
 
 module.exports = router;
 

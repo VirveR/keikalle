@@ -1,14 +1,7 @@
-//Database connection
+// Database
 const mongoose = require('mongoose');
 require('dotenv').config();
 const conString = `mongodb+srv://${process.env.DBUSERNAME}:${process.env.DBPASSWORD}@${process.env.CLUSTER}.mongodb.net/${process.env.DB}?retryWrites=true&w=majority&appName=Keikalle`
-// For crypting passwords
-const bcrypt = require('bcryptjs');
-
-const fs = require('fs');
-const path = require('path');
-const sharp = require('sharp');
-sharp.cache(false);
 
 mongoose.connect(conString)
 .then(() => {
@@ -20,11 +13,31 @@ mongoose.connect(conString)
 
 const UserModel = require('../models/User');
 
+// Other necessary stuff
+const bcrypt = require('bcryptjs'); // For crypting passwords
+const fs = require('fs'); 
+const path = require('path');
+const sharp = require('sharp');
+sharp.cache(false);
+
 const upload = require('../middlewares/upload');
 const { setTimeout } = require('timers/promises');
 
+/* Routes
+    - GET /user (Get all users from db)
+    - POST /user (Add new user to db)
+    - GET /user/:alias (Get user by alias from url)
+    - GET /user/get_if_alias/:alias (returns json({found: true/false})
+    - POST /user/login (User login)
+    - GET /profile (Show User Profile Page)
+    - POST /profile (Edit user information on Profile Page)
+    - POST /profile/upload/profilepic (Upload new profile pic on Profile Page)
+    - POST /profile/upload/profilepic (Delete profile pic on Profile Page)
+    - POST /delete-profile (Remove user from db)
+    - GET /logout (Logout user, destroy session)
+*/
 
-//GET all users
+// GET /user (Get all users from db)
 const getUser = async (req, res) => {
     try {
         const users = await UserModel.find();
@@ -41,81 +54,7 @@ const getUser = async (req, res) => {
     }
 };
 
-//GET user by alias
-const getUserByAlias = async (req, res) => {
-    try {
-        const searchedAlias = req.params.alias;
-        const users = await UserModel.find({alias: searchedAlias});
-        res.render('user', {
-            info: 'Käyttäjän hakeminen onnistui',
-            users: users.map(user => user.toJSON())
-        });
-    }
-    catch(error) {
-        res.status(404).render('user', {
-            info: 'Test failed'
-        });
-        console.log(error);
-    }
-};
-
-//GET user profile
-const getUserProfile = async (req, res) => {
-    try {
-        const alias = req.session.user.alias;
-        const user = await UserModel.findOne({ alias: alias });
-        res.status(200).render('profile', {
-            pagetitle: 'Profiili',
-            alias: alias,
-            profile: user.toJSON(),
-            helpers: { isEqual(a, b) { return a === b; } }
-        });
-    }
-    catch(error) {
-        req.flash('info', 'Käyttäjää ei löydy');
-        res.status(404).redirect('/');
-    }
-};
-
-//POST login form
-const userLogin = async (req, res) => {
-    try {
-        const alias = req.body.alias;
-        const password = req.body.password;
-        const user = await UserModel.findOne({ alias: alias});
-        const redirectUrl = req.body.redirect || req.headers.referer || '/';
-        if (user) {
-            // Check password
-            if(bcrypt.compareSync(password, user.password)){
-                req.session.user = { 
-                    alias: req.body.alias,
-                    userId: user.id,
-                    isLoggedIn: true
-                };
-                await req.session.save();
-                req.flash('info', 'Olet kirjautunut sisään');
-                console.log(redirectUrl);
-                res.redirect(redirectUrl);
-            }
-            else {
-                req.flash('info', 'Tarkista käyttäjätunnus ja salasana.');
-                res.redirect(redirectUrl);
-            }
-        }
-        else {
-            req.flash('info', 'Tarkista käyttäjätunnus ja salasana.');
-            res.redirect(redirectUrl);
-        }
-    }
-    catch(error) {
-        res.status(404).render('index', {
-            info: 'Sisäänkirjautuminen ei onnistunut.'
-        });
-        console.log(error);
-    }
-}
-
-// POST new user to DB (data from a form)
+// POST /user (Add new user to db)
 const addNewUser = async (req, res) => {
 
     const redirectUrl = req.body.redirect || req.headers.referer || '/';
@@ -157,7 +96,25 @@ const addNewUser = async (req, res) => {
     }
 }
 
-// GET boolean whether the alias is in the database
+// GET /user/:alias (Get user by alias from url)
+const getUserByAlias = async (req, res) => {
+    try {
+        const searchedAlias = req.params.alias;
+        const users = await UserModel.find({alias: searchedAlias});
+        res.render('user', {
+            info: 'Käyttäjän hakeminen onnistui',
+            users: users.map(user => user.toJSON())
+        });
+    }
+    catch(error) {
+        res.status(404).render('user', {
+            info: 'Test failed'
+        });
+        console.log(error);
+    }
+};
+
+// GET /user/get_if_alias/:alias (returns json({found: true/false})
 const getBooleanIfAliasInDB = async (req, res) => {
     try {
         const alias = req.params.alias;
@@ -175,7 +132,65 @@ const getBooleanIfAliasInDB = async (req, res) => {
     }
 }
 
-//UPDATE profile information
+// POST /user/login (User login)
+const userLogin = async (req, res) => {
+    try {
+        const alias = req.body.alias;
+        const password = req.body.password;
+        const user = await UserModel.findOne({ alias: alias});
+        const redirectUrl = req.body.redirect || req.headers.referer || '/';
+        if (user) {
+            // Check password
+            if(bcrypt.compareSync(password, user.password)){
+                req.session.user = { 
+                    alias: req.body.alias,
+                    userId: user.id,
+                    isLoggedIn: true
+                };
+                await req.session.save();
+                req.flash('info', 'Olet kirjautunut sisään');
+                console.log(redirectUrl);
+                res.redirect(redirectUrl);
+            }
+            else {
+                req.flash('info', 'Tarkista käyttäjätunnus ja salasana.');
+                res.redirect(redirectUrl);
+            }
+        }
+        else {
+            req.flash('info', 'Tarkista käyttäjätunnus ja salasana.');
+            res.redirect(redirectUrl);
+        }
+    }
+    catch(error) {
+        res.status(404).render('index', {
+            info: 'Sisäänkirjautuminen ei onnistunut.'
+        });
+        console.log(error);
+    }
+}
+
+// GET /profile (Show User Profile Page)
+const getUserProfile = async (req, res) => {
+    try {
+        const id = req.session.user.userId;
+        const user = await UserModel.findOne({ _id: id });
+        res.status(200).render('profile', {
+            pagetitle: 'Profiili',
+            id: id,
+            profile: user.toJSON(),
+            helpers: { isEqual(a, b) { return a === b; } }
+        });
+    }
+    catch(error) {
+        req.flash('info', 'Käyttäjää ei löydy');
+        res.status(404).redirect('/');
+    }
+};
+
+
+
+// POST /profile (Edit user information on Profile Page)
 const updateUser = async (req, res) => {
     const searchedId = req.body.id;
     if(req.body.sanitizingErrors){
@@ -183,7 +198,7 @@ const updateUser = async (req, res) => {
             const user = await UserModel.findOne({ _id: searchedId });
             res.render('profile', { 
                 pagetitle: 'Profiili',
-                alias: req.session.user.alias,
+                id: req.searchedId,
                 profile: user.toJSON(),
                 helpers: { isEqual(a, b) { return a === b; } },
                 info: req.body.sanitizingErrors
@@ -192,12 +207,12 @@ const updateUser = async (req, res) => {
         catch(error){
             res.render("index", {
                 patetitle: 'Etusivu',
+                id: req.searchedId,
                 infoArray: 'Käyttäjän lataaminen epäonnistui'
             });
         }
     }
-    else{
-
+    else {
         try {
             const user = await UserModel.findOneAndUpdate({ _id: searchedId }, 
                 {
@@ -212,7 +227,7 @@ const updateUser = async (req, res) => {
                 );
             res.render('profile', { 
                 pagetitle: 'Profiili',
-                alias: req.session.alias,
+                id: searchedId,
                 profile: user.toJSON(),
                 helpers: { isEqual(a, b) { return a === b; } },
                 info: 'Muutokset tallennettu.'
@@ -221,6 +236,7 @@ const updateUser = async (req, res) => {
         catch(error) {
             res.status(500).render('profile', {
                 pagetitle: 'Profiili',
+                id: searchedId,
                 profile: user.toJSON(),
                 helpers: { isEqual(a, b) { return a === b; } },
                 info: 'Muutoksia ei voitu tallentaa.'
@@ -230,7 +246,7 @@ const updateUser = async (req, res) => {
     }
 }
 
-//UPDATE profile picture
+// POST /profile/upload/profilepic (Upload new profile pic on Profile Page)
 const uploadProfilePic = async (req, res) => {
 
     // function if file wasn't in image format (jpg, jpeg, png, gif)
@@ -272,7 +288,7 @@ const uploadProfilePic = async (req, res) => {
     
 }
 
-//DELETE profile picture
+// POST /profile/upload/profilepic (Delete profile pic on Profile Page)
 const deleteProfilePicture = async (req, res) => {
     try {
         const userId = req.body.id;
@@ -295,7 +311,7 @@ const deleteProfilePicture = async (req, res) => {
     }
 }
 
-//DELETE user
+// POST /delete-profile (Remove user from db)
 const deleteUser = async (req, res) => {
     try {
         console.log(req.body.id);
@@ -309,13 +325,14 @@ const deleteUser = async (req, res) => {
     catch(error) {
         res.status(404).render('profile', {
             pagetitle: 'Profiili',
-            info: 'Jotain meni pieleen!'
+            id: deleteId,
+            info: 'Käyttäjäprofiilin poisto ei onnistunut'
         });
         console.log(error);
     }
 }
 
-// End session and remove the session from db
+// GET /logout (Logout user, destroy session)
 const userLogOut = async (req, res) => {
     try {
         req.flash('info', 'Olet kirjautunut ulos.');
@@ -331,4 +348,7 @@ const userLogOut = async (req, res) => {
     }
 };
 
-module.exports = {getUser, getUserByAlias, getUserProfile, userLogin, addNewUser, getBooleanIfAliasInDB, updateUser, uploadProfilePic, deleteProfilePicture, deleteUser, userLogOut };
+module.exports = {
+    getUser, addNewUser, getUserByAlias, getBooleanIfAliasInDB, userLogin, 
+    getUserProfile, updateUser, uploadProfilePic, deleteProfilePicture, 
+    deleteUser, userLogOut };
