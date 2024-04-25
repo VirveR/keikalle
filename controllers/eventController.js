@@ -165,6 +165,11 @@ const searchFriends = async (req, res) => {
         const eventId = req.params.id;
         const concert = await EventModel.findById(eventId);
         const thisYear = new Date().getFullYear();
+        const formattedDate = format(concert.date, 'dd.MM.yyy', 'fi');
+                const eventWithFormattedDate = {
+                    ...concert.toJSON(),
+                    date: formattedDate
+                };
         if (concert) {
             let minYear = thisYear;
             if (req.body.min_friend_age) { minYear = thisYear - Number(req.body.min_friend_age); }
@@ -189,16 +194,12 @@ const searchFriends = async (req, res) => {
                 res.render('event', {
                     pagetitle: 'Tapahtuma',
                     alias: req.session.user.alias,
+                    concert: eventWithFormattedDate,
                     info: 'Hakuehdoilla ei löydy ketään',
                     concert: concert.toJSON()
                 });
             }
             else {
-                const formattedDate = format(concert.date, 'dd.MM.yyy', 'fi');
-                const eventWithFormattedDate = {
-                    ...concert.toJSON(),
-                    date: formattedDate
-                };
                 res.status(200).render('event', {
                     pagetitle: 'Tapahtuma',
                     alias: req.session.user.alias,
