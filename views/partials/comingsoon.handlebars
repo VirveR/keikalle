@@ -1,4 +1,4 @@
-<div role="region" aria-label="Event Carousel" class="carousel">
+<div id="carousel-container" class="carousel">
     {{#each showcase}}
         <div class="carousel-item" tabindex="0" onclick="location.href='/event/{{this._id}}'" 
             onkeydown="if(event.key === 'Enter' || event.key === ' ') { location.href='/event/{{this._id}}'}"
