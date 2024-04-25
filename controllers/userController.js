@@ -84,6 +84,7 @@ const userLogin = async (req, res) => {
         const alias = req.body.alias;
         const password = req.body.password;
         const user = await UserModel.findOne({ alias: alias});
+        const redirectUrl = req.body.redirect || req.headers.referer || '/';
         if (user) {
             // Check password
             if(bcrypt.compareSync(password, user.password)){
@@ -94,16 +95,17 @@ const userLogin = async (req, res) => {
                 };
                 await req.session.save();
                 req.flash('info', 'Olet kirjautunut sisään');
-                res.redirect('/');
+                console.log(redirectUrl);
+                res.redirect(redirectUrl);
             }
             else {
                 req.flash('info', 'Tarkista käyttäjätunnus ja salasana.');
-                res.redirect('/');
+                res.redirect(redirectUrl);
             }
         }
         else {
             req.flash('info', 'Tarkista käyttäjätunnus ja salasana.');
-            res.redirect('/');
+            res.redirect(redirectUrl);
         }
     }
     catch(error) {

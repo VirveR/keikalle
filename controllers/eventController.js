@@ -110,6 +110,7 @@ const searchEvents = async (req, res) => {
 // GET event page
 const getEvent = async (req, res) => {
     let alias = "";
+    let currentPage = "";
     if (req.session.user) {
         alias = req.session.user.alias;
     }
@@ -125,7 +126,8 @@ const getEvent = async (req, res) => {
             res.status(200).render('event', {
                 concert: eventWithFormattedDate,
                 pagetitle: 'Tapahtuma',
-                alias: alias
+                alias: alias,
+                currentPage: currentPage
             });
         }
         else {
