@@ -1,8 +1,11 @@
 const express = require('express');
 const session = require('express-session');
+const checkSession = require('./middlewares/expiredSessions');
 const flash = require('express-flash');
 const store = require('./middlewares/validate');
+
 const MongoStore = require('connect-mongo');
+
 // for creating session uuid
 const { v4: uuidv4 } = require('uuid');
 
@@ -20,18 +23,25 @@ app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 app.use(express.static('public'));
 app.use(session( {
-        secret: 'testi_key', //This must be more secure key
+    secret: 'testi_key', //This must be more secure key
+    resave: false,
+    saveUninitialized: false,
+    store: MongoStore.create({
+        mongooseConnection: mongoose.connection,
+        mongoUrl: conString,
+        collection: 'sessions',
         resave: false,
-        saveUninitialized: false,
-        store: MongoStore.create({
-            mongooseConnection: mongoose.connection,
-            mongoUrl: conString,
-            collection: 'sessions',
-            expires: 1000
-        }),
-        expires: 1000,// * 60 * 60 Commented this out for developement purposes
-       
+        saveUninitialized: false,   
+    }),
+    cookie: {
+        maxAge: 30 * 60 * 1000, // Set maxAge to 30 minutes in milliseconds,
+        //httpOnly: true,
+        //secure: false
+    }
+   
 }));
+app.use(checkSession);
+
 app.use(flash());
 
 app.use('', require(__dirname +'/routes/events'));
