@@ -43,6 +43,12 @@
     </section>
 {{else}}
     <p>Kirjaudu sisään, niin pääset hakemaan kavereita.</p>
+    <section role="region" aria-label="Sign In / Sign Up">
+                <button type="button" class="signIn_button" id="openLoginFormButton" onClick="toggleSignInForm()">Kirjaudu</button>
+                <button type="button" class="signIn_button" id="openSignupFormButton" onClick="toggleSignUpForm()">Rekisteröidy</button>
+            </section>
+            {{>loginform currentPage}}
+            {{>signupform}}
 {{/if}}
 
 {{>footer}}
