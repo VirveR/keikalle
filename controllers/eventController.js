@@ -111,13 +111,16 @@ const searchEvents = async (req, res) => {
 const getEvent = async (req, res) => {
     let alias = "";
     let currentPage = "";
+    let userId = "";
     if (req.session.user) {
         alias = req.session.user.alias;
+        userId = req.session.user.userId;
     }
     try {
         const eventId = req.params.id;
         const concert = await EventModel.findById(eventId);
         if (concert) {
+            const userRegisteredToEvent = concert.usersRegistered.includes(userId);
             const formattedDate = format(concert.date, 'dd.MM.yyy', 'fi');
             const eventWithFormattedDate = {
                 ...concert.toJSON(),
@@ -127,6 +130,8 @@ const getEvent = async (req, res) => {
                 concert: eventWithFormattedDate,
                 pagetitle: 'Tapahtuma',
                 alias: alias,
+                userId: userId,
+                userRegisteredToEvent: userRegisteredToEvent,
                 currentPage: currentPage
             });
         }
