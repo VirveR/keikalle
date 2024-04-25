@@ -23,7 +23,7 @@ sharp.cache(false);
 const upload = require('../middlewares/upload');
 const { setTimeout } = require('timers/promises');
 
-/* Routes
+/* ROUTES
     - GET /user (Get all users from db)
     - POST /user (Add new user to db)
     - GET /user/:alias (Get user by alias from url)
