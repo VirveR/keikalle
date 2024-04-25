@@ -166,7 +166,7 @@ const searchFriends = async (req, res) => {
         const concert = await EventModel.findById(eventId);
         const thisYear = new Date().getFullYear();
         const formattedDate = format(concert.date, 'dd.MM.yyy', 'fi');
-                const eventWithFormattedDate = {
+        const eventWithFormattedDate = {
                     ...concert.toJSON(),
                     date: formattedDate
                 };
@@ -196,7 +196,6 @@ const searchFriends = async (req, res) => {
                     alias: req.session.user.alias,
                     concert: eventWithFormattedDate,
                     info: 'Hakuehdoilla ei löydy ketään',
-                    concert: concert.toJSON()
                 });
             }
             else {
