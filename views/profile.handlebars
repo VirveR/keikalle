@@ -1,8 +1,9 @@
 {{> header}}
 
 <main class="top_section" style="border:none">
-    <h1>Oma profiilini</h1>
-    <section id="error-box_profile" class="error-box" aria-live="polite" role="alert" 
+
+    <!-- Info box -->
+    <div id="error-box_profile" class="error-box" aria-live="polite" role="alert" 
         {{#if info}}style="display:block; border: 2px solid darkred;"
         {{else if infoArray}}style="display:block; border: 2px solid darkred;"
         {{else}}style="display: none;"{{/if}}>
@@ -11,13 +12,16 @@
             <p> {{this}} </p> 
         {{/each}}
         <button type="button" id="close-info-btn" onclick="closeInfoBox()">&#10006;</button>
-    </section>
+    </div>
+
+    <h1>Oma profiilini</h1>
     
-    <div id="profile-container">
+    <!-- Profile controls area -->
+    <section id="profile-container">
 
         <!-- Profile image -->
-        <section id="profile-pic-section">
-            <img src="./images/profileimages/{{profile.imageSrc}}" alt="lataamasi profiilikuva" id="profilePicture">
+        <div id="profile-pic-section" role="region" aria-label="Profiilikuva">
+            <img src="./images/profileimages/{{profile.imageSrc}}" alt="Profiilikuvasi" id="profilePicture">
             <form action="../profile/upload/profilepic" method="post" id="uploadProfilePictureForm" enctype="multipart/form-data">
                 <label for="uploadProfilePicture">
                     <input type="file" name="uploadProfilePicture" id="uploadProfilePicture" style="display: none;">
@@ -28,35 +32,41 @@
                 <button class="sign-out-btn red-btn" onclick="removeProfilePicture()">Poista kuva</button>
                 {{/unless}}
             </form>
-        </section>
+        </div>
 
         <!-- Profile details -->
-        <section id="profile-details">
+        <div id="profile-details" role="region" aria-label="Profiilin tiedot">
             <p>Pakolliset tiedot on merkitty tähdellä (*)</p>
             <form action="/profile" method="post" enctype="x-www-form-urlencoded" id="update-profile-form">
                 <input type="hidden" name="id" id="update-id" value="{{profile._id}}">
+
                 <p class="input_container">
                     <label for="firstName" class="loginform-label">Etunimi</label>
                     <input type="text" class="loginform-input" name="firstName" id="update-firstName" value="{{profile.firstName}}">
                 </p>
+
                 <p class="input_container">
                     <label for="lastName" class="loginform-label">Sukunimi</label>
                     <input type="text" class="loginform-input" name="lastName" id="update-lastName" value="{{profile.lastName}}">
                 </p>
+
                 <p class="input_container">
                     <label for="alias" class="loginform-label">Nimimerkki*</label>
                     <input type="text" class="loginform-input" name="alias" id="update-alias" value="{{profile.alias}}" aria-required="true" aria-describedby="update-alias-info">
                     <span role="text" aria-label="Nimimerkkikentän ohje" class="validation_info" id="update-alias-info">Nimimerkin tulisi olla 3-20 merkkiä pitkä, ei erikoismerkkejä</span>
                 </p>
+
                 <p class="input_container">
                     <label for="email" class="loginform-label">Sähköposti*</label>
                     <input type="text" class="loginform-input" name="email" id="update-email" value="{{profile.email}}" aria-required="true" aria-describedby="update-email-info">
                     <span role="text" aria-label="Sähköpostikentän ohje" class="validation_info" id="update-email-info">Toimiva sähköpostiosoite vaaditaan</span>
                 </p>
+
                 <p class="input_container">
                     <label for="city" class="loginform-label">Paikkakunta</label>
                     <input type="text" class="loginform-input" name="city" id="update-city" value="{{profile.city}}">
                 </p>
+
                 <p class="input_container">
                     <label for="gender" class="loginform-label">Sukupuoli</label>
                     <select class="loginform-input" name="gender" id="update-gender">
@@ -66,6 +76,7 @@
                         <option value="muu" {{#if (isEqual profile.gender "muu")}} selected {{/if}}>muu</option>
                     </select>
                 </p>
+
                 <p class="input_container">
                     <label for="birthYear" class="loginform-label">Syntymävuosi</label>
                     <input type="number" class="loginform-input" name="birthYear" id="update-birthYear" value="{{profile.birthYear}}" min="1904" max="2024">
@@ -76,11 +87,11 @@
                     <button type="button" class="sign-out-btn" id="cancel-update" disabled="true" onclick="location.href=location.href">Peruuta</button>
                 </p>
             </form>
-        </section>
-    </div>
+        </div>
+    </section>
 
     <!-- Delete profile -->
-    <section id="delete-profile">
+    <section id="delete-profile" role="region" aria-label="Poista profiilisi">
         <button type="button" class="sign-out-btn red-btn" id="delete-profile-btn">Poista profiili</button>
         <div id="confirm-delete-container" style="display:none">
             <form action="/delete-profile" method="post" enctype="x-www-form-urlencoded" id="confirm-delete-form">
