@@ -81,6 +81,7 @@ const addNewUser = async (req, res) => {
             req.body.password = hash;
             // create a document
             const newUser = new UserModel(req.body);
+            newUser.imageSrc = "kale.png";
             // save the data to db
             await newUser.save();
             req.flash('info', 'Rekisteröityminen onnistui. Voit nyt kirjautua sisään.');
@@ -352,13 +353,11 @@ const deleteProfilePicture = async (req, res) => {
 // POST /delete-profile (Remove user from db)
 const deleteUser = async (req, res) => {
     try {
-        console.log(req.body.id);
+        req.flash('info', 'Käyttäjätili on poistettu');
         const deleteId = req.body.id;
         const user = await UserModel.findOneAndDelete({ _id: deleteId });
-        res.render('index', { 
-            pagetitle: 'Etusivu',
-            info: 'Käyttäjäprofiilisi on nyt poistettu.'
-        });
+        req.session.destroy();
+        res.redirect('/');
     }
     catch(error) {
         res.status(404).render('profile', {

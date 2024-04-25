@@ -5,7 +5,7 @@ const conString = `mongodb+srv://${process.env.DBUSERNAME}:${process.env.DBPASSW
 
 mongoose.connect(conString)
 .then(() => {
-    console.log('testController connected to database');
+    console.log('eventController connected to database');
 })
 .catch((error) => {
     console.log(error);
