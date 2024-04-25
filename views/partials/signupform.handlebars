@@ -4,20 +4,20 @@
     <form action="/user" method="post" enctype="x-www-form-urlencoded">
         <p class="input_container">
             <label for="signup_alias" class="loginform-label">Nimimerkki</label>
-            <input type="text" class="loginform-input" name="alias" id="signup_alias">
-            <span role="text" aria-label="Ohje nimimerkkikentän täyttämiseen" class="validation_info" id="alias_validation">Nimimerkin tulisi olla 3-20 merkkiä pitkä</span>
+            <input type="text" class="loginform-input" name="alias" id="signup_alias" aria-describedby="alias_validation">
+            <span role="text" aria-label="Nimimerkkikentän ohje" class="validation_info" id="alias_validation">Nimimerkin tulisi olla 3-20 merkkiä pitkä</span>
         </p>
 
         <p class="input_container">
             <label for="signup_email" class="loginform-label">Sähköposti</label>
-            <input type="text" class="loginform-input" name="email" id="signup_email">
-            <span role="text" aria-label="Instructions for filling out the form" class="validation_info">Syötä toimiva sähköpostiosoite</span>
+            <input type="text" class="loginform-input" name="email" id="signup_email" aria-describedby="email_validation">
+            <span role="text" aria-label="Sähköpostikentän ohje" class="validation_info" id="email_validation">Syötä toimiva sähköpostiosoite</span>
         </p>
 
         <p class="input_container">
             <label for="signup_password1" class="loginform-label">Salasana</label>
-            <input type="password" class="loginform-input" name="password" id="signup_password1">
-            <span role="text" aria-label="Instructions for filling out the form" class="validation_info">Salasanan pituus vähintään 8 merkkiä</span>
+            <input type="password" class="loginform-input" name="password" id="signup_password1" aria-describedby="password_validation">
+            <span role="text" aria-label="Salasanakentän ohje" class="validation_info" id="password_validation">Salasanan pituus vähintään 8 merkkiä</span>
         </p>
         <p class="input_container">
             <label for="password2" class="loginform-label">Salasana uudelleen</label>
