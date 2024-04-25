@@ -3,7 +3,7 @@
     <!-- Intro & info box -->
     <section class="top_section">
 
-        <section id="error-box" aria-live="polite" role="alert" {{#if info}}style="display:block; border: 2px solid red;"{{else if infoArray}}style="display:block; border: 2px solid red;"{{else}}style="display: none;"{{/if}}>
+        <section id="error-box_index" class="error-box" aria-live="polite" role="alert" {{#if info}}style="display:block; border: 2px solid darkred;"{{else if infoArray}}style="display:block; border: 2px solid darkred;"{{else}}style="display: none;"{{/if}}>
             {{info}}
             {{#each infoArray}} 
                 <p> {{this}} </p> 

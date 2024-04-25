@@ -2,7 +2,15 @@
     {{>header}} 
 
 <article class="top_section">
-    <section id="error-box" aria-live="polite" role="alert" {{#if info}}style="display:block; border: 2px solid red;"{{else if infoArray}}style="display:block; border: 2px solid red;"{{else}}style="display: none;"{{/if}}>{{info}}{{#each infoArray}} <p> {{this}} </p> {{/each}}</section>
+
+    <section id="error-box_event" class="error-box" aria-live="polite" role="alert" {{#if info}}style="display:block; border: 2px solid darkred;"{{else if infoArray}}style="display:block; border: 2px solid darkred;"{{else}}style="display: none;"{{/if}}>
+            {{info}}
+            {{#each infoArray}} 
+                <p> {{this}} </p> 
+            {{/each}}
+            <button type="button" id="close-info-btn" onclick="closeInfoBox()">&#10006;</button>
+        </section>
+
     <div class="event_container">
         <div class="event_band_image-container">
             <img class="bandImage" src="/images/bandimages/{{concert.imgSrc}}" alt="Band">

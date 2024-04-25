@@ -101,7 +101,7 @@ footer {
     border-bottom: 50px solid #182126;
 }
 
-#error-box {
+.error-box {
     width: 35%;
     margin-top: 30px;
     padding: 10px;

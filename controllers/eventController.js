@@ -27,6 +27,7 @@ const getHome = async (req, res) => {
             return {...event.toObject(), date: formattedDate};
         });
         let alias = "";
+        let currentPage = "";
         if (req.session.user) {
             alias = req.session.user.alias;
         }
@@ -36,7 +37,8 @@ const getHome = async (req, res) => {
             alias: alias,
             userPressesLoginButtonShowThis: true,
             //events: concerts.map(event => event.toJSON()),
-            showcase: events
+            showcase: events,
+            currentPage: currentPage
         });
     }
     catch(error) {
@@ -132,6 +134,7 @@ const getEvent = async (req, res) => {
                 alias: alias,
                 userId: userId,
                 userRegisteredToEvent: userRegisteredToEvent,
+                info: req.flash('info'),
                 currentPage: currentPage
             });
         }

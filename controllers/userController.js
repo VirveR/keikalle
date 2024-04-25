@@ -117,6 +117,9 @@ const userLogin = async (req, res) => {
 
 // POST new user to DB (data from a form)
 const addNewUser = async (req, res) => {
+
+    const redirectUrl = req.body.redirect || req.headers.referer || '/';
+
     try {
         // Check if alias is reseved
         const alias = req.body.alias;
@@ -135,21 +138,21 @@ const addNewUser = async (req, res) => {
             const newUser = new UserModel(req.body);
             // save the data to db
             await newUser.save();
-            res.render('user', {
-                info2: 'Adding was a success'
-            });
+            req.flash('info', 'Rekisteröityminen onnistui. Voit nyt kirjautua sisään.');
+            res.redirect(redirectUrl);
+            
         }
+        /* TARVIIKO TÄTÄ, KUN ON VALIDOINNIT?? 
         else {
+            req.flash('info', '')
             res.render('user', {
                 info2: 'Passwords dont match'
             });
-        }
+        }*/
         
     }
     catch(error) {
-        res.status(500).render('user', {
-            info2: 'Adding failed'
-        });
+        req.flash('info', 'Jokin meni pieleen rekisteröitymisessä. Kokeile uudestaan.');
         console.log(error);
     }
 }
