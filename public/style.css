@@ -9,6 +9,9 @@ COLORS
 FONT
 Inika
 */ 
+html {
+    scroll-behavior: smooth;
+}
 
 body {
     min-width: fit-content;

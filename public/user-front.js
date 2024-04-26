@@ -49,17 +49,6 @@ function removeProfilePicture() {
 }
 
 
-$(window).scroll(function() {
-    sessionStorage.scrollTop = $(this).scrollTop();
-});
-
-$(document).ready(function() {
-if (sessionStorage.scrollTop != "undefined") {
-    $(window).scrollTop(sessionStorage.scrollTop);
-}
-});
-
-
 // event search event cards registration to event button function
 $(document).on('click', '.registerToEvent', function() {
     const eventId = this.id.split("_")[1];
