@@ -20,7 +20,10 @@ const userSchema = new mongoose.Schema({
     gender: String,
     birthYear: Number,
     city: String,
-    imageSrc: String,
+    imageSrc: {
+        type: String,
+        default: 'kale.png'
+    },
     favoriteGenres: Array
 });
 
