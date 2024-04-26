@@ -50,6 +50,8 @@
             {{>searchedEvents}}
         </div>
     </section>
-
+{{#if anchor}}
+    <script>window.onload = function moveToSearchResults()  { window.location.hash ="{{anchor}}"}</script>
+{{/if}}
 </main>
 {{>footer}}

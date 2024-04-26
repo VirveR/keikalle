@@ -27,14 +27,12 @@
         <div class="enrollmentCount" role="region" aria-label="Ilmoittautuminen">
             {{#if userLoggedIn}}
                 {{#if userRegisteredToEvent}}
-                    <button aria-label="Poista ilmoittautuminen" class="unRegisterFromEvent" id="delete_{{this._id}}" type="button">Poista ilmoittautuminen</button>
+                    <button aria-label="Poista ilmoittautuminen" class="unRegisterFromEvent" id="delete_{{this._id}}" type="button">Poista Ilmoittautuminen</button>
                 {{else}}
-                    <span style="display: inline">
                     <button aria-label="Ilmoittaudu keikalle" class="registerToEvent" id="add_{{this._id}}" type="button">Ilmoittaudu Keikalle</button>
-                    </span>
                 {{/if}}
             {{else}}
-                <p>Sinun täytyy olla kirjautunut sisään ilmoittautuaksesi keikalle</p>
+                <p class="notLoggedInEventInfo">Sinun täytyy olla kirjautunut sisään ilmoittautuaksesi keikalle</p>
             {{/if}}
             <dt><label id="enrolment-label" for="enrollment_count">Ilmoittautuneita</label></dt>
             <dd id="enrolment_count">{{#if this.usersRegistered}}{{this.usersRegistered.length}}{{else}}0{{/if}}</dd>

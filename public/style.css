@@ -9,6 +9,9 @@ COLORS
 FONT
 Inika
 */ 
+html {
+    scroll-behavior: smooth;
+}
 
 body {
     min-width: fit-content;
@@ -334,7 +337,8 @@ h3 {
 }
 
 .card-link {
-    display: block;
+    display: flex;
+    width: 100%;
     text-decoration: none;
     color: #fff;
 }
@@ -387,17 +391,17 @@ h3 {
     flex-direction: column;
     justify-content: flex-end;
     align-items: flex-end;
-    width: 17%;
+    width: 18%;
     background-color: #8A8E9B;
-    padding: 0 10px 5px 0;
+    padding: 5px 5px;
 }
 
 .enrollmentCount dt {
-    font-size: 11pt;
+    font-size: 0.8rem;
 }
 
 .enrollmentCount dd {
-    font-size: 16pt;
+    font-size: 14pt;
 }
 
 .registerToEvent {
@@ -406,8 +410,8 @@ h3 {
     font-family: "inika";
     font-size: 0.8rem;
     width: 95%;
-    padding: 10px 5px;
-    margin: 20px 0;
+    padding: 5px 15px;
+    margin: 20px 6px;
     border: 2px solid #182126;
     border-radius: 7px;
 }
@@ -419,10 +423,14 @@ h3 {
     font-family: "inika";
     font-size: 0.8rem;
     width: 95%;
-    padding: 10px 5px;
-    margin: 20px 0;
+    padding: 5px 0;
+    margin: 20px 5px;
     border: 2px solid #182126;
     border-radius: 7px;
+}
+
+.notLoggedInEventInfo{
+    font-size: 0.8rem;
 }
 
 
@@ -451,6 +459,9 @@ h3 {
         width: 100%;
         padding: 0;
     }
+}
+
+@media only screen and (max-width: 992px) {
     .event_search_results {
         width: 100%;
     }
@@ -521,7 +532,7 @@ h3 {
     align-items: flex-end;
     margin-right: 2em;
     margin-left: auto;
-    width: 17%;
+    width: 18%;
 }
 
 .event_container .enrollmentCount dt{

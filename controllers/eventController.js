@@ -109,7 +109,8 @@ const searchEvents = async (req, res) => {
                 userId: userId,
                 alias: alias,
                 events: events,
-                showcase: events.slice(0, 4)
+                showcase: events.slice(0, 4),
+                anchor: '#event_search_results'
             });
         }
     }
