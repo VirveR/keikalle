@@ -207,8 +207,7 @@ const sendEmail = async (req, res) => {
         artists += artist + "\n";
     });
 
-    console.log(req.body.emailAddress);
-
+    const emailAddress = req.body.emailAddress;
     const userId = req.session.user.userId;
     const sender = req.session.user.alias;
     const sendTo = req.body.sendTo;
