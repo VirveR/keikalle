@@ -91,7 +91,7 @@ const searchEvents = async (req, res) => {
 
             if (req.session.user) {
                 userLoggedIn = true;
-                userRegisteredToEvent = event.usersRegistered.includes(id);
+                userRegisteredToEvent = event.usersRegistered.includes(userId);
             }
             else {
                 userLoggedIn = false;
