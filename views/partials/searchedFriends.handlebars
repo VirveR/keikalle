@@ -12,12 +12,12 @@
                     <p>Ikä: {{this.age}}</p>
                 </div>
                 <div class="friend-connect">
-                    <button type="button" class="sign-out-btn">Ota yhteyttä</button>
-                    <div id="sendEmail">
+                    <button type="button" class="sign-out-btn open_textfield" id="showMessageBox_{{this._id}}" onclick="toggleSendMessage()">Ota yhteyttä</button>
+                    <div id="sendEmail_{{this._id}}" style="display:none">
                         <form action="/sendEmail" method="post">
                             <label for="emailMessage">Kirjoita viesti:</label>
                             <p class="messageContainer">
-                                <textarea id="emailMessage" name="emailMessage" rows="5" cols="25" style="resize: none;"></textarea>
+                                <textarea id="emailMessage" name="emailMessage" rows="5" cols="20" style="resize: none;"></textarea>
                             </p>
                             <input type="hidden" name="emailAddress" value="{{this.email}}">
                             <input type="hidden" name="sendTo" value="{{this.alias}}">

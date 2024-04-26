@@ -25,6 +25,13 @@ function closeInfoBox() {
     $('.error-box').hide(500);
 }
 
+$(document).on('click', '.open_textfield', function() {
+    const id = this.id.split("_")[1];
+    const textboxId = "#sendEmail_"+id;
+    $('#'+this.id).hide();
+    $(textboxId).show();
+});
+
 function removeProfilePicture() {
     const userId = $('#userIdForPictureUpload').val();
     const path = $('#profilePicture').attr('src').split('/');
