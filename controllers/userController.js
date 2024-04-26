@@ -26,7 +26,7 @@ sharp.cache(false);
 
 const upload = require('../middlewares/upload');
 const { setTimeout } = require('timers/promises');
-const { sendMail } = require('../middlewares/mailer');
+const { sendMail } = require('../middlewares/htmlMailer');
 
 
 /* ROUTES
@@ -202,17 +202,12 @@ const sendEmail = async (req, res) => {
     
     const concert = await EventModel.findById(req.body.eventId);
     const concertDate = format(concert.date, 'dd.MM.yyyy', 'fi');
-    let artists = "";
-    concert.artists.forEach(artist => {
-        artists += artist + "\n";
-    });
-
     const emailAddress = req.body.emailAddress;
-    const userId = req.session.user.userId;
+    // const userId = req.session.user.userId; only needed if there will be chance to reply or check users profile in the future
     const sender = req.session.user.alias;
     const sendTo = req.body.sendTo;
-    const message = `Keikan tiedot:\n\n pvm: ${concertDate} \n\n Esiintyjinä: \n ${artists} \n\n Viesti kaverilta:\n ${req.body.emailMessage} \n\n Terveisin ${sender}`;
-    await sendMail(emailAddress, sender, sendTo, message);
+    const message = req.body.emailMessage;
+    await sendMail(emailAddress, sender, sendTo, message, concert.artists, concertDate, concert.place, concert.city);
     res.status(200).redirect('/');
 }
 
