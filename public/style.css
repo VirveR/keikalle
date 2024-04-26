@@ -480,16 +480,20 @@ h3 {
     flex-direction: row;
     width: 93%;
     margin: 2em;
-    align-items: flex-end;
 }
 
 .event_band_image-container {
+    display: flex;
+    align-items: center;
     width: 300px;
     height: 300px;
     overflow: hidden;
 }
 
 .event_info {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
     flex: 1;
     text-align: left;
     padding-left: 5em;
@@ -510,7 +514,11 @@ h3 {
 }
 
 .event_container .enrollmentCount {
-    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-end;
+    margin-left: auto;
     width: 17%;
 }
 
