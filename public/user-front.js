@@ -57,8 +57,14 @@ $(document).on('click', '.registerToEvent', function() {
         data: {eventId: eventId},
         success: function(data){
             if(data.added){
+                $.cookie('last-scroll-top', $(window).scrollTop());
+                document.location.reload(true);
+                var lastScrollTop = $.cookie('last-scroll-top');
+                if (lastScrollTop) {
+                    $(window).scrollTop(lastScrollTop);
+                    $.removeCookie('last-scroll-top');
+                }
                 location.reload();
-                console.log("registered to event");
             }
             else{
                 console.log("registration to event failed");

@@ -1,7 +1,8 @@
 {{#each events}}
-    <a href="/event/{{this._id}}" class="card-link" role="link" aria-label="Tapahtuman sivulle">
-        <div class="event_card">
+    
+    <div class="event_card">
 
+        <a href="/event/{{this._id}}" class="card-link" role="link" aria-label="Tapahtuman sivulle">
             <div class="event_card_image-container">
                 <img class="bandImage" src="./images/bandimages/{{this.imgSrc}}" alt="Tapahtuman mainoskuva">
             </div>
@@ -21,23 +22,24 @@
                 <p>{{this.date}}</p>
                 <p>{{this.place}}, {{this.city}}</p>
             </div>
-
-            <!-- Enrolment area -->
-            <div class="enrollmentCount" role="region" aria-label="Ilmoittautuminen">
-                {{#if userLoggedIn}}
-                    {{#if userRegisteredToEvent}}
-                        <button aria-label="Poista ilmoittautuminen" class="unRegisterFromEvent" id="delete_{{this._id}}" type="button">Poista ilmoittautuminen</button>
-                    {{else}}
-                        <button aria-label="Ilmoittaudu keikalle" class="registerToEvent" id="add_{{this._id}}" type="button">Ilmoittaudu Keikalle</button>
-                    {{/if}}
+        </a>
+        <!-- Enrolment area -->
+        <div class="enrollmentCount" role="region" aria-label="Ilmoittautuminen">
+            {{#if userLoggedIn}}
+                {{#if userRegisteredToEvent}}
+                    <button aria-label="Poista ilmoittautuminen" class="unRegisterFromEvent" id="delete_{{this._id}}" type="button">Poista ilmoittautuminen</button>
                 {{else}}
-                    <p>Sinun täytyy olla kirjautunut sisään ilmoittautuaksesi keikalle</p>
+                    <span style="display: inline">
+                    <button aria-label="Ilmoittaudu keikalle" class="registerToEvent" id="add_{{this._id}}" type="button">Ilmoittaudu Keikalle</button>
+                    </span>
                 {{/if}}
-                <dt><label id="enrolment-label" for="enrollment_count">Ilmoittautuneita</label></dt>
-                <dd id="enrolment_count">{{#if this.usersRegistered}}{{this.usersRegistered.length}}{{else}}0{{/if}}</dd>
-            </div>
-
+            {{else}}
+                <p>Sinun täytyy olla kirjautunut sisään ilmoittautuaksesi keikalle</p>
+            {{/if}}
+            <dt><label id="enrolment-label" for="enrollment_count">Ilmoittautuneita</label></dt>
+            <dd id="enrolment_count">{{#if this.usersRegistered}}{{this.usersRegistered.length}}{{else}}0{{/if}}</dd>
         </div>
-    </a>
+
+    </div>
 {{/each}}  
 
