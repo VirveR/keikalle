@@ -199,16 +199,25 @@ const getUserProfile = async (req, res) => {
 
 // POST send Email to other user
 const sendEmail = async (req, res) => {
-    
-    const concert = await EventModel.findById(req.body.eventId);
-    const concertDate = format(concert.date, 'dd.MM.yyyy', 'fi');
-    const emailAddress = req.body.emailAddress;
-    // const userId = req.session.user.userId; only needed if there will be chance to reply or check users profile in the future
-    const sender = req.session.user.alias;
-    const sendTo = req.body.sendTo;
-    const message = req.body.emailMessage;
-    await sendMail(emailAddress, sender, sendTo, message, concert.artists, concertDate, concert.place, concert.city);
-    res.status(200).redirect('/');
+    try{
+        const redirectUrl = req.body.redirect || req.headers.referer || '/';
+
+        const concert = await EventModel.findById(req.body.eventId);
+        const concertDate = format(concert.date, 'dd.MM.yyyy', 'fi');
+        const emailAddress = req.body.emailAddress;
+        // const userId = req.session.user.userId; only needed if there will be chance to reply or check users profile in the future
+        const sender = req.session.user.alias;
+        const sendTo = req.body.sendTo;
+        const message = req.body.emailMessage;
+        await sendMail(emailAddress, sender, sendTo, message, concert.artists, concertDate, concert.place, concert.city);
+        req.flash('info', 'Viesti lähetetty');
+        res.status(200).redirect(redirectUrl);
+    }
+    catch(error){
+        console.log(error);
+        req.flash('info', 'Viestin lähettäminen epäonnistui');
+        res.redirect('/');
+    }
 }
 
 
