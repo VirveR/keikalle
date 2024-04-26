@@ -48,6 +48,18 @@ function removeProfilePicture() {
     }
 }
 
+
+$(window).scroll(function() {
+    sessionStorage.scrollTop = $(this).scrollTop();
+});
+
+$(document).ready(function() {
+if (sessionStorage.scrollTop != "undefined") {
+    $(window).scrollTop(sessionStorage.scrollTop);
+}
+});
+
+
 // event search event cards registration to event button function
 $(document).on('click', '.registerToEvent', function() {
     const eventId = this.id.split("_")[1];
@@ -57,14 +69,7 @@ $(document).on('click', '.registerToEvent', function() {
         data: {eventId: eventId},
         success: function(data){
             if(data.added){
-                $.cookie('last-scroll-top', $(window).scrollTop());
-                document.location.reload(true);
-                var lastScrollTop = $.cookie('last-scroll-top');
-                if (lastScrollTop) {
-                    $(window).scrollTop(lastScrollTop);
-                    $.removeCookie('last-scroll-top');
-                }
-                location.reload();
+                document.location.reload(true)
             }
             else{
                 console.log("registration to event failed");
