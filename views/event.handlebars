@@ -1,72 +1,82 @@
+{{>header}}
 
-    {{>header}} 
+<main class="top_section" style="border:none">
 
-<article class="top_section">
+    <!-- Info box to display messages -->
+    <div id="error-box_event" class="error-box" aria-live="polite" role="alert" {{#if info}}style="display:block; border: 2px solid darkred;"{{else if infoArray}}style="display:block; border: 2px solid darkred;"{{else}}style="display: none;"{{/if}}>
+        {{info}}
+        {{#each infoArray}} 
+            <p> {{this}} </p> 
+        {{/each}}
+        <button type="button" id="close-info-btn" onclick="closeInfoBox()">&#10006;</button>
+    </div>
 
-    <section id="error-box_event" class="error-box" aria-live="polite" role="alert" {{#if info}}style="display:block; border: 2px solid darkred;"{{else if infoArray}}style="display:block; border: 2px solid darkred;"{{else}}style="display: none;"{{/if}}>
-            {{info}}
-            {{#each infoArray}} 
-                <p> {{this}} </p> 
-            {{/each}}
-            <button type="button" id="close-info-btn" onclick="closeInfoBox()">&#10006;</button>
-        </section>
+    <!-- Event Information --> 
+    <section class="event_container">
 
-    <div class="event_container">
+        <!-- Event image -->
         <div class="event_band_image-container">
             <img class="bandImage" src="/images/bandimages/{{concert.imgSrc}}" alt="Band">
         </div>
-        <section class="event_info">
-            <h1 class="artistName">
-                <!--Shows the band names in a row, separated by a / -->
-                {{#each concert.artists}}
-                    {{#if @first}}
-                        {{this}}
-                    {{else}}
-                        / {{this}}
-                    {{/if}}
-                {{/each}}
+
+        <!-- Event details -->
+        <div class="event_info" role="region" aria-label="Tapahtuman tiedot">
+            <!--Shows the band names in a row, separated by a / -->
+            <h1 class="event-info-heading">{{#each concert.artists}}
+                {{#if @first}}
+                    {{this}}
+                {{else}}
+                    / {{this}}
+                {{/if}}
+            {{/each}}
             </h1>
             <h2>{{concert.date}}</h2>
             <h2>{{concert.place}}, {{concert.city}}</h2>
-        </section>
-        <section class="enrollmentCount">
-                {{#if alias}}
-                    {{#if userRegisteredToEvent}}
-                        <button aria-label="Poista ilmoittautuminen" class="unRegisterFromEvent" id="delete_{{concert._id}}" type="button">Poista ilmoittautuminen</button>
-                    {{else}}
-                        <button aria-label="Ilmoittaudu keikalle" class="registerToEvent" id="add_{{concert._id}}" type="button">Ilmoittaudu Keikalle</button>
-                    {{/if}}
+        </div>
+
+        <!-- Enrolment area if logged in-->
+        <div class="enrollmentCount" role="region" aria-label="Ilmoittautuminen">
+            {{#if userId}}
+                {{#if userRegisteredToEvent}}
+                    <button aria-label="Poista ilmoittautuminen" class="unRegisterFromEvent" id="delete_{{concert._id}}" type="button">Poista ilmoittautuminen</button>
                 {{else}}
-                    <p>Sinun täytyy olla kirjautunut sisään ilmoittautuaksesi keikalle</p>
+                    <button aria-label="Ilmoittaudu keikalle" class="registerToEvent" id="add_{{concert._id}}" type="button">Ilmoittaudu Keikalle</button>
                 {{/if}}
+
+            {{else}}
+                <p>Sinun täytyy olla kirjautunut sisään ilmoittautuaksesi keikalle</p>
+            {{/if}}
+
             <dt><label for="enrollment_count_event">Ilmoittautuneita</label></dt>
             <dd id="enrolment_count_event">{{#if concert.usersRegistered}}{{concert.usersRegistered.length}}{{else}}0{{/if}}</dd>
-        </section>
-      
-    </div>
-</article>
-
-{{#if alias}}
-    <section id="find_friend" class="find_friend dark_bg">
-        <section id="friend_search">
-            <h2>Hae kaveria keikalle</h2>
-            {{>friendsearchform}}
-        </section>
-
-        <!-- Friends from the database -->
-        <section id="find-friend-results" class="event_search_results">
-            {{>searchedFriends}}
-        </section>
+        </div>
+    
     </section>
-{{else}}
-    <p>Kirjaudu sisään, niin pääset hakemaan kavereita.</p>
-    <section role="region" aria-label="Kirjaudu sisään tai rekisteröidy käyttäjäksi">
-                <button type="button" class="signIn_button" id="openLoginFormButton" onClick="toggleSignInForm()">Kirjaudu</button>
-                <button type="button" class="signIn_button" id="openSignupFormButton" onClick="toggleSignUpForm()">Rekisteröidy</button>
-            </section>
+
+    <!-- Friend search if logged in-->
+    {{#if userId}}
+        <section id="find_friend" class="find_friend dark_bg" aria-labelledby="friend-search-heading">
+            <h2 id="friend-search-heading">Hae kaveria keikalle</h2>
+            {{>friendsearchform}}
+
+            <!-- Friends from the database -->
+            <div id="find-friend-results" class="event_search_results" role="region" aria-label="Kaverihaun tulokset">
+                {{>searchedFriends}}
+            </div>
+        </section>
+
+    <!-- Log in if not already -->
+    {{else}}
+        <section role="region" aria-label="Kirjaudu sisään tai rekisteröidy käyttäjäksi"></section>
+            <p>Kirjaudu sisään, niin pääset hakemaan kavereita.</p>
+            <button type="button" class="signIn_button" id="openLoginFormButton" onClick="toggleSignInForm()">Kirjaudu</button>
+            <button type="button" class="signIn_button" id="openSignupFormButton" onClick="toggleSignUpForm()">Rekisteröidy</button>
             {{>loginform currentPage}}
             {{>signupform}}
-{{/if}}
+        </section>
+    {{/if}}
+
+</main>
 
 {{>footer}}
 

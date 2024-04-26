@@ -2,8 +2,8 @@
 
 <main class="top_section" style="border:none">
 
-    <!-- Info box -->
-    <div id="error-box_profile" class="error-box" aria-live="polite" role="alert" 
+    <!-- Info box to display messages -->
+    <div id="error-box-profile" class="error-box" aria-live="polite" role="alert" 
         {{#if info}}style="display:block; border: 2px solid darkred;"
         {{else if infoArray}}style="display:block; border: 2px solid darkred;"
         {{else}}style="display: none;"{{/if}}>
@@ -53,7 +53,7 @@
                 <p class="input_container">
                     <label for="alias" class="loginform-label">Nimimerkki*</label>
                     <input type="text" class="loginform-input" name="alias" id="update-alias" value="{{profile.alias}}" aria-required="true" aria-describedby="update-alias-info">
-                    <span role="text" aria-label="Nimimerkkikentän ohje" class="validation_info" id="update-alias-info">Nimimerkin tulisi olla 3-20 merkkiä pitkä, ei erikoismerkkejä</span>
+                    <span role="text" aria-label="Nimimerkkikentän ohje" class="validation_info" id="update-alias-info">Nimimerkin on oltava vähintään 3, enintään 20 merkkiä pitkä, ei erikoismerkkejä</span>
                 </p>
 
                 <p class="input_container">
@@ -79,7 +79,8 @@
 
                 <p class="input_container">
                     <label for="birthYear" class="loginform-label">Syntymävuosi</label>
-                    <input type="number" class="loginform-input" name="birthYear" id="update-birthYear" value="{{profile.birthYear}}" min="1904" max="2024">
+                    <input type="number" class="loginform-input" name="birthYear" id="update-birthYear" value="{{profile.birthYear}}" min="1904" max="2024" aria-describedby="update-year-info">
+                    <span role="text" aria-label="Syntymävuosikentän ohje" class="validation_info" id="update-year-info">Syntymävuoden täytyy olla vuosien 1904 ja 2006 väliltä</span>
                 </p>
 
                 <p class="input_container">
