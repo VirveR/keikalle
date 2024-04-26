@@ -489,7 +489,7 @@ h3 {
 .event_container {
     display: flex;
     flex-direction: row;
-    width: 93%;
+    width: 100%;
     margin: 2em;
 }
 
@@ -499,6 +499,7 @@ h3 {
     width: 300px;
     height: 300px;
     overflow: hidden;
+    padding-left: 2em;
 }
 
 .event_info {
@@ -510,7 +511,7 @@ h3 {
     padding-left: 5em;
 }
 
-.event_info h1 {
+.event-info-heading {
     margin-top: 0;
     margin-left: 0;
     font-size: 38pt;
@@ -529,6 +530,7 @@ h3 {
     flex-direction: column;
     justify-content: flex-end;
     align-items: flex-end;
+    margin-right: 2em;
     margin-left: auto;
     width: 18%;
 }
@@ -546,23 +548,39 @@ h3 {
     display: flex;
     flex-direction: column;
     align-items: center;
-} 
+}
 
-#friend_search {
+/* Friend search */
+
+/*#friend_search_form {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 60%;
+    width: 100%;
+}*/
+
+#friend-age-area {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0;
+    border: none;
 }
 
-.messageContainer {
+legend {
+    float: left;
+    align-items: center;
     margin: 0;
+    padding: 0;
 }
 
 .age-inputs {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: right;
+    text-align: right;
+    margin-left: 15px;
 }
 
 .input_container {
@@ -588,18 +606,17 @@ h3 {
     border-radius: 7px;
 }
 
-fieldset {
+/*fieldset {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     border: none;
     padding: 0;
     margin: 0;
-}
+}*/
 
-legend {
-    float: left;
-    margin: 13px 0;
+.messageContainer {
+    margin: 0;
 }
 
 #friends-container {
