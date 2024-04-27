@@ -97,13 +97,14 @@ const searchEvents = async (req, res) => {
         const e = await EventModel.find(query).sort({date: 1});
         const events = e.map(event => {
             const formattedDate = format(event.date, 'dd.MM.yyyy', 'fi');
-
+            
             if (req.session.user) {
                 userLoggedIn = true;
                 userRegisteredToEvent = event.usersRegistered.includes(userId);
             }
             else {
                 userLoggedIn = false;
+                userRegisteredToEvent = false;
             }
             return {...event.toObject(), date: formattedDate, userRegisteredToEvent: userRegisteredToEvent, userLoggedIn: userLoggedIn};
         });
