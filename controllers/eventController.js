@@ -85,6 +85,14 @@ const searchEvents = async (req, res) => {
         if (place) { query.place = { $regex: place, $options: 'i' }; }
         query.date = { $gte: today };
 
+        const se = await EventModel.find({date: {$gte: today}}).sort({date: 1});
+        console.log(se);
+        const showCaseEvents = se.map(event => {
+            const formattedDate = format(event.date, 'dd.MM.yyyy', 'fi');
+
+            return {...event.toObject(), date: formattedDate}
+        });
+
         const e = await EventModel.find(query).sort({date: 1});
         const events = e.map(event => {
             const formattedDate = format(event.date, 'dd.MM.yyyy', 'fi');
@@ -104,12 +112,15 @@ const searchEvents = async (req, res) => {
             res.redirect('/');
         }
         else {
+            console.log(events);
+            console.log("--------------------------------------------")
+            console.log(showCaseEvents);
             res.status(200).render('index', {
                 pagetitle: 'Etusivu',
                 userId: userId,
                 alias: alias,
                 events: events,
-                showcase: events.slice(0, 4),
+                showcase: showCaseEvents.slice(0, 4),
                 anchor: '#event_search_results'
             });
         }
