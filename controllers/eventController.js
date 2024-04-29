@@ -25,6 +25,7 @@ const { id } = require('date-fns/locale');
     - POST /unRegisterFromEvent (Remove user from event)
     - GET /event/:id (Get Event Page by event ID from db)
     - POST /event/:id (Event Page with Friend Search results)
+    - GET /accessibility (Get Accessibility report)
 */
 
 // GET / (Get Home Page with Events)
@@ -286,8 +287,21 @@ const searchFriends = async (req, res) => {
     }
 }
 
+// GET /accessibility (Get Accessibility report)
+const getAccessibility = (req, res) => {
+    let userId = "";
+    if (req.session.user) {
+        userId = req.session.user.userId;
+    }
+    res.status(200).render('accessibility', {
+            pagetitle: 'Saavutettavuus',
+            userId: userId
+        });
+    }
+
 module.exports = { 
     getHome, searchEvents, 
     registerToEvent, unRegisterFromEvent,
-    getEvent,  searchFriends 
+    getEvent,  searchFriends,
+    getAccessibility
 }; 

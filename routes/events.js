@@ -24,4 +24,7 @@ router.get('/event/:id', eventController.getEvent);
 // POST /event/:id (Event Page with Friend Search results)
 router.post('/event/:id', eventController.searchFriends);
 
+// GET /accessibility (Get Accessibility report)
+router.get('/accessibility', eventController.getAccessibility);
+
 module.exports = router;

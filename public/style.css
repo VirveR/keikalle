@@ -83,6 +83,10 @@ footer {
     margin-top: 40px;
 }
 
+footer > a {
+    color: #73D5FF;
+}
+
 .content_width {
     width: 60%;
 }
