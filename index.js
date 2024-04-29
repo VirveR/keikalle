@@ -1,13 +1,16 @@
 const express = require('express');
 const session = require('express-session');
+const { v4: uuidv4 } = require('uuid'); // for creating session uuid
 const checkSession = require('./middlewares/expiredSessions');
 const flash = require('express-flash');
 const store = require('./middlewares/validate');
 
 const MongoStore = require('connect-mongo');
 
-// for creating session uuid
-const { v4: uuidv4 } = require('uuid');
+// Generates unique session secure key
+const generateUUIDKey = () => {
+    return uuidv4();
+}
 
 //sessioo varten tuotu nämä tänne
 const mongoose = require('mongoose');
@@ -23,20 +26,18 @@ app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 app.use(express.static('public'));
 app.use(session( {
-    secret: 'testi_key', //This must be more secure key
-    resave: false,
-    saveUninitialized: false,
+    secret: generateUUIDKey(),
+    resave: false, // saving session data to the store only when something in it changes
+    saveUninitialized: false, // session is not stored if there is not any changes made to it
     store: MongoStore.create({
         mongooseConnection: mongoose.connection,
         mongoUrl: conString,
         collection: 'sessions',
-        resave: false,
-        saveUninitialized: false,   
     }),
     cookie: {
         maxAge: 30 * 60 * 1000, // Set maxAge to 30 minutes in milliseconds,
-        //httpOnly: true,
-        //secure: false
+        httpOnly: true, // Session cookie will be accessible only through HTTP(S) requests and cannot be accessed by client-side scripts
+        secure: false // Session cookie will be sent over both HTTP and HTTPS connections. Good for developmen but in production, set to true -> ensures that the session cookie is only sent over secure HTTPS connections
     }
    
 }));
