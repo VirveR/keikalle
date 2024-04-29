@@ -41,34 +41,34 @@
                 <input type="hidden" name="id" id="update-id" value="{{profile._id}}">
 
                 <p class="input_container">
-                    <label for="firstName" class="loginform-label">Etunimi</label>
+                    <label for="update-firstName" class="loginform-label">Etunimi</label>
                     <input type="text" class="loginform-input" name="firstName" id="update-firstName" value="{{profile.firstName}}">
                 </p>
 
                 <p class="input_container">
-                    <label for="lastName" class="loginform-label">Sukunimi</label>
+                    <label for="update-lastName" class="loginform-label">Sukunimi</label>
                     <input type="text" class="loginform-input" name="lastName" id="update-lastName" value="{{profile.lastName}}">
                 </p>
 
                 <p class="input_container">
-                    <label for="alias" class="loginform-label">Nimimerkki*</label>
+                    <label for="update-alias" class="loginform-label">Nimimerkki*</label>
                     <input type="text" class="loginform-input" name="alias" id="update-alias" value="{{profile.alias}}" aria-required="true" aria-describedby="update-alias-info">
                     <span role="text" aria-label="Nimimerkkikentän ohje" class="validation_info" id="update-alias-info">Nimimerkin on oltava vähintään 3, enintään 20 merkkiä pitkä, ei erikoismerkkejä</span>
                 </p>
 
                 <p class="input_container">
-                    <label for="email" class="loginform-label">Sähköposti*</label>
+                    <label for="update-email" class="loginform-label">Sähköposti*</label>
                     <input type="text" class="loginform-input" name="email" id="update-email" value="{{profile.email}}" aria-required="true" aria-describedby="update-email-info">
                     <span role="text" aria-label="Sähköpostikentän ohje" class="validation_info" id="update-email-info">Toimiva sähköpostiosoite vaaditaan</span>
                 </p>
 
                 <p class="input_container">
-                    <label for="city" class="loginform-label">Paikkakunta</label>
+                    <label for="update-city" class="loginform-label">Paikkakunta</label>
                     <input type="text" class="loginform-input" name="city" id="update-city" value="{{profile.city}}">
                 </p>
 
                 <p class="input_container">
-                    <label for="gender" class="loginform-label">Sukupuoli</label>
+                    <label for="update-gender" class="loginform-label">Sukupuoli</label>
                     <select class="loginform-input" name="gender" id="update-gender">
                         <option value="ei valittu" {{#if (isEqual profile.gender "ei valittu")}} selected {{/if}}>ei valittu</option>
                         <option value="nainen" {{#if (isEqual profile.gender "nainen")}} selected {{/if}}>nainen</option>
@@ -78,7 +78,7 @@
                 </p>
 
                 <p class="input_container">
-                    <label for="birthYear" class="loginform-label">Syntymävuosi</label>
+                    <label for="update-birthYear" class="loginform-label">Syntymävuosi</label>
                     <input type="number" class="loginform-input" name="birthYear" id="update-birthYear" value="{{profile.birthYear}}" min="1904" max="2024" aria-describedby="update-year-info">
                     <span role="text" aria-label="Syntymävuosikentän ohje" class="validation_info" id="update-year-info">Syntymävuoden täytyy olla vuosien 1904 ja 2006 väliltä</span>
                 </p>
