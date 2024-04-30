@@ -45,7 +45,7 @@ router.post('/profile/delete/profilepic', auth, userController.deleteProfilePict
 router.post('/delete-profile', userController.deleteUser);
 
 // GET /logout (Logout user, destroy session)
-router.get('/logout', auth, userController.userLogOut);
+router.post('/logout', auth, userController.userLogOut);
 
 module.exports = router;
 

@@ -373,19 +373,19 @@ const deleteUser = async (req, res) => {
     }
 }
 
-// GET /logout (Logout user, destroy session)
+// POST /logout (Logout user, destroy session)
 const userLogOut = async (req, res) => {
     try {
         req.flash('info', 'Olet kirjautunut ulos.');
         await req.session.destroy();
-        res.redirect('/');
+        res.status(200).redirect('/');
     }
     catch(error) {
         res.status(500).render('index', {
             pagetitle: 'Etusivu',
             info: 'Jotain meni pieleen.'
         });
-    console.log(error);
+        console.log(error);
     }
 };
 

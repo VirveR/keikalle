@@ -245,3 +245,16 @@ $(document).on('click', '#delete-profile-btn', function() {
     $('#delete-profile-btn').hide(500);
     $('#confirm-delete-container').slideDown(500);
 });
+
+// Logout button functionality
+$(document).on('click', '#sign-out-btn', function() {
+    console.log('toimii');
+    $.ajax({
+        url: '/logout',
+        type: 'POST',
+        success: function(data) {
+            
+            window.location.href = '/logout';
+        }
+    });
+});
