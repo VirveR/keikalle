@@ -377,7 +377,15 @@ const deleteUser = async (req, res) => {
 const userLogOut = async (req, res) => {
     try {
         req.flash('info', 'Olet kirjautunut ulos.');
-        await req.session.destroy();
+        
+        await req.session.destroy((err) => {
+            if (err) {
+                console.error("Error destroying session:", err);
+            } else {
+                console.log("Session destroyed successfully");
+            }
+        });
+        
         res.status(200).redirect('/');
     }
     catch(error) {
@@ -385,7 +393,7 @@ const userLogOut = async (req, res) => {
             pagetitle: 'Etusivu',
             info: 'Jotain meni pieleen.'
         });
-        console.log(error);
+        console.log("Error: ", error);
     }
 };
 
