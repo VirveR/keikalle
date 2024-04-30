@@ -253,8 +253,7 @@ $(document).on('click', '#sign-out-btn', function() {
         url: '/logout',
         type: 'POST',
         success: function(data) {
-            
-            window.location.href = '/logout';
+            window.location.href = '/';
         }
     });
 });
