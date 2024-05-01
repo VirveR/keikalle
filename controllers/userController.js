@@ -383,10 +383,11 @@ const userLogOut = async (req, res) => {
                 console.error("Error destroying session:", err);
             } else {
                 console.log("Session destroyed successfully");
+                res.status(200).redirect('/');
             }
         });
         
-        res.status(200).redirect('/');
+        
     }
     catch(error) {
         res.status(500).render('index', {
