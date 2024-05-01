@@ -252,8 +252,8 @@ $(document).on('click', '#sign-out-btn', function() {
     $.ajax({
         url: '/logout',
         type: 'POST',
-        success: function(data) {
-            window.location.href = '/';
+        success: function() {
+            window.location.reload();
         }
     });
 });
