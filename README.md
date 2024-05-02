@@ -9,22 +9,32 @@ This application meets the need to find a friend to a music event.
 
 **Other features:**
 - Registered users
-- Possibility to add events
+- User profile
+- Events coming soon
 - Search conditions for the events and people
+
+**Features on todo list:**
+- Possibility to add events
+- Possibility to report incorrect event information
 - Possibility to give a "thumb up" for a good friend experience
 - Possibility to report and block a profile
 
 **Node modules used:**
 - express
 - nodemon (for development)
-- dotenv
-- mongoose
-- express-handlebars
-- bcryptjs
-- connect-mongo
-- express-session
-- express-flash
-- sharp
-- date-fns
+- dotenv (environment variables)
+- mongoose (for database connection)
+- connect-mongo (for database connection)
+- express-handlebars (for rendering pages)
+- express-session (for user sessions)
+- uuid (for session security)
+- express-flash (for conveying messages across pages)
+- bcryptjs (for crypting passwords)
+- express-validator (for validating form info)
+- multer (for uploading images)
+- sharp (for converting images)
+- date-fns (for editing dates)
+- nodemailer (for connecting users)
+- nodemailer-smtp-transport (for connecting users)
 
 The language of the application is Finnish.
