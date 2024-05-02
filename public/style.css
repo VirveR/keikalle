@@ -83,8 +83,13 @@ footer {
     margin-top: 40px;
 }
 
-footer > a {
+a {
     color: #73D5FF;
+}
+
+#accessibility {
+    width: 60%;
+    text-align: left;
 }
 
 .content_width {
