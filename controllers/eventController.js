@@ -228,6 +228,7 @@ const getEvent = async (req, res) => {
 const searchFriends = async (req, res) => {
     try {
         const eventId = req.params.id;
+        const userId = req.session.user.userId;
         const concert = await EventModel.findById(eventId);
         const thisYear = new Date().getFullYear();
         const formattedDate = format(concert.date, 'dd.MM.yyyy', 'fi');
@@ -236,6 +237,7 @@ const searchFriends = async (req, res) => {
                     date: formattedDate
         };
         if (concert) {
+            const userRegisteredToEvent = concert.usersRegistered.includes(userId);
             let minYear = thisYear;
             if (req.body.min_friend_age) { minYear = thisYear - Number(req.body.min_friend_age); }
             let maxYear = thisYear - 120;
@@ -258,7 +260,8 @@ const searchFriends = async (req, res) => {
             if (friends.length < 1) {
                 res.render('event', {
                     pagetitle: 'Tapahtuma',
-                    userId: req.session.user.userId,
+                    userId: userId,
+                    userRegisteredToEvent: userRegisteredToEvent,
                     alias: req.session.user.alias,
                     concert: eventWithFormattedDate,
                     info: 'Hakuehdoilla ei löydy ketään',
@@ -267,7 +270,8 @@ const searchFriends = async (req, res) => {
             else {
                 res.status(200).render('event', {
                     pagetitle: 'Tapahtuma',
-                    userId: req.session.user.userId,
+                    userId: userId,
+                    userRegisteredToEvent: userRegisteredToEvent,
                     alias: req.session.user.alias,
                     concert: eventWithFormattedDate,
                     friends: friends,
