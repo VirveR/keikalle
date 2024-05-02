@@ -29,9 +29,6 @@ router.post('/user/login', validateLogin, userController.userLogin);
 // GET /profile (Show User Profile Page)
 router.get('/profile', auth, userController.getUserProfile);
 
-// GET send email to other user
-router.post('/sendEmail', userController.sendEmail);
-
 // POST /profile (Edit user information on Profile Page)
 router.post('/profile', sanitizeProfileUpdate, userController.updateUser);
 
@@ -46,6 +43,9 @@ router.post('/delete-profile', userController.deleteUser);
 
 // GET /logout (Logout user, destroy session)
 router.post('/logout', auth, userController.userLogOut);
+
+// POST /sendEmail (send Email to other user)
+router.post('/sendEmail', userController.sendEmail);
 
 module.exports = router;
 

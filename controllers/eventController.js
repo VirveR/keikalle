@@ -34,7 +34,7 @@ const getHome = async (req, res) => {
         const today = new Date();
         const e = await EventModel.find({ date: { $gte: today } }).sort({date: 1}).limit(4);
         const events = e.map(event => {
-            const formattedDate = format(event.date, 'dd.MM.yyy', 'fi');
+            const formattedDate = format(event.date, 'dd.MM.yyyy', 'fi');
             return {...event.toObject(), date: formattedDate};
         });
         let userId = "";
@@ -133,7 +133,7 @@ const searchEvents = async (req, res) => {
             info: 'Tapahtumien hakeminen epäonnistui'
         });
     }
-}
+};
 
 // POST /registerToEvent (Register user to event)
 const registerToEvent = async (req, res) => {
@@ -154,7 +154,7 @@ const registerToEvent = async (req, res) => {
         console.log(error);
         res.json({added : false});
     }
-}
+};
 
 // POST /unRegisterFromEvent (Remove user from event)
 const unRegisterFromEvent = async (req, res) => {
@@ -175,7 +175,7 @@ const unRegisterFromEvent = async (req, res) => {
         console.log(error);
         res.json({removed : false});
     }
-}
+};
 
 // GET /event/:id (Get Event Page by event ID from db)
 const getEvent = async (req, res) => {
@@ -191,7 +191,7 @@ const getEvent = async (req, res) => {
         const concert = await EventModel.findById(eventId);
         if (concert) {
             const userRegisteredToEvent = concert.usersRegistered.includes(userId);
-            const formattedDate = format(concert.date, 'dd.MM.yyy', 'fi');
+            const formattedDate = format(concert.date, 'dd.MM.yyyy', 'fi');
             const eventWithFormattedDate = {
                 ...concert.toJSON(),
                 date: formattedDate
@@ -222,7 +222,7 @@ const getEvent = async (req, res) => {
         });
         console.log(error);
     }
-}
+};
 
 // POST /event/:id (Event Page with Friend Search results)
 const searchFriends = async (req, res) => {
@@ -230,11 +230,11 @@ const searchFriends = async (req, res) => {
         const eventId = req.params.id;
         const concert = await EventModel.findById(eventId);
         const thisYear = new Date().getFullYear();
-        const formattedDate = format(concert.date, 'dd.MM.yyy', 'fi');
+        const formattedDate = format(concert.date, 'dd.MM.yyyy', 'fi');
         const eventWithFormattedDate = {
                     ...concert.toJSON(),
                     date: formattedDate
-                };
+        };
         if (concert) {
             let minYear = thisYear;
             if (req.body.min_friend_age) { minYear = thisYear - Number(req.body.min_friend_age); }
@@ -285,7 +285,7 @@ const searchFriends = async (req, res) => {
         res.status(404).redirect('/');
         console.log(error);
     }
-}
+};
 
 // GET /accessibility (Get Accessibility report)
 const getAccessibility = (req, res) => {
@@ -297,7 +297,7 @@ const getAccessibility = (req, res) => {
             pagetitle: 'Saavutettavuus',
             userId: userId
         });
-    }
+};
 
 module.exports = { 
     getHome, searchEvents, 

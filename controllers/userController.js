@@ -41,6 +41,7 @@ const { sendMail } = require('../middlewares/htmlMailer');
     - POST /profile/upload/profilepic (Delete profile pic on Profile Page)
     - POST /delete-profile (Remove user from db)
     - GET /logout (Logout user, destroy session)
+    - POST /sendEmail (send Email to other user)
 */
 
 // GET /user (Get all users from db)
@@ -62,9 +63,7 @@ const getUser = async (req, res) => {
 
 // POST /user (Add new user to db)
 const addNewUser = async (req, res) => {
-
     const redirectUrl = req.body.redirect || req.headers.referer || '/';
-
     try {
         // Check if alias is reseved
         const alias = req.body.alias;
@@ -95,13 +94,12 @@ const addNewUser = async (req, res) => {
                 info2: 'Passwords dont match'
             });
         }*/
-        
     }
     catch(error) {
         req.flash('info', 'Jokin meni pieleen rekisteröitymisessä. Kokeile uudestaan.');
         console.log(error);
     }
-}
+};
 
 // GET /user/:alias (Get user by alias from url)
 const getUserByAlias = async (req, res) => {
@@ -137,7 +135,7 @@ const getBooleanIfAliasInDB = async (req, res) => {
     catch(error) {
         res.status(400).json({error: error});
     }
-}
+};
 
 // POST /user/login (User login)
 const userLogin = async (req, res) => {
@@ -175,7 +173,7 @@ const userLogin = async (req, res) => {
         });
         console.log(error);
     }
-}
+};
 
 // GET /profile (Show User Profile Page)
 const getUserProfile = async (req, res) => {
@@ -196,31 +194,6 @@ const getUserProfile = async (req, res) => {
         res.status(404).redirect('/');
     }
 };
-
-// POST send Email to other user
-const sendEmail = async (req, res) => {
-    try{
-        const redirectUrl = req.body.redirect || req.headers.referer || '/';
-
-        const concert = await EventModel.findById(req.body.eventId);
-        const concertDate = format(concert.date, 'dd.MM.yyyy', 'fi');
-        const emailAddress = req.body.emailAddress;
-        // const userId = req.session.user.userId; only needed if there will be chance to reply or check users profile in the future
-        const sender = req.session.user.alias;
-        const sendTo = req.body.sendTo;
-        const message = req.body.emailMessage;
-        await sendMail(emailAddress, sender, sendTo, message, concert.artists, concertDate, concert.place, concert.city);
-        req.flash('info', 'Viesti lähetetty');
-        res.status(200).redirect(redirectUrl);
-    }
-    catch(error){
-        console.log(error);
-        req.flash('info', 'Viestin lähettäminen epäonnistui');
-        res.redirect('/');
-    }
-}
-
-
 
 // POST /profile (Edit user information on Profile Page)
 const updateUser = async (req, res) => {
@@ -284,7 +257,7 @@ const updateUser = async (req, res) => {
             console.log(error);
         }
     }
-}
+};
 
 // POST /profile/upload/profilepic (Upload new profile pic on Profile Page)
 const uploadProfilePic = async (req, res) => {
@@ -326,7 +299,7 @@ const uploadProfilePic = async (req, res) => {
         console.log(error);
     }
     
-}
+};
 
 // POST /profile/upload/profilepic (Delete profile pic on Profile Page)
 const deleteProfilePicture = async (req, res) => {
@@ -351,7 +324,7 @@ const deleteProfilePicture = async (req, res) => {
         });
         console.log(error);
     }
-}
+};
 
 // POST /delete-profile (Remove user from db)
 const deleteUser = async (req, res) => {
@@ -371,7 +344,7 @@ const deleteUser = async (req, res) => {
         });
         console.log(error);
     }
-}
+};
 
 // POST /logout (Logout user, destroy session)
 const userLogOut = async (req, res) => {
@@ -398,8 +371,31 @@ const userLogOut = async (req, res) => {
     }
 };
 
+// POST send Email to other user
+const sendEmail = async (req, res) => {
+    try{
+        const redirectUrl = req.body.redirect || req.headers.referer || '/';
+
+        const concert = await EventModel.findById(req.body.eventId);
+        const concertDate = format(concert.date, 'dd.MM.yyyy', 'fi');
+        const emailAddress = req.body.emailAddress;
+        // const userId = req.session.user.userId; only needed if there will be chance to reply or check users profile in the future
+        const sender = req.session.user.alias;
+        const sendTo = req.body.sendTo;
+        const message = req.body.emailMessage;
+        await sendMail(emailAddress, sender, sendTo, message, concert.artists, concertDate, concert.place, concert.city);
+        req.flash('info', 'Viesti lähetetty');
+        res.status(200).redirect(redirectUrl);
+    }
+    catch(error){
+        console.log(error);
+        req.flash('info', 'Viestin lähettäminen epäonnistui');
+        res.redirect('/');
+    }
+};
+
 module.exports = {
     getUser, addNewUser, getUserByAlias, getBooleanIfAliasInDB, userLogin, 
-    getUserProfile, sendEmail, updateUser, uploadProfilePic, deleteProfilePicture, 
-    deleteUser, userLogOut 
+    getUserProfile, updateUser, uploadProfilePic, deleteProfilePicture, 
+    deleteUser, userLogOut, sendEmail
 };
