@@ -34,8 +34,8 @@
             {{else}}
                 <p class="notLoggedInEventInfo">Sinun täytyy olla kirjautunut sisään ilmoittautuaksesi keikalle</p>
             {{/if}}
-            <dt><label id="enrolment-label" for="enrollment_count">Ilmoittautuneita</label></dt>
-            <dd id="enrolment_count">{{#if this.usersRegistered}}{{this.usersRegistered.length}}{{else}}0{{/if}}</dd>
+            <dt><h4 id="enrolment-label">Ilmoittautuneita</h4></dt>
+            <dd id="enrolment_count" aria-describedby="enrolment-label">{{#if this.usersRegistered}}{{this.usersRegistered.length}}{{else}}0{{/if}}</dd>
         </div>
 
     </div>

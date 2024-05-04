@@ -47,8 +47,8 @@
                 <p>Sinun täytyy olla kirjautunut sisään ilmoittautuaksesi keikalle</p>
             {{/if}}
 
-            <dt><label for="enrollment_count_event">Ilmoittautuneita</label></dt>
-            <dd id="enrolment_count_event">{{#if concert.usersRegistered}}{{concert.usersRegistered.length}}{{else}}0{{/if}}</dd>
+            <dt><h4 id="enrollment_count_heading">Ilmoittautuneita</h4></dt>
+            <dd id="enrollment_count_event" aria-describedby="enrollment_count_heading">{{#if concert.usersRegistered}}{{concert.usersRegistered.length}}{{else}}0{{/if}}</dd>
         </div>
     
     </section>

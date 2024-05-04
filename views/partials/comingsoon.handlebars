@@ -2,8 +2,8 @@
     {{#each showcase}}
         <div class="carousel-item" tabindex="0" onclick="location.href='/event/{{this._id}}'" 
             onkeydown="if(event.key === 'Enter' || event.key === ' ') { location.href='/event/{{this._id}}'}"
-            role="link" aria-label="{{this.artists}}">
-            <h3>{{this.date}}<br>
+            role="link" aria-describedby="{{this.artists}}-heading">
+            <h3 id="{{this.artists}}-heading">{{this.date}}<br>
             {{#each this.artists}}
                 {{#if @first}}
                     {{this}}
@@ -13,7 +13,7 @@
             {{/each}}<br></h3>
             <p>{{this.place}}<br>
             {{this.city}}</p>
-            <img src="./images/bandimages/{{this.imgSrc}}" alt="Tapahtuman mainoskuva">
+            <img src="./images/bandimages/{{this.imgSrc}}" alt="Tapahtuman {{this.artists}} mainoskuva">
         </div>
     {{/each}}
     
