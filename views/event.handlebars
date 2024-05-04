@@ -68,8 +68,8 @@
     <!-- Log in if not already -->
     {{else}}
         <section role="region" aria-label="Kirjaudu sisään tai rekisteröidy käyttäjäksi"></section>
-            <p>Kirjaudu sisään, niin pääset hakemaan kavereita.</p>
-            <button type="button" class="signIn_button" id="openLoginFormButton" onClick="toggleSignInForm()">Kirjaudu</button>
+            <p id="login-tip">Kirjaudu sisään, niin pääset hakemaan kavereita.</p>
+            <button type="button" class="signIn_button" aria-describedby="login-tip" id="openLoginFormButton" onClick="toggleSignInForm()">Kirjaudu</button>
             <button type="button" class="signIn_button" id="openSignupFormButton" onClick="toggleSignUpForm()">Rekisteröidy</button>
             {{>loginform currentPage}}
             {{>signupform}}

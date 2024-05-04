@@ -5,6 +5,7 @@ function toggleSignInForm() {
     $('#openSignupFormButton').removeClass('active_button');
     $('#loginForm').slideDown(500);
     $('#signupForm').hide(500);
+    $('#alias').trigger('focus');
 }
 
 function toggleSignUpForm() {
@@ -12,6 +13,7 @@ function toggleSignUpForm() {
     $('#openLoginFormButton').removeClass('active_button');
     $('#signupForm').slideDown(500);
     $('#loginForm').hide(500);
+    $('#signup_alias').trigger('focus');
 }
 
 function closeAuthenticationArea() {
@@ -65,6 +67,7 @@ $(document).on('click', '.registerToEvent', function() {
         data: {eventId: eventId},
         success: function(data){
             if(data.added){
+                alert("Olet ilmoittautunut keikalle");
                 document.location.reload(true)
             }
             else{

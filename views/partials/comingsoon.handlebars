@@ -2,8 +2,8 @@
     {{#each showcase}}
         <div class="carousel-item" tabindex="0" onclick="location.href='/event/{{this._id}}'" 
             onkeydown="if(event.key === 'Enter' || event.key === ' ') { location.href='/event/{{this._id}}'}"
-            role="link" aria-describedby="{{this.artists}}-heading">
-            <h3 id="{{this.artists}}-heading">{{this.date}}<br>
+            role="link" >
+            <h3>{{this.date}}<br>
             {{#each this.artists}}
                 {{#if @first}}
                     {{this}}
