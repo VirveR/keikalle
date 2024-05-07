@@ -1,5 +1,7 @@
 # Keikalle application
 
+Keikalle is a collaboration of three students in the Backend Web Development module (Business Information Technology / HAMK).
+
 This application meets the need to find a friend to a music event.
 
 **The main idea:**
@@ -18,6 +20,12 @@ This application meets the need to find a friend to a music event.
 - Possibility to report incorrect event information
 - Possibility to give a "thumb up" for a good friend experience
 - Possibility to report and block a profile
+
+**Technologies used:**
+- node.js (MVCish structure)
+- MongoDB
+- JavaScript (frontend)
+- Handlebars (frontend)
 
 **Node modules used:**
 - express
@@ -38,3 +46,11 @@ This application meets the need to find a friend to a music event.
 - nodemailer-smtp-transport (for connecting users)
 
 The language of the application is Finnish.
+
+**Layout:**
+
+Front page
+![image](https://github.com/VirveR/keikalle/assets/152968930/fb90d354-272c-440c-95f8-3b270cc652b5)
+Visuality was not the priority of the assignment.
+
+
